@@ -1,0 +1,15 @@
+# Add this INSIDE the main Fluxer site block, BEFORE the catch-all
+#   `handle { reverse_proxy app-proxy:8080 }`:
+
+	@portal path /portal /portal/*
+	handle @portal {
+		reverse_proxy fightersguild-portal:3000
+	}
+
+# `handle` takes a single matcher, so the two paths go in a named matcher.
+# The app serves its own pages, static assets (/portal/static/*) and the OAuth
+# callback (/portal/auth/callback) — everything under /portal, with the prefix
+# intact (PORTAL_BASE_PATH=/portal). Do not use handle_path.
+#
+# Apply after editing:
+#   docker compose -p <project> exec caddy caddy reload --config /etc/caddy/Caddyfile

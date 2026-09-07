@@ -1,0 +1,22 @@
+{
+  "name": "fightersguild-portal",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Fighters Guild Portal — Forum + Events, single sign-on with Fluxer.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "migrate": "node src/migrate.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "hono": "^4.6.14",
+    "markdown-it": "^14.1.0",
+    "pg": "^8.13.1",
+    "sanitize-html": "^2.14.0"
+  }
+}

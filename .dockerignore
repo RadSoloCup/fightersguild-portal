@@ -1,0 +1,9 @@
+node_modules
+.git
+*.env
+.env*
+!.env.example
+DESIGN.md
+README.md
+Caddyfile.snippet
+compose.snippet.yml
