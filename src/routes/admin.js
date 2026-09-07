@@ -5,6 +5,8 @@ import { layout, html, avatarUrl, fmtDate, timeAgo } from '../lib/html.js'
 import { slugify } from '../lib/slug.js'
 import { requireAdmin } from '../auth/session.js'
 import { logMod, recentModActions } from '../lib/modlog.js'
+import { checkOne } from '../lib/gameservers.js'
+import { serverCard } from './servers.js'
 
 export const adminRoutes = new Hono()
 const B = config.basePath
@@ -29,6 +31,7 @@ adminRoutes.get('/', async c => {
       <h1>Admin</h1>
       <div class="row" style="gap:10px;margin-bottom:8px">
         <a class="btn ghost" href="${B}/admin/categories">Categories</a>
+        <a class="btn ghost" href="${B}/admin/servers">Game servers</a>
         <a class="btn ghost" href="${B}/admin/users">Members</a>
         <a class="btn ghost" href="${B}/admin/log">Mod log</a>
       </div>
@@ -133,6 +136,116 @@ adminRoutes.post('/categories/:id/delete', async c => {
   await query('DELETE FROM forum_categories WHERE id = $1', [id]) // threads cascade
   await logMod(user.id, 'category_delete', 'category', id, cat?.name || '')
   return c.redirect(`${B}/admin/categories`)
+})
+
+// ── Game servers ───────────────────────────────────────────────────────────
+adminRoutes.get('/servers', async c => {
+  const user = c.get('user')
+  const servers = await many('SELECT * FROM game_servers ORDER BY position, id')
+  const CHECKS = [['tcp', 'TCP (up/down)'], ['minecraft', 'Minecraft (players + MOTD)'], ['none', "Don't check"]]
+
+  const form = (s = {}) => html`
+    <form method="post" action="${B}/admin/servers${s.id ? `/${s.id}` : ''}" class="card stack">
+      <div class="row" style="gap:10px">
+        <div class="field" style="flex:2;margin:0"><label>Name</label>
+          <input type="text" name="name" value="${s.name || ''}" required></div>
+        <div class="field" style="flex:1;margin:0"><label>Game</label>
+          <input type="text" name="game" value="${s.game || ''}" placeholder="Hytale"></div>
+      </div>
+      <div class="row" style="gap:10px">
+        <div class="field" style="flex:2;margin:0"><label>Host</label>
+          <input type="text" name="host" value="${s.host || ''}" placeholder="play.example.com" required></div>
+        <div class="field" style="flex:0 0 110px;margin:0"><label>Port</label>
+          <input type="text" name="port" value="${s.port ?? ''}" placeholder="25565"></div>
+        <div class="field" style="flex:0 0 90px;margin:0"><label>Order</label>
+          <input type="text" name="position" value="${s.position ?? 0}"></div>
+      </div>
+      <div class="field" style="margin:0"><label>Status check</label>
+        <select name="check_type">${CHECKS.map(([v, l]) => html`<option value="${v}" ${s.check_type === v ? 'selected' : ''}>${l}</option>`)}</select></div>
+      <div class="field" style="margin:0"><label>Description</label>
+        <input type="text" name="description" value="${s.description || ''}"></div>
+      <div class="field" style="margin:0"><label>How to connect (version, modpack, whitelist…)</label>
+        <input type="text" name="connect_hint" value="${s.connect_hint || ''}"></div>
+      <div class="btn-row">
+        <button class="btn" type="submit">${s.id ? 'Save' : 'Add server'}</button>
+        ${s.id ? html`
+          <button class="btn ghost sm" formaction="${B}/admin/servers/${s.id}/check">Check now</button>
+          <button class="btn ghost sm" formaction="${B}/admin/servers/${s.id}/delete" style="color:var(--danger)"
+            onclick="return confirm('Remove ${s.name}?')">Delete</button>` : ''}
+      </div>
+    </form>`
+
+  return c.html(layout({
+    title: 'Game servers', user, active: 'admin',
+    body: html`
+      <div class="crumbs"><a href="${B}/admin">Admin</a> / Game servers</div>
+      <h1>Game servers</h1>
+      ${servers.length ? html`<div class="stack" style="margin-bottom:8px">${servers.map(s => serverCard(s))}</div>` : ''}
+      <h3 style="margin-top:20px">${servers.length ? 'Edit' : 'Add a server'}</h3>
+      <div class="stack">
+        ${servers.map(s => form(s))}
+        <h3 style="margin-top:10px">New server</h3>
+        ${form()}
+      </div>`,
+  }))
+})
+
+function parseServerBody(f) {
+  const port = Number.parseInt(f.port, 10)
+  const pos = Number.parseInt(f.position, 10)
+  return {
+    name: String(f.name || '').trim().slice(0, 80),
+    game: String(f.game || '').trim().slice(0, 40),
+    host: String(f.host || '').trim().slice(0, 200).replace(/^\w+:\/\//, ''),
+    port: Number.isInteger(port) && port > 0 && port < 65536 ? port : null,
+    description: String(f.description || '').trim().slice(0, 300),
+    connect_hint: String(f.connect_hint || '').trim().slice(0, 200),
+    check_type: ['tcp', 'minecraft', 'none'].includes(f.check_type) ? f.check_type : 'tcp',
+    position: Number.isInteger(pos) ? pos : 0,
+  }
+}
+
+adminRoutes.post('/servers', async c => {
+  const user = c.get('user')
+  const b = parseServerBody(await c.req.parseBody())
+  if (!b.name || !b.host) return c.text('Name and host are required.', 400)
+  const s = await one(
+    `INSERT INTO game_servers (name, game, host, port, description, connect_hint, check_type, position, created_by)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING id`,
+    [b.name, b.game, b.host, b.port, b.description, b.connect_hint, b.check_type, b.position, user.id],
+  )
+  await logMod(user.id, 'server_add', 'server', s.id, `${b.name} (${b.host}${b.port ? ':' + b.port : ''})`)
+  checkOne(s.id).catch(() => {})
+  return c.redirect(`${B}/admin/servers`)
+})
+
+adminRoutes.post('/servers/:id', async c => {
+  const user = c.get('user')
+  const id = Number(c.req.param('id'))
+  const b = parseServerBody(await c.req.parseBody())
+  if (!b.name || !b.host) return c.text('Name and host are required.', 400)
+  await query(
+    `UPDATE game_servers SET name=$2, game=$3, host=$4, port=$5, description=$6,
+       connect_hint=$7, check_type=$8, position=$9 WHERE id=$1`,
+    [id, b.name, b.game, b.host, b.port, b.description, b.connect_hint, b.check_type, b.position],
+  )
+  await logMod(user.id, 'server_update', 'server', id, b.name)
+  checkOne(id).catch(() => {})
+  return c.redirect(`${B}/admin/servers`)
+})
+
+adminRoutes.post('/servers/:id/check', async c => {
+  await checkOne(Number(c.req.param('id'))).catch(() => {})
+  return c.redirect(`${B}/admin/servers`)
+})
+
+adminRoutes.post('/servers/:id/delete', async c => {
+  const user = c.get('user')
+  const id = Number(c.req.param('id'))
+  const s = await one('SELECT name FROM game_servers WHERE id = $1', [id])
+  await query('DELETE FROM game_servers WHERE id = $1', [id])
+  await logMod(user.id, 'server_delete', 'server', id, s?.name || '')
+  return c.redirect(`${B}/admin/servers`)
 })
 
 // ── Members ────────────────────────────────────────────────────────────────

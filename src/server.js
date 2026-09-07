@@ -7,10 +7,12 @@ import { migrate } from './migrate.js'
 import { loadUser } from './auth/session.js'
 import { layout, html, gatePage } from './lib/html.js'
 import { sweepMembership } from './lib/membership.js'
+import { pollGameServers } from './lib/gameservers.js'
 import { homeRoutes } from './routes/home.js'
 import { authRoutes } from './routes/auth.js'
 import { forumRoutes } from './routes/forum.js'
 import { eventRoutes } from './routes/events.js'
+import { serverRoutes } from './routes/servers.js'
 import { adminRoutes } from './routes/admin.js'
 
 const B = config.basePath
@@ -47,6 +49,7 @@ portal.use('*', async (c, next) => {
 })
 
 portal.route('/auth', authRoutes)
+portal.route('/servers', serverRoutes)
 portal.route('/forum', forumRoutes)
 portal.route('/events', eventRoutes)
 portal.route('/admin', adminRoutes)
@@ -87,6 +90,11 @@ async function main() {
   const tick = () => sweepMembership().catch(e => console.error('sweep:', e.message))
   setTimeout(tick, 20_000)
   setInterval(tick, 5 * 60_000)
+
+  // Game-server status poll.
+  const pollServers = () => pollGameServers().catch(e => console.error('server poll:', e.message))
+  setTimeout(pollServers, 8_000)
+  setInterval(pollServers, 2 * 60_000)
 
   const shutdown = async () => {
     console.log('shutting down')
