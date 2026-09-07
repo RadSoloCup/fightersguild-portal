@@ -10,6 +10,7 @@ import { loadUser } from './auth/session.js'
 import { layout, html, gatePage } from './lib/html.js'
 import { sweepMembership } from './lib/membership.js'
 import { pollGameServers } from './lib/gameservers.js'
+import { startMissionBot } from './bot/missionbot.js'
 import { homeRoutes } from './routes/home.js'
 import { authRoutes } from './routes/auth.js'
 import { forumRoutes } from './routes/forum.js'
@@ -112,6 +113,9 @@ async function main() {
   const pollServers = () => pollGameServers().catch(e => console.error('server poll:', e.message))
   setTimeout(pollServers, 8_000)
   setInterval(pollServers, 2 * 60_000)
+
+  // Mission board: listen for `!mission` in the Fluxer channel.
+  startMissionBot()
 
   const shutdown = async () => {
     console.log('shutting down')

@@ -28,6 +28,12 @@ async function post(channelId, payload) {
   }
 }
 
+// Post an arbitrary message to a channel (used by the mission bot for replies).
+// Returns the created message or null.
+export function postMessage(channelId, payload) {
+  return post(channelId, payload)
+}
+
 export function announceThread({ thread, category, author, body }) {
   const url = `${config.baseUrl}/forum/t/${thread.id}/${thread.slug}`
   return post(config.bot.forumChannelId, {

@@ -92,11 +92,13 @@ export function gatePage() {
   return layout({
     title: 'Sign in', user: null, bare: true,
     body: html`
-      <div class="stack" style="max-width:440px;margin:8vh auto 0;text-align:center">
+      <div class="stack" style="max-width:460px;margin:8vh auto 0;text-align:center">
         <h1 style="font-size:1.9rem">Operations Center</h1>
         <p class="muted">This is a private space for <strong>Fighters Guild</strong> members.
-          Sign in with your Fluxer account to continue.</p>
-        <p><a class="btn" href="${B}/auth/login" style="padding:11px 22px">Sign in with Fluxer</a></p>
+          Sign in with the account you use on the <strong>Fighters Guild chat server</strong>
+          (our self-hosted Fluxer) to continue.</p>
+        <p><a class="btn" href="${B}/auth/login" style="padding:11px 22px">Sign in with Fighters Guild</a></p>
+        <p class="dim" style="font-size:.85rem">You'll be sent to <code>${config.fluxerPublic.replace(/^https?:\/\//, '')}</code> to authorise.</p>
       </div>`,
   })
 }
