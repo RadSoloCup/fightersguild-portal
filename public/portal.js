@@ -76,6 +76,34 @@
   }
   document.querySelectorAll('textarea[data-upload]').forEach(wireUpload)
 
+  // ── server background image: <input type=file data-hero-upload> next to a
+  // text field -> uploads and fills the sibling text input with the URL ──────
+  document.querySelectorAll('input[data-hero-upload]').forEach(input => {
+    const field = input.closest('.field')
+    const target = field && field.querySelector('input[name="hero_url"]')
+    const status = field && field.querySelector('.upload-status')
+    const say = (m, err) => { if (status) { status.textContent = m; status.classList.toggle('error', !!err) } }
+    input.addEventListener('change', async () => {
+      const file = input.files[0]
+      if (!file) return
+      if (!/^image\//.test(file.type)) { say('Pick an image file.', true); return }
+      if (file.size > 8 * 1024 * 1024) { say('Image is over 8 MB.', true); return }
+      say('Uploading ' + file.name + '…')
+      const fd = new FormData()
+      fd.append('file', file, file.name || 'art.png')
+      try {
+        const res = await fetch(input.dataset.upload || '/portal/forum/upload', { method: 'POST', body: fd })
+        const j = await res.json()
+        if (!res.ok || !j.url) throw new Error(j.error || res.status)
+        if (target) target.value = j.url
+        say('Uploaded — save the server to apply.')
+      } catch (err) {
+        say('Upload failed: ' + err.message, true)
+      }
+      input.value = ''
+    })
+  })
+
   // ── mission complete: reveal AAR fields once an outcome is picked ─────────
   const aar = document.getElementById('aar-fields')
   if (aar) {

@@ -1,7 +1,9 @@
 import { Hono } from 'hono'
 import { config } from '../config.js'
 import { many } from '../db.js'
-import { layout, html, timeAgo } from '../lib/html.js'
+import { layout, html, raw, timeAgo } from '../lib/html.js'
+import { heroLayerStyle } from '../lib/gameart.js'
+import { getStatus } from '../lib/status.js'
 
 export const serverRoutes = new Hono()
 const B = config.basePath
@@ -9,6 +11,7 @@ const B = config.basePath
 serverRoutes.get('/', async c => {
   const user = c.get('user')
   const servers = await many('SELECT * FROM game_servers ORDER BY position, id')
+  const status = getStatus()
 
   return c.html(layout({
     title: 'Servers', user, active: 'servers',
@@ -19,7 +22,9 @@ serverRoutes.get('/', async c => {
       </div>
       ${servers.length === 0
         ? html`<div class="empty">No servers listed yet.${user?.admin ? ' Add one from Manage.' : ''}</div>`
-        : html`<div class="stack">${servers.map(s => serverCard(s))}</div>`}`,
+        : html`<div class="stack">${servers.map(s => serverCard(s))}</div>`}
+
+      ${statusBoard(status)}`,
   }))
 })
 
@@ -30,7 +35,8 @@ export function serverCard(s) {
     ? `${s.players_online}${s.players_max != null ? ` / ${s.players_max}` : ''} online`
     : null
   return html`
-    <div class="card stack">
+    <div class="card stack server-card">
+      <div class="server-hero" style="${raw(heroLayerStyle(s))}" aria-hidden="true"></div>
       <div class="spread">
         <div>
           <div class="title" style="color:var(--text-0);font-weight:650;font-size:1.05rem">
@@ -49,4 +55,33 @@ export function serverCard(s) {
       ${s.connect_hint ? html`<div class="dim" style="font-size:.85rem">${s.connect_hint}</div>` : ''}
       ${s.status_detail ? html`<div class="dim" style="font-size:.8rem">${s.status_detail}</div>` : ''}
     </div>`
+}
+
+function statusRow({ label, status, detail }) {
+  const map = {
+    up: ['var(--success)', 'up'],
+    down: ['var(--danger)', 'down'],
+    unknown: ['var(--text-3)', 'unknown'],
+  }
+  const [colour, word] = map[status] || map.unknown
+  return html`
+    <div class="status-row">
+      <span class="status-dot" style="background:${colour}"></span>
+      <span class="status-label">${label}</span>
+      <span class="status-word" style="color:${colour}">${word}${detail ? html` <span class="dim">· ${detail}</span>` : ''}</span>
+    </div>`
+}
+
+function statusBoard(status) {
+  const { services = [], bots = [], checkedAt } = status || {}
+  if (!services.length && !bots.length) return ''
+  return html`
+    <h2 style="margin-top:34px">Service status</h2>
+    <div class="card">
+      ${services.map(statusRow)}
+      ${bots.length ? html`
+        <div class="status-sep">Bots</div>
+        ${bots.map(statusRow)}` : ''}
+    </div>
+    ${checkedAt ? html`<p class="dim" style="font-size:.78rem;margin-top:6px">Checked ${timeAgo(checkedAt)} · refreshes every minute</p>` : ''}`
 }
