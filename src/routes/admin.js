@@ -166,6 +166,8 @@ adminRoutes.get('/servers', async c => {
         <input type="text" name="description" value="${s.description || ''}"></div>
       <div class="field" style="margin:0"><label>How to connect (version, modpack, whitelist…)</label>
         <input type="text" name="connect_hint" value="${s.connect_hint || ''}"></div>
+      <div class="field" style="margin:0"><label>One-click Join URL (optional — e.g. steam://connect/…)</label>
+        <input type="text" name="connect_url" value="${s.connect_url || ''}"></div>
       <div class="btn-row">
         <button class="btn" type="submit">${s.id ? 'Save' : 'Add server'}</button>
         ${s.id ? html`
@@ -200,6 +202,7 @@ function parseServerBody(f) {
     port: Number.isInteger(port) && port > 0 && port < 65536 ? port : null,
     description: String(f.description || '').trim().slice(0, 300),
     connect_hint: String(f.connect_hint || '').trim().slice(0, 200),
+    connect_url: String(f.connect_url || '').trim().slice(0, 300),
     check_type: ['tcp', 'minecraft', 'none'].includes(f.check_type) ? f.check_type : 'tcp',
     position: Number.isInteger(pos) ? pos : 0,
   }
@@ -210,9 +213,9 @@ adminRoutes.post('/servers', async c => {
   const b = parseServerBody(await c.req.parseBody())
   if (!b.name || !b.host) return c.text('Name and host are required.', 400)
   const s = await one(
-    `INSERT INTO game_servers (name, game, host, port, description, connect_hint, check_type, position, created_by)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING id`,
-    [b.name, b.game, b.host, b.port, b.description, b.connect_hint, b.check_type, b.position, user.id],
+    `INSERT INTO game_servers (name, game, host, port, description, connect_hint, connect_url, check_type, position, created_by)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id`,
+    [b.name, b.game, b.host, b.port, b.description, b.connect_hint, b.connect_url, b.check_type, b.position, user.id],
   )
   await logMod(user.id, 'server_add', 'server', s.id, `${b.name} (${b.host}${b.port ? ':' + b.port : ''})`)
   checkOne(s.id).catch(() => {})
@@ -226,8 +229,8 @@ adminRoutes.post('/servers/:id', async c => {
   if (!b.name || !b.host) return c.text('Name and host are required.', 400)
   await query(
     `UPDATE game_servers SET name=$2, game=$3, host=$4, port=$5, description=$6,
-       connect_hint=$7, check_type=$8, position=$9 WHERE id=$1`,
-    [id, b.name, b.game, b.host, b.port, b.description, b.connect_hint, b.check_type, b.position],
+       connect_hint=$7, connect_url=$8, check_type=$9, position=$10 WHERE id=$1`,
+    [id, b.name, b.game, b.host, b.port, b.description, b.connect_hint, b.connect_url, b.check_type, b.position],
   )
   await logMod(user.id, 'server_update', 'server', id, b.name)
   checkOne(id).catch(() => {})

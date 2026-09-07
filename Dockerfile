@@ -11,8 +11,9 @@ COPY src ./src
 COPY migrations ./migrations
 COPY public ./public
 
-RUN chown -R node:node /app
+RUN mkdir -p /data/uploads && chown -R node:node /app /data
 USER node
 
+VOLUME ["/data"]
 EXPOSE 3000
 CMD ["node", "src/server.js"]
