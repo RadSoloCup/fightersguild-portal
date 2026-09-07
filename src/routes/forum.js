@@ -244,7 +244,7 @@ function renderPost(p, t, user) {
   }
   return html`
     <div class="post" id="p${p.id}">
-      <img class="avatar" src="${avatarUrl(p, 88)}" alt="">
+      <img class="avatar" src="${avatarUrl({ id: p.author_id, avatar: p.avatar }, 88)}" alt="">
       <div>
         <div class="spread">
           <div><span class="who">${name}</span>

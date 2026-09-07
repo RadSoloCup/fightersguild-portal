@@ -9,7 +9,7 @@ const B = config.basePath
 const DEFAULT_AVATAR_COUNT = 6n
 
 export function avatarUrl(u, size = 64) {
-  const id = u?.id || u?.uid
+  const id = u?.id || u?.uid || u?.user_id || u?.author_id || u?.creator_id
   if (!id) return `${B}/static/default-avatar.svg`
   const hash = u?.avatar
   if (!hash) {
@@ -48,6 +48,7 @@ export function layout({ title, user, active = '', flash, body, bare = false }) 
     ['', 'Home', B || '/'],
     ['forum', 'Forum', `${B}/forum`],
     ['events', 'Events', `${B}/events`],
+    ['servers', 'Servers', `${B}/servers`],
   ]
   if (user?.admin) nav.push(['admin', 'Admin', `${B}/admin`])
   return html`<!doctype html>
