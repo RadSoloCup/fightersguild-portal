@@ -19,7 +19,18 @@ export async function sweepMembership() {
 
   for (const row of stale) {
     try {
-      const tok = await refresh(decryptToken(row.refresh_token))
+      let stored
+      try {
+        stored = decryptToken(row.refresh_token)
+      } catch {
+        // Undecryptable (e.g. the encryption key was rotated). Drop the token
+        // row — the user re-authorises silently on their next visit — and don't
+        // revoke them or spam errors.
+        await query('DELETE FROM oauth_tokens WHERE user_id = $1', [row.user_id])
+        await query('UPDATE users SET membership_checked_at = now() WHERE id = $1', [row.user_id])
+        continue
+      }
+      const tok = await refresh(stored)
       const ok = await isGuildMember(tok.access_token)
       if (ok) {
         // Also pull the current profile so avatars/names track the chat app.
