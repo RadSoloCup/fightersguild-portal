@@ -7,9 +7,14 @@ services:
     container_name: fightersguild-portal
     restart: unless-stopped
     env_file: ./portal.env
+    volumes:
+      - portal-data:/data          # uploaded forum/mission images
     networks:
       fluxer:
         aliases: [portal]
+
+volumes:
+  portal-data:
 
 networks:
   fluxer:

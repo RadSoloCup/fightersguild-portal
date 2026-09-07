@@ -1,6 +1,8 @@
 import { Hono } from 'hono'
 import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
 import { config, assertConfig } from './config.js'
 import { pool } from './db.js'
 import { migrate } from './migrate.js'
@@ -13,6 +15,7 @@ import { authRoutes } from './routes/auth.js'
 import { forumRoutes } from './routes/forum.js'
 import { eventRoutes } from './routes/events.js'
 import { serverRoutes } from './routes/servers.js'
+import { missionRoutes } from './routes/missions.js'
 import { adminRoutes } from './routes/admin.js'
 
 const B = config.basePath
@@ -35,6 +38,19 @@ app.use(`${B}/static/*`, serveStatic({
   rewriteRequestPath: p => p.replace(`${B}/static`, ''),
 }))
 
+// Uploaded forum/mission images.
+app.get(`${B}/uploads/:name`, async c => {
+  const name = c.req.param('name')
+  if (!/^[\w.-]+\.(png|jpe?g|gif|webp)$/i.test(name)) return c.notFound()
+  try {
+    const buf = await readFile(join(config.uploadDir, name))
+    const ext = name.split('.').pop().toLowerCase()
+    const type = ext === 'png' ? 'image/png' : ext === 'gif' ? 'image/gif'
+      : ext === 'webp' ? 'image/webp' : 'image/jpeg'
+    return c.body(buf, 200, { 'content-type': type, 'cache-control': 'public, max-age=31536000, immutable' })
+  } catch { return c.notFound() }
+})
+
 // Everything below the base path.
 const portal = new Hono()
 portal.use('*', loadUser)
@@ -51,6 +67,7 @@ portal.use('*', async (c, next) => {
 portal.route('/auth', authRoutes)
 portal.route('/servers', serverRoutes)
 portal.route('/forum', forumRoutes)
+portal.route('/missions', missionRoutes)
 portal.route('/events', eventRoutes)
 portal.route('/admin', adminRoutes)
 portal.route('/', homeRoutes)

@@ -1,12 +1,29 @@
 import { Hono } from 'hono'
 import { config } from '../config.js'
 import { one, many, query, tx } from '../db.js'
-import { layout, html, raw, avatarUrl, timeAgo, fmtDate } from '../lib/html.js'
+import { layout, html, raw, avatarUrl, timeAgo, fmtDate, markdownGuide } from '../lib/html.js'
 import { renderMarkdown, excerpt } from '../lib/markdown.js'
 import { slugify } from '../lib/slug.js'
 import { requireAuth } from '../auth/session.js'
 import { announceThread } from '../bot/announce.js'
 import { logMod } from '../lib/modlog.js'
+import { saveImage } from '../lib/uploads.js'
+
+const B_ = config.basePath
+
+// Reusable markdown editor block (textarea + image tools + formatting help).
+function mdEditor(label, { value = '', name = 'body', max = 20000 } = {}) {
+  return html`
+    <div class="field md-field">
+      <label>${label}</label>
+      <textarea name="${name}" maxlength="${max}" data-upload="${B_}/forum/upload" required>${value}</textarea>
+      <div class="md-tools">
+        <button type="button" class="btn ghost sm" data-pick-image>Add image</button>
+        <span class="upload-status dim"></span>
+      </div>
+      ${markdownGuide()}
+    </div>`
+}
 
 export const forumRoutes = new Hono()
 const B = config.basePath
@@ -103,6 +120,24 @@ forumRoutes.get('/c/:slug', async c => {
   }))
 })
 
+// ── Image upload (used by the markdown editor) ─────────────────────────────
+forumRoutes.post('/upload', requireAuth, async c => {
+  let file
+  try {
+    const form = await c.req.formData()
+    file = form.get('file')
+  } catch (e) {
+    console.error('upload parse:', e.message)
+    return c.json({ error: 'bad form data' }, 400)
+  }
+  try {
+    const { url } = await saveImage(file)
+    return c.json({ url })
+  } catch (e) {
+    return c.json({ error: e.message }, 400)
+  }
+})
+
 // ── New thread ─────────────────────────────────────────────────────────────
 forumRoutes.get('/c/:slug/new', requireAuth, async c => {
   const user = c.get('user')
@@ -118,8 +153,7 @@ forumRoutes.get('/c/:slug/new', requireAuth, async c => {
       <form method="post" action="${B}/forum/c/${cat.slug}/new" class="stack">
         <div class="field"><label>Title</label>
           <input type="text" name="title" maxlength="${MAX_TITLE}" required autofocus></div>
-        <div class="field"><label>Message — markdown</label>
-          <textarea name="body" maxlength="${MAX_BODY}" required></textarea></div>
+        ${mdEditor('Message', { max: MAX_BODY })}
         <div class="btn-row">
           <button class="btn" type="submit">Post thread</button>
           <a class="btn ghost" href="${B}/forum/c/${cat.slug}">Cancel</a>
@@ -225,8 +259,7 @@ forumRoutes.get('/t/:id/:slug?', async c => {
       ${canReply
         ? html`
           <form method="post" action="${B}/forum/t/${t.id}/reply" class="stack" style="margin-top:20px">
-            <div class="field"><label>Reply — markdown</label>
-              <textarea name="body" maxlength="${MAX_BODY}" required></textarea></div>
+            ${mdEditor('Reply', { max: MAX_BODY })}
             <div class="btn-row"><button class="btn" type="submit">Post reply</button></div>
           </form>`
         : user
@@ -298,7 +331,7 @@ forumRoutes.get('/t/:id/edit/:postId', requireAuth, async c => {
     body: html`
       <h1>Edit post</h1>
       <form method="post" action="${B}/forum/t/${c.req.param('id')}/edit/${p.id}" class="stack">
-        <div class="field"><textarea name="body" maxlength="${MAX_BODY}" required>${p.body_md}</textarea></div>
+        ${mdEditor('Post', { value: p.body_md, max: MAX_BODY })}
         <div class="btn-row">
           <button class="btn" type="submit">Save</button>
           <a class="btn ghost" href="${B}/forum/t/${c.req.param('id')}">Cancel</a>

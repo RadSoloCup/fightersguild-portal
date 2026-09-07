@@ -53,6 +53,10 @@ export const config = {
   // Portal admins (Fluxer user IDs, comma-separated). Full moderation rights.
   adminIds: (env.PORTAL_ADMIN_IDS || '').split(',').map(s => s.trim()).filter(Boolean),
 
+  // Uploaded forum images. Needs a writable volume in production.
+  uploadDir: env.UPLOAD_DIR || '/data/uploads',
+  uploadMaxBytes: Number(env.UPLOAD_MAX_BYTES || 8 * 1024 * 1024),
+
   // Optional cross-posting to Fluxer via the Portal bot.
   bot: {
     token: env.PORTAL_BOT_TOKEN || null,
@@ -60,6 +64,8 @@ export const config = {
     forumChannelId: env.ANNOUNCE_FORUM_CHANNEL_ID || null,
     // Announce new events here.
     eventsChannelId: env.ANNOUNCE_EVENTS_CHANNEL_ID || null,
+    // Post missions to the board here (the sc-tools !sc job channel works too).
+    missionChannelId: env.MISSION_BOARD_CHANNEL_ID || null,
   },
 
   userAgent: env.USER_AGENT || 'fightersguild-portal (+https://github.com/RadSoloCup/fightersguild-portal)',

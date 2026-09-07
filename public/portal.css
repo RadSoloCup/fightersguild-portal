@@ -198,6 +198,20 @@ textarea { min-height: 160px; resize: vertical; font-family: var(--mono); font-s
 .rsvp-counts { display: flex; gap: 14px; font-size: .85rem; color: var(--text-2); }
 
 /* ── misc ───────────────────────────────────────────────────────────────── */
+/* ── markdown editor + uploads ──────────────────────────────────────────── */
+.md-field textarea.drag { border-color: var(--border-hi); box-shadow: 0 0 0 3px hsla(192,90%,62%,.18); }
+.md-tools { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
+.upload-status { font-size: .82rem; }
+.upload-status.error { color: hsl(2,74%,72%); }
+.md-guide { margin-top: 10px; font-size: .86rem; }
+.md-guide > summary { cursor: pointer; color: var(--text-2); padding: 4px 0; }
+.md-guide > summary:hover { color: var(--link); }
+.md-guide table { border-collapse: collapse; margin-top: 6px; }
+.md-guide td { border: 1px solid var(--border); padding: 4px 9px; vertical-align: top; }
+.md-guide code { background: var(--bg-0); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; font-family: var(--mono); font-size: .82rem; white-space: pre-wrap; }
+button.ok { color: var(--success) !important; border-color: hsla(155,64%,44%,.5) !important; }
+.server-addr { background: var(--bg-0); border: 1px solid var(--border); border-radius: 6px; padding: 4px 9px; font-family: var(--mono); }
+
 .mod-menu { position: relative; }
 .mod-menu > summary { list-style: none; cursor: pointer; }
 .mod-menu > summary::-webkit-details-marker { display: none; }

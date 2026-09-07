@@ -47,6 +47,7 @@ export function layout({ title, user, active = '', flash, body, bare = false }) 
   const nav = [
     ['', 'Home', B || '/'],
     ['forum', 'Forum', `${B}/forum`],
+    ['missions', 'Missions', `${B}/missions`],
     ['events', 'Events', `${B}/events`],
     ['servers', 'Servers', `${B}/servers`],
   ]
@@ -81,6 +82,7 @@ export function layout({ title, user, active = '', flash, body, bare = false }) 
 <footer class="foot">Fighters Guild · Operations Center ·
   <a href="${config.fluxerPublic}">back to chat</a> ·
   <a href="${config.sourceUrl}" rel="noopener">source (AGPL-3.0)</a></footer>
+<script src="${B}/static/portal.js" defer></script>
 </body>
 </html>`
 }
@@ -97,6 +99,32 @@ export function gatePage() {
         <p><a class="btn" href="${B}/auth/login" style="padding:11px 22px">Sign in with Fluxer</a></p>
       </div>`,
   })
+}
+
+// Collapsible "how to format" panel for markdown text areas.
+export function markdownGuide() {
+  const rows = [
+    ['**bold**  ·  *italic*  ·  ~~strike~~', 'bold · italic · strike'],
+    ['# Heading  ·  ## Subheading', 'headings'],
+    ['- bullet\\n- list', 'bullet list'],
+    ['1. step\\n2. step', 'numbered list'],
+    ['> quoted text', 'blockquote'],
+    ['`inline code`', 'inline code'],
+    ['```\\ncode block\\n```', 'code block'],
+    ['[link text](https://…)', 'link'],
+    ['![alt](image-url)  — or just paste / drop an image', 'image'],
+    ['| a | b |\\n|---|---|\\n| 1 | 2 |', 'table'],
+  ]
+  return html`
+    <details class="md-guide">
+      <summary>Formatting help (markdown)</summary>
+      <table>
+        ${rows.map(([code, what]) => html`<tr>
+          <td><code>${code.replace(/\\n/g, '↵ ')}</code></td>
+          <td class="dim">${what}</td></tr>`)}
+      </table>
+      <p class="dim">Links open in a new tab. Raw HTML is stripped.</p>
+    </details>`
 }
 
 export { html, raw }

@@ -41,7 +41,9 @@ export function serverCard(s) {
         </div>
       </div>
       <div class="row" style="gap:8px">
-        <code style="background:var(--bg-0);border:1px solid var(--border);border-radius:6px;padding:4px 9px">${addr}</code>
+        <code class="server-addr">${addr}</code>
+        <button class="btn ghost sm" type="button" data-copy="${addr}">Copy address</button>
+        ${s.connect_url ? html`<a class="btn sm" href="${s.connect_url}">Join</a>` : ''}
       </div>
       ${s.description ? html`<div class="muted" style="margin:0">${s.description}</div>` : ''}
       ${s.connect_hint ? html`<div class="dim" style="font-size:.85rem">${s.connect_hint}</div>` : ''}

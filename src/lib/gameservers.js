@@ -2,15 +2,25 @@ import net from 'node:net'
 import dns from 'node:dns/promises'
 import { many, query } from '../db.js'
 
-// Minecraft clients resolve _minecraft._tcp SRV records (playit.gg creates them).
-// If no explicit port is set, honour the SRV, else fall back to 25565.
-async function resolveMinecraft(host, port) {
-  if (port) return { host, port }
+// Where to actually try connecting for a Minecraft check, in order:
+// the _minecraft._tcp SRV target (playit.gg / most hosts publish one), then the
+// host:port as configured, then host:25565.
+async function minecraftTargets(host, port) {
+  const targets = []
   try {
     const srv = await dns.resolveSrv(`_minecraft._tcp.${host}`)
-    if (srv?.length) return { host: srv[0].name, port: srv[0].port }
+    for (const r of srv || []) targets.push({ host: r.name, port: r.port })
   } catch {}
-  return { host, port: 25565 }
+  if (port) targets.push({ host, port })
+  targets.push({ host, port: 25565 })
+  // dedupe
+  const seen = new Set()
+  return targets.filter(t => {
+    const k = `${t.host}:${t.port}`
+    if (seen.has(k)) return false
+    seen.add(k)
+    return true
+  })
 }
 
 // ── plain TCP reachability ─────────────────────────────────────────────────
@@ -122,46 +132,45 @@ function flattenMotd(d) {
   return s
 }
 
+async function checkServer(s) {
+  if (s.check_type === 'minecraft') {
+    const targets = await minecraftTargets(s.host, s.port)
+    let lastErr = 'no response'
+    let tcpOk = false
+    for (const t of targets) {
+      const mc = await checkMinecraft(t.host, t.port)
+      if (mc.status === 'online') return mc
+      const tcp = await checkTcp(t.host, t.port, 3500)
+      if (tcp.status === 'online') { tcpOk = true }
+      else lastErr = tcp.detail || lastErr
+    }
+    return tcpOk
+      ? { status: 'online', detail: 'reachable — server query not answered' }
+      : { status: 'offline', detail: lastErr }
+  }
+  if (!s.port) return { status: 'unknown', detail: 'no port set' }
+  return checkTcp(s.host, s.port)
+}
+
+async function applyCheck(s) {
+  let r
+  try { r = await checkServer(s) } catch (e) { r = { status: 'offline', detail: e.message } }
+  await query(
+    `UPDATE game_servers SET status = $2, players_online = $3, players_max = $4,
+       status_detail = $5, checked_at = now() WHERE id = $1`,
+    [s.id, r.status, r.players_online ?? null, r.players_max ?? null, (r.detail || '').slice(0, 300)],
+  )
+}
+
 // ── poller ────────────────────────────────────────────────────────────────
 export async function pollGameServers() {
   const rows = await many(
     `SELECT id, host, port, check_type FROM game_servers WHERE check_type <> 'none'`,
   )
-  for (const s of rows) {
-    let r
-    try {
-      if (s.check_type === 'minecraft') {
-        const mc = await resolveMinecraft(s.host, s.port)
-        r = await checkMinecraft(mc.host, mc.port)
-      } else {
-        if (!s.port) continue
-        r = await checkTcp(s.host, s.port)
-      }
-    } catch (e) {
-      r = { status: 'offline', detail: e.message }
-    }
-    await query(
-      `UPDATE game_servers SET status = $2, players_online = $3, players_max = $4,
-         status_detail = $5, checked_at = now() WHERE id = $1`,
-      [s.id, r.status, r.players_online ?? null, r.players_max ?? null, (r.detail || '').slice(0, 300)],
-    )
-  }
+  for (const s of rows) await applyCheck(s)
 }
 
 export async function checkOne(id) {
   const [s] = await many('SELECT id, host, port, check_type FROM game_servers WHERE id = $1', [id])
-  if (!s || s.check_type === 'none') return
-  let r
-  if (s.check_type === 'minecraft') {
-    const mc = await resolveMinecraft(s.host, s.port)
-    r = await checkMinecraft(mc.host, mc.port)
-  } else {
-    if (!s.port) return
-    r = await checkTcp(s.host, s.port)
-  }
-  await query(
-    `UPDATE game_servers SET status = $2, players_online = $3, players_max = $4,
-       status_detail = $5, checked_at = now() WHERE id = $1`,
-    [id, r.status, r.players_online ?? null, r.players_max ?? null, (r.detail || '').slice(0, 300)],
-  )
+  if (s && s.check_type !== 'none') await applyCheck(s)
 }
