@@ -48,11 +48,14 @@ async function handleMessage(d) {
 
     let mid = null
     try { mid = await announceMission({ mission, creator }) } catch (e) { log('announce:', e.message) }
-    if (mid) await query('UPDATE missions SET fluxer_message_id = $1 WHERE id = $2', [mid, mission.id])
-
-    await postMessage(d.channel_id, {
-      content: `✅ Mission **#${mission.id} — ${mission.title}** is on the board: ${config.baseUrl}/missions/${mission.id}`,
-    })
+    if (mid) {
+      await query('UPDATE missions SET fluxer_message_id = $1 WHERE id = $2', [mid, mission.id])
+    } else {
+      // Rich embed didn't post — give at least a plain-text confirmation + link.
+      await postMessage(d.channel_id, {
+        content: `✅ Mission **#${mission.id} — ${mission.title}** is on the board: ${config.baseUrl}/missions/${mission.id}`,
+      })
+    }
     log(`created mission #${mission.id} from ${creator.name}`)
   } catch (e) {
     log('create failed:', e.stack || e.message)

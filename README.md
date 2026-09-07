@@ -1,12 +1,15 @@
 # Fighters Guild Portal
 
-A **Forum** and **Events** calendar for the Fighters Guild, with **one login** —
-your Fluxer account signs you into the Portal too. No second password.
+A **Forum**, **Events** calendar, **Mission board** and **game-server list** for
+the Fighters Guild, with **one login** — your chat account signs you into the
+Portal too. No second password.
 
 Served under `https://chat.example.com/portal`, next to the chat.
 
 - **[DESIGN.md](DESIGN.md)** — the full architecture and roadmap.
-- Milestone 1 (this): SSO + Forum + a simple Events list with RSVP.
+- Forum (markdown + image uploads), Events with RSVP, a Mission board that
+  syncs both ways with a Fluxer channel (`!mission`), and a monitored
+  game-server list.
 
 ---
 
@@ -81,9 +84,12 @@ src/
   lib/
     html.js          layout + formatting (hono/html SSR)
     markdown.js       markdown-it + sanitize-html
-    users.js  slug.js  membership.js
-  bot/announce.js    optional cross-posting to a Fluxer channel
-migrations/001_init.sql
+    users.js  slug.js  membership.js  missions.js  forum.js  gameservers.js
+  bot/
+    announce.js      cross-posting to Fluxer channels
+    gateway.js       minimal Fluxer gateway client (receive-only)
+    missionbot.js    listens for `!mission` in the board channel
+migrations/*.sql
 public/portal.css    RSI Blue theme
 ```
 
@@ -92,8 +98,12 @@ public/portal.css    RSI Blue theme
 - Keeps state in Postgres only. Back it up with `pg_dump portal`.
 - The forum "Announcements" category is admin-post by default.
 - Events: anyone signed in can create one; RSVP is Going / Interested / Can't.
-- The optional Portal bot is **outbound only** (posts announcements) — it needs
-  no gateway connection.
+- Missions: post on the web or with `!mission` in the board channel (they sync
+  both ways). The creator marks a mission complete and files an after-action
+  report; that opens a discussion thread in the **Operations** forum category.
+- The Portal bot needs a **gateway connection** for the mission board (to read
+  `!mission`). It must be a guild member — announcements alone would work
+  outbound-only, but `!mission` needs it in the server.
 
 ## Credits
 
