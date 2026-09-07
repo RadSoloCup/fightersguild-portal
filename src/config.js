@@ -28,7 +28,7 @@ export const config = {
   oauth: {
     clientId: required('OAUTH_CLIENT_ID'),
     clientSecret: required('OAUTH_CLIENT_SECRET'),
-    scope: 'identify email guilds',
+    scope: 'identify guilds',
     redirectUri: `${publicOrigin}${basePath}/auth/callback`,
   },
 

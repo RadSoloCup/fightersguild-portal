@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { config } from '../config.js'
 import { layout, html } from '../lib/html.js'
 import { upsertUser, removeUserAccess } from '../lib/users.js'
+import { decryptToken } from '../lib/crypto.js'
 import { one } from '../db.js'
 import {
   authorizeUrl, pkcePair, randomState,
@@ -61,7 +62,7 @@ authRoutes.get('/logout', async c => {
   const u = c.get('user')
   if (u) {
     const row = await one('SELECT refresh_token FROM oauth_tokens WHERE user_id = $1', [u.id])
-    if (row) { await revoke(row.refresh_token); await removeUserAccess(u.id) }
+    if (row) { await revoke(decryptToken(row.refresh_token)); await removeUserAccess(u.id) }
   }
   clearSession(c)
   return c.redirect(B)
