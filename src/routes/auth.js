@@ -32,7 +32,7 @@ authRoutes.get('/callback', async c => {
   const state = c.req.query('state')
   const flow = await takeFlow(c)
 
-  if (err) return c.html(errorPage(c, `Fluxer returned "${err}". Try signing in again.`), 400)
+  if (err) return c.html(errorPage(c, `The chat server returned "${err}". Try signing in again.`), 400)
   if (!flow || !code || !state || state !== flow.state) {
     return c.html(errorPage(c, 'That sign-in link expired or was tampered with. Start again.'), 400)
   }
@@ -43,7 +43,7 @@ authRoutes.get('/callback', async c => {
     info = await userinfo(tokenSet.access_token)
   } catch (e) {
     console.error('oauth callback:', e.message)
-    return c.html(errorPage(c, 'Could not complete sign-in with Fluxer.'), 502)
+    return c.html(errorPage(c, 'Could not complete sign-in with the Fighters Guild chat server.'), 502)
   }
 
   let member = false
@@ -81,8 +81,8 @@ function notMemberPage(c) {
   return layout({
     title: 'Members only', user: null,
     body: html`<div class="stack"><h1>Members only</h1>
-      <p class="muted">The Portal is for members of the <strong>Fighters Guild</strong> server.
-      Your Fluxer account isn't in that server yet.</p>
+      <p class="muted">The Operations Center is for members of the <strong>Fighters Guild</strong> chat server.
+      Your account isn't in that server yet.</p>
       <p><a class="btn ghost" href="${config.fluxerPublic}">Open the chat server</a></p></div>`,
   })
 }

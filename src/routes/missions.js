@@ -6,10 +6,11 @@ import { renderMarkdown } from '../lib/markdown.js'
 import { requireAuth } from '../auth/session.js'
 import { logMod } from '../lib/modlog.js'
 import { announceMission, announceMissionResult } from '../bot/announce.js'
+import { createMission, MISSION_MAX as MAX } from '../lib/missions.js'
+import { createThread } from '../lib/forum.js'
 
 export const missionRoutes = new Hono()
 const B = config.basePath
-const MAX = { title: 140, objective: 8000, field: 200, aar: 4000 }
 
 function parseLocal(v) {
   if (!v) return null
@@ -37,8 +38,9 @@ missionRoutes.get('/', async c => {
         <h1>Mission board</h1>
         ${user ? html`<a class="btn" href="${B}/missions/new">Post a mission</a>` : ''}
       </div>
-      <p class="muted">Open contracts for the guild. Posting one drops it in the
-        Fluxer mission channel too.</p>
+      <p class="muted">Open contracts for the guild. Posting one here drops it in the
+        Fluxer mission channel — and posting <code>!mission</code> in that channel
+        adds it here.</p>
 
       ${open.length === 0
         ? html`<div class="empty">No open missions.${user ? ' Post the first.' : ''}</div>`
@@ -114,6 +116,8 @@ missionRoutes.get('/new', requireAuth, c => {
     body: html`
       <div class="crumbs"><a href="${B}/missions">Missions</a> / new</div>
       <h1>Post a mission</h1>
+      <p class="muted">Prefer chat? Post <code>!mission</code> in the Fluxer mission
+        channel (<code>!mission help</code> for the format) and it shows up here.</p>
       <form method="post" action="${B}/missions/new" class="stack">
         <div class="field"><label>Title</label>
           <input type="text" name="title" maxlength="${MAX.title}" required autofocus></div>
@@ -154,12 +158,16 @@ missionRoutes.post('/new', requireAuth, async c => {
   const objective = g('objective').slice(0, MAX.objective)
   if (!title || !objective) return c.text('Title and objective are required.', 400)
 
-  const m = await one(`
-    INSERT INTO missions (creator_id, title, role, crew_size, mission_type, objective, pay, launch_at, voice_channel_id)
-    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *`,
-    [user.id, title, g('role').slice(0, MAX.field), g('crew_size').slice(0, MAX.field),
-     g('mission_type').slice(0, MAX.field), objective, g('pay').slice(0, MAX.field),
-     parseLocal(f.launch_at), g('voice_channel_id').replace(/\D/g, '').slice(0, 32)])
+  const m = await createMission({
+    creatorId: user.id,
+    source: 'portal',
+    fields: {
+      title, objective,
+      role: g('role'), crew_size: g('crew_size'), mission_type: g('mission_type'), pay: g('pay'),
+      launch_at: parseLocal(f.launch_at),
+      voice_channel_id: g('voice_channel_id'),
+    },
+  })
 
   try {
     const mid = await announceMission({ mission: m, creator: user })
@@ -220,6 +228,7 @@ missionRoutes.get('/:id', async c => {
           ${m.aar_corrective ? html`<div><strong>Future corrective actions:</strong><br>${m.aar_corrective}</div>` : ''}
           ${m.aar_paid != null ? html`<div><strong>Paid out the amount described:</strong> ${m.aar_paid ? 'Yes' : 'No'}</div>` : ''}
           <div class="dim">Filed ${m.completed_at ? fmtDate(m.completed_at) : ''}</div>
+          ${m.aar_thread_id ? html`<div><a class="btn ghost sm" href="${B}/forum/t/${m.aar_thread_id}">Discuss this AAR →</a></div>` : ''}
         </div>` : ''}`,
   }))
 })
@@ -298,9 +307,36 @@ missionRoutes.post('/:id/complete', requireAuth, async c => {
      String(f.aar_corrective || '').trim().slice(0, MAX.aar),
      f.aar_paid === '1', user.id])
 
+  // Spin up a discussion thread in Operations for the after-action report.
+  try {
+    const thread = await createThread({
+      authorId: user.id,
+      categorySlug: 'operations',
+      title: `AAR: #${updated.id} ${updated.title}`,
+      body: aarThreadBody(updated),
+    })
+    if (thread) await query('UPDATE missions SET aar_thread_id = $1 WHERE id = $2', [thread.id, updated.id])
+  } catch (e) { console.error('aar thread:', e.message) }
+
   announceMissionResult({ mission: updated }).catch(() => {})
   return c.redirect(`${B}/missions/${id}`)
 })
+
+function aarThreadBody(m) {
+  const url = `${config.baseUrl}/missions/${m.id}`
+  const passed = m.outcome === 'passed'
+  return [
+    `**Mission #${m.id} — ${m.title}** closed as **${passed ? 'PASSED' : 'FAILED'}**.`,
+    '',
+    m.aar_reason ? `**Why it ${passed ? 'passed' : 'failed'}:**\n${m.aar_reason}` : null,
+    m.aar_corrective ? `**Future corrective actions:**\n${m.aar_corrective}` : null,
+    m.aar_paid != null ? `**Paid out the amount described:** ${m.aar_paid ? 'Yes' : 'No'}` : null,
+    '',
+    `Full mission & AAR: ${url}`,
+    '',
+    'Discuss below — lessons learned, follow-ups, anything for next time.',
+  ].filter(v => v !== null).join('\n')
+}
 
 // ── Delete (admin) ─────────────────────────────────────────────────────────
 missionRoutes.post('/:id/delete', requireAuth, async c => {
