@@ -64,9 +64,8 @@ This is the core of the request, and it's the best-supported part.
 1. In Fluxer's app settings, create an OAuth2 application **"Fighters Guild Portal"**.
    - Redirect URI: `https://chat.example.com/portal/auth/callback`
    - Note the `client_id` and `client_secret`.
-2. Scopes the Portal will request: **`identify email guilds`**
+2. Scopes the Portal will request: **`identify guilds`**
    - `identify` → user id, username, avatar (via `/oauth2/userinfo`)
-   - `email` → email (optional; only if we want email notifications)
    - `guilds` → to confirm the user is in the **Fighters Guild** server
 
 ### 3.2 The login flow (standard OAuth2 + PKCE)
@@ -78,7 +77,7 @@ User opens /portal
        ?client_id=<portal>
        &redirect_uri=https://chat.example.com/portal/auth/callback
        &response_type=code
-       &scope=identify email guilds
+       &scope=identify guilds
        &state=<csrf>
        &code_challenge=<PKCE S256>
        &code_challenge_method=S256
@@ -86,7 +85,7 @@ User opens /portal
      (first visit only) → redirects back with ?code=…&state=…
   └─ Portal /auth/callback:
        POST /oauth2/token  (code + code_verifier + client_secret) → access + refresh token
-       GET  /oauth2/userinfo  → { id, username, avatar, email }
+       GET  /oauth2/userinfo  → { id, username, avatar }
        GET  /users/@me/guilds  (with the token) → must include Fighters Guild
      → create a Portal session cookie (JWT or server session), store the
        refresh token server-side.
@@ -257,7 +256,7 @@ Consistent with sc-tools / dj so there's one mental model:
 ## 9. Data model sketch
 
 ```
-users            id (Fluxer snowflake, PK), username, avatar, email?,
+users            id (Fluxer snowflake, PK), username, avatar,
                  roles (cached), last_seen, created_at
 oauth_tokens     user_id, refresh_token (encrypted), scope, expires_at
 

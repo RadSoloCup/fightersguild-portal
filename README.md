@@ -12,7 +12,7 @@ Served under `https://chat.example.com/portal`, next to the chat.
 
 ## How the login works
 
-The Portal is a Fluxer **OAuth2** client (`identify email guilds` scopes). First
+The Portal is a Fluxer **OAuth2** client (`identify guilds` scopes). First
 visit → one consent screen on Fluxer → back to the Portal, signed in. After that
 it's silent. Only members of the Fighters Guild server get in; if you leave the
 server, Portal access is revoked within the hour.
