@@ -95,6 +95,26 @@ public/portal.css    RSI Blue theme
 - The optional Portal bot is **outbound only** (posts announcements) — it needs
   no gateway connection.
 
+## Credits
+
+| | | License |
+|---|---|---|
+| [**Hono**](https://hono.dev) + [`@hono/node-server`](https://github.com/honojs/node-server) | web framework + SSR (`hono/html`, `hono/jwt`) | MIT |
+| [`pg`](https://node-postgres.com) | PostgreSQL client | MIT |
+| [`markdown-it`](https://github.com/markdown-it/markdown-it) | forum / event markdown rendering | MIT |
+| [`sanitize-html`](https://github.com/apostrophecms/sanitize-html) | scrubs rendered HTML | MIT |
+| [**Fluxer**](https://github.com/fluxerapp/fluxer) | the chat platform — the Portal is a Fluxer OAuth2 client and shares its accounts | AGPL-3.0 |
+| [PostgreSQL](https://www.postgresql.org) | the database (runs alongside the Fluxer stack) | PostgreSQL License |
+
+The **RSI Blue** theme (`public/portal.css`) is original work — the palette
+echoes the Star Citizen launcher. **Star Citizen®** and **Roberts Space
+Industries®** are trademarks of Cloud Imperium Rights LLC; this is an unofficial
+fan project, not affiliated with Cloud Imperium Games.
+
 ## License
 
-For guild use. Connects to Fluxer ([GNU AGPL v3](https://www.gnu.org/licenses/agpl-3.0.html)).
+Copyright © 2026 Fighters Guild. Licensed under the
+[GNU AGPL v3](https://www.gnu.org/licenses/agpl-3.0.html) — see [`LICENSE`](LICENSE).
+
+The Portal is a network service: per AGPL §13 it links its own source in the page
+footer, and if you run a modified copy you must do the same for your users.

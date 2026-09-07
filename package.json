@@ -18,5 +18,6 @@
     "markdown-it": "^14.1.0",
     "pg": "^8.13.1",
     "sanitize-html": "^2.14.0"
-  }
+  },
+  "license": "AGPL-3.0-or-later"
 }
