@@ -77,7 +77,9 @@ export function layout({ title, user, active = '', flash, body, bare = false }) 
   ${flash ? html`<div class="notice ${flash.error ? 'error' : ''}">${flash.text}</div>` : ''}
   ${body}
 </main>
-<footer class="foot">Fighters Guild · Operations Center · <a href="${config.fluxerPublic}">back to chat</a></footer>
+<footer class="foot">Fighters Guild · Operations Center ·
+  <a href="${config.fluxerPublic}">back to chat</a> ·
+  <a href="${config.sourceUrl}" rel="noopener">source (AGPL-3.0)</a></footer>
 </body>
 </html>`
 }

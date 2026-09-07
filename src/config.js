@@ -63,6 +63,9 @@ export const config = {
   },
 
   userAgent: env.USER_AGENT || 'fightersguild-portal (+https://github.com/RadSoloCup/fightersguild-portal)',
+  // AGPL §13: the running service must point users at its source. Override if
+  // you run a modified copy.
+  sourceUrl: env.PORTAL_SOURCE_URL || 'https://github.com/RadSoloCup/fightersguild-portal',
   isDev: env.NODE_ENV !== 'production',
 }
 

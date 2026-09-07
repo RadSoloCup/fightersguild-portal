@@ -6,6 +6,7 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm install --omit=dev --no-audit --no-fund
 
+COPY LICENSE ./
 COPY src ./src
 COPY migrations ./migrations
 COPY public ./public
