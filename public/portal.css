@@ -212,6 +212,26 @@ textarea { min-height: 160px; resize: vertical; font-family: var(--mono); font-s
 button.ok { color: var(--success) !important; border-color: hsla(155,64%,44%,.5) !important; }
 .server-addr { background: var(--bg-0); border: 1px solid var(--border); border-radius: 6px; padding: 4px 9px; font-family: var(--mono); }
 
+/* ── game-server cards: faded game art behind the content ───────────────── */
+.server-card { position: relative; overflow: hidden; isolation: isolate; }
+.server-hero {
+  position: absolute; inset: 0; z-index: 0;
+  opacity: .16; background-repeat: no-repeat;
+  -webkit-mask-image: linear-gradient(105deg, #000 0%, #000 45%, transparent 92%);
+  mask-image: linear-gradient(105deg, #000 0%, #000 45%, transparent 92%);
+  pointer-events: none;
+}
+.server-card > *:not(.server-hero) { position: relative; z-index: 1; }
+
+/* ── service / bot status board ────────────────────────────────────────── */
+.status-row { display: flex; align-items: baseline; gap: 10px; padding: 7px 0; font-size: .92rem; }
+.status-row + .status-row { border-top: 1px solid var(--border); }
+.status-dot { flex: 0 0 auto; width: 8px; height: 8px; border-radius: 50%; align-self: center; }
+.status-label { color: var(--text-1); flex: 1; }
+.status-word { font-size: .84rem; font-weight: 600; text-transform: capitalize; }
+.status-sep { margin: 12px 0 2px; font-size: .72rem; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--text-3); border-top: 1px solid var(--border); padding-top: 10px; }
+
 .mod-menu { position: relative; }
 .mod-menu > summary { list-style: none; cursor: pointer; }
 .mod-menu > summary::-webkit-details-marker { display: none; }

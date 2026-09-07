@@ -77,3 +77,8 @@ export function startMissionBot() {
 export function stopMissionBot() {
   try { client?.stop() } catch {}
 }
+
+// The shared gateway client (used by the status board to read bot presences).
+export function gateway() {
+  return client
+}

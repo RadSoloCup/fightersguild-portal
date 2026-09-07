@@ -68,6 +68,15 @@ export const config = {
     missionChannelId: env.MISSION_BOARD_CHANNEL_ID || null,
   },
 
+  // Status board (Servers page). Extra guild bots to show, "Label:userId,Label:userId".
+  // The Portal's own bot is always included.
+  status: {
+    bots: (env.STATUS_BOTS || '').split(',').map(s => s.trim()).filter(Boolean).map(pair => {
+      const i = pair.lastIndexOf(':')
+      return i > 0 ? { label: pair.slice(0, i).trim(), id: pair.slice(i + 1).trim() } : null
+    }).filter(b => b && /^\d+$/.test(b.id)),
+  },
+
   userAgent: env.USER_AGENT || 'fightersguild-portal (+https://github.com/RadSoloCup/fightersguild-portal)',
   // AGPL §13: the running service must point users at its source. Override if
   // you run a modified copy.
