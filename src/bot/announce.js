@@ -60,13 +60,18 @@ export async function announceMission({ mission, creator }) {
   } else if (mission.role) {
     fields.push({ name: 'Crew needed', value: mission.role, inline: true })
   }
-  if (mission.crew_size) fields.push({ name: 'Crew size', value: mission.crew_size, inline: true })
+  if (mission.ships?.length) {
+    fields.push({
+      name: 'Ships wanted',
+      value: mission.ships.map(s => `• ${s.count ? `${s.count}× ` : ''}${s.name}`).join('\n').slice(0, 1024),
+    })
+  }
   if (mission.mission_type) fields.push({ name: 'Type', value: mission.mission_type, inline: true })
   if (mission.pay) fields.push({ name: 'Pay', value: mission.pay, inline: true })
-  if (mission.launch_at) {
-    const unix = Math.floor(new Date(mission.launch_at).getTime() / 1000)
-    fields.push({ name: 'Launch', value: `<t:${unix}:F> (<t:${unix}:R>)`, inline: true })
-  }
+  const ts = v => `<t:${Math.floor(new Date(v).getTime() / 1000)}:F> (<t:${Math.floor(new Date(v).getTime() / 1000)}:R>)`
+  if (mission.roll_call_at) fields.push({ name: 'Roll call', value: ts(mission.roll_call_at), inline: true })
+  if (mission.launch_at) fields.push({ name: 'Mission time', value: ts(mission.launch_at), inline: true })
+  if (mission.meetup) fields.push({ name: 'Meet-up point', value: mission.meetup, inline: true })
   if (mission.voice_channel_id) fields.push({ name: 'Voice', value: `<#${mission.voice_channel_id}>`, inline: true })
   const msg = await post(config.bot.missionChannelId, {
     content: `🎯 **New mission** — ${mission.title}`,

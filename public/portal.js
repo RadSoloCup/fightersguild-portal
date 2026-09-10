@@ -104,21 +104,24 @@
     })
   })
 
-  // ── mission role builder: add / remove rows on the "new mission" form ────
-  const roleRows = document.getElementById('role-rows')
-  const roleAdd = document.getElementById('role-add')
-  if (roleRows && roleAdd) {
-    roleAdd.addEventListener('click', () => {
-      const row = roleRows.firstElementChild.cloneNode(true)
+  // ── mission role / ship builders: add / remove rows on the new-mission form
+  function wireSpecBuilder(rowsId, addId) {
+    const rows = document.getElementById(rowsId)
+    const add = document.getElementById(addId)
+    if (!rows || !add) return
+    add.addEventListener('click', () => {
+      const row = rows.firstElementChild.cloneNode(true)
       row.querySelectorAll('input').forEach(i => { i.value = i.type === 'number' ? '1' : '' })
-      roleRows.appendChild(row)
+      rows.appendChild(row)
       row.querySelector('input')?.focus()
     })
-    roleRows.addEventListener('click', e => {
+    rows.addEventListener('click', e => {
       const b = e.target.closest('[data-role-remove]')
-      if (b && roleRows.children.length > 1) b.closest('.role-row').remove()
+      if (b && rows.children.length > 1) b.closest('.role-row').remove()
     })
   }
+  wireSpecBuilder('role-rows', 'role-add')
+  wireSpecBuilder('ship-rows', 'ship-add')
 
   // ── mission complete: reveal AAR fields once an outcome is picked ─────────
   const aar = document.getElementById('aar-fields')

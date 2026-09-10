@@ -257,9 +257,17 @@ button.ok { color: var(--success) !important; border-color: hsla(155,64%,44%,.5)
 .roster-row:first-child { border-top: 0; padding-top: 0; }
 .roster-name { font-weight: 650; color: var(--text-1); min-width: 120px; }
 .roster-count { font-family: var(--mono); font-size: .82rem; color: var(--text-3); }
-.roster-members { display: flex; align-items: center; gap: 6px 4px; flex: 1; flex-wrap: wrap; min-width: 120px; }
-.roster-members img { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--border); }
-.roster-members .who { font-size: .82rem; color: var(--text-2); margin-right: 6px; }
+.roster-members { display: flex; align-items: center; gap: 10px; flex: 1; flex-wrap: wrap; min-width: 120px; }
+.roster-member { display: inline-flex; align-items: center; gap: 5px; }
+.roster-member img { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--border); }
+.roster-member .who { font-size: .82rem; color: var(--text-2); }
+.ship-tags { display: inline-flex; gap: 3px; flex-wrap: wrap; }
+.ship-tag { font-size: .7rem; padding: 1px 6px; border-radius: 4px; background: var(--bg-hover);
+  border: 1px solid var(--border); color: var(--text-2); }
+.ship-picker { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.ship-check { display: inline-flex; align-items: center; gap: 6px; font-size: .88rem;
+  color: var(--text-1); text-transform: none; letter-spacing: 0; }
+.ship-check input { width: auto; }
 
 /* ── service / bot status board ────────────────────────────────────────── */
 .status-row { display: flex; align-items: baseline; gap: 10px; padding: 7px 0; font-size: .92rem; }

@@ -8,7 +8,7 @@ import { logMod } from '../lib/modlog.js'
 import { announceMission, announceMissionResult } from '../bot/announce.js'
 import {
   createMission, MISSION_MAX as MAX,
-  missionRoster, userSignup, signUp, leaveMission,
+  missionRoster, missionShips, userSignup, userShipIds, signUp, leaveMission, setSignupShips,
 } from '../lib/missions.js'
 import { createThread } from '../lib/forum.js'
 
@@ -21,12 +21,12 @@ function parseLocal(v) {
   return isNaN(d.getTime()) ? null : d
 }
 
-function roleRowHtml() {
+function specRowHtml(kind, placeholder) {
   return html`
     <div class="role-row">
-      <input type="text" name="role_name[]" maxlength="${MAX.roleName}" placeholder="e.g. Fighter escort">
-      <input type="number" name="role_slots[]" value="1" min="0" max="99" title="slots — 0 = unlimited">
-      <button type="button" class="btn ghost sm" data-role-remove aria-label="remove role">&times;</button>
+      <input type="text" name="${kind}_name[]" maxlength="${MAX.roleName}" placeholder="${placeholder}">
+      <input type="number" name="${kind}_slots[]" value="1" min="0" max="99" title="how many — 0 = unspecified">
+      <button type="button" class="btn ghost sm" data-role-remove aria-label="remove">&times;</button>
     </div>`
 }
 
@@ -107,8 +107,11 @@ function rosterCard(m, roster, user, myRole) {
               <span class="roster-count">${r.members.length}${r.slots > 0 ? `/${r.slots}` : ''}</span>
               <span class="roster-members">
                 ${r.members.length
-                  ? r.members.map(mem => html`<img src="${avatarUrl({ id: mem.user_id, avatar: mem.avatar }, 48)}"
-                      alt="" title="${mem.global_name || mem.username}"><span class="who">${mem.global_name || mem.username}</span>`)
+                  ? r.members.map(mem => html`<span class="roster-member">
+                      <img src="${avatarUrl({ id: mem.user_id, avatar: mem.avatar }, 48)}" alt="" title="${mem.global_name || mem.username}">
+                      <span class="who">${mem.global_name || mem.username}</span>
+                      ${mem.ships?.length ? html`<span class="ship-tags">${mem.ships.map(s => html`<span class="ship-tag">${s.name}</span>`)}</span>` : ''}
+                    </span>`)
                   : html`<span class="dim" style="font-size:.82rem">no one yet</span>`}
               </span>
               ${!open || !user ? ''
@@ -125,6 +128,37 @@ function rosterCard(m, roster, user, myRole) {
       </div>
       ${open && user && !myRole ? html`<p class="dim" style="font-size:.82rem;margin:10px 0 0">Pick the role you'll fill.</p>` : ''}
       ${open && !user ? html`<p class="dim" style="font-size:.82rem;margin:10px 0 0"><a href="${B}/auth/login">Sign in</a> to claim a role.</p>` : ''}
+    </div>`
+}
+
+function shipsCard(m, ships, roster, user, myRole, myShipIds) {
+  const open = m.status === 'open'
+  // count how many people offered each ship
+  const offered = new Map()
+  for (const r of roster) for (const mem of r.members) for (const s of mem.ships || []) offered.set(s.id, (offered.get(s.id) || 0) + 1)
+  const mine = new Set(myShipIds)
+  return html`
+    <h3 style="margin-top:24px">Ships</h3>
+    <div class="card stack">
+      <div class="roster">
+        ${ships.map(s => html`
+          <div class="roster-row">
+            <span class="roster-name">${s.name}${s.count > 0 ? html` <span class="dim">×${s.count}</span>` : ''}</span>
+            <span class="roster-count">${offered.get(s.id) || 0} offered</span>
+          </div>`)}
+      </div>
+      ${open && user && myRole ? html`
+        <form method="post" action="${B}/missions/${m.id}/ships" class="stack" style="margin-top:6px">
+          <div class="dim" style="font-size:.82rem">Which of these can you bring?</div>
+          <div class="ship-picker">
+            ${ships.map(s => html`
+              <label class="ship-check">
+                <input type="checkbox" name="ship_id[]" value="${s.id}" ${mine.has(s.id) ? 'checked' : ''}>
+                ${s.name}</label>`)}
+          </div>
+          <div><button class="btn sm">Save my ships</button></div>
+        </form>`
+        : open && user ? html`<p class="dim" style="font-size:.82rem;margin:0">Claim a crew role above, then pick which ships you can bring.</p>` : ''}
     </div>`
 }
 
@@ -176,12 +210,22 @@ missionRoutes.get('/new', requireAuth, c => {
           <input type="text" name="title" maxlength="${MAX.title}" required autofocus></div>
         <div class="field">
           <label>Roles / crew needed</label>
-          <div id="role-rows" class="stack" style="--gap:8px">
-            ${[0, 1].map(() => roleRowHtml())}
+          <div id="role-rows" class="stack">
+            ${[0, 1].map(() => specRowHtml('role', 'e.g. Fighter escort'))}
           </div>
           <div class="md-tools">
             <button type="button" class="btn ghost sm" id="role-add">+ Add role</button>
-            <span class="dim" style="font-size:.8rem">People pick a role from the mission page. Slots <code>0</code> = unlimited. Leave all blank for no sign-up sheet.</span>
+            <span class="dim" style="font-size:.8rem">People pick one role from the mission page. Count <code>0</code> = unlimited.</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Ships wanted</label>
+          <div id="ship-rows" class="stack">
+            ${[0, 1].map(() => specRowHtml('ship', 'e.g. Heavy fighter'))}
+          </div>
+          <div class="md-tools">
+            <button type="button" class="btn ghost sm" id="ship-add">+ Add ship</button>
+            <span class="dim" style="font-size:.8rem">Crew tick which of these they can bring when they sign up.</span>
           </div>
         </div>
         <div class="row" style="gap:10px">
@@ -191,10 +235,18 @@ missionRoutes.get('/new', requireAuth, c => {
             <input type="text" name="pay" maxlength="${MAX.field}" placeholder="Split evenly after fees"></div>
         </div>
         <div class="row" style="gap:10px">
-          <div class="field" style="flex:1;margin:0"><label>Launch time (optional)</label>
-            <input type="datetime-local" name="launch_at"></div>
+          <div class="field" style="flex:1;margin:0"><label>Roll-call time (optional)</label>
+            <input type="datetime-local" name="roll_call_at">
+            <span class="dim" style="font-size:.78rem">be in voice / logged in / spawned</span></div>
+          <div class="field" style="flex:1;margin:0"><label>Mission time (optional)</label>
+            <input type="datetime-local" name="launch_at">
+            <span class="dim" style="font-size:.78rem">wheels-up / mission start</span></div>
+        </div>
+        <div class="row" style="gap:10px">
+          <div class="field" style="flex:2;margin:0"><label>Meet-up point (optional)</label>
+            <input type="text" name="meetup" maxlength="${MAX.field}" placeholder="Seraphim Station, hangar 3"></div>
           <div class="field" style="flex:1;margin:0"><label>Voice channel ID (optional)</label>
-            <input type="text" name="voice_channel_id" maxlength="32" placeholder="renders as a #channel link"></div>
+            <input type="text" name="voice_channel_id" maxlength="32" placeholder="#channel link"></div>
         </div>
         <div class="field"><label>Objective / briefing — markdown</label>
           <textarea name="objective" maxlength="${MAX.objective}" required></textarea>
@@ -215,20 +267,25 @@ missionRoutes.post('/new', requireAuth, async c => {
   const objective = g('objective').slice(0, MAX.objective)
   if (!title || !objective) return c.text('Title and objective are required.', 400)
 
-  const names = [].concat(f['role_name[]'] ?? f['role_name'] ?? [])
-  const slots = [].concat(f['role_slots[]'] ?? f['role_slots'] ?? [])
-  const roles = names
-    .map((n, i) => ({ name: String(n || '').trim(), slots: Number.parseInt(slots[i], 10) }))
-    .filter(r => r.name)
-    .map(r => ({ name: r.name, slots: Number.isFinite(r.slots) ? r.slots : 1 }))
+  const specList = kind => {
+    const names = [].concat(f[`${kind}_name[]`] ?? f[`${kind}_name`] ?? [])
+    const counts = [].concat(f[`${kind}_slots[]`] ?? f[`${kind}_slots`] ?? [])
+    return names
+      .map((n, i) => ({ name: String(n || '').trim(), n: Number.parseInt(counts[i], 10) }))
+      .filter(r => r.name)
+      .map(r => ({ name: r.name, n: Number.isFinite(r.n) ? r.n : 1 }))
+  }
 
   const m = await createMission({
     creatorId: user.id,
     source: 'portal',
     fields: {
-      title, objective, roles,
+      title, objective,
+      roles: specList('role'), ships: specList('ship'),
       mission_type: g('mission_type'), pay: g('pay'),
       launch_at: parseLocal(g('launch_at')),
+      roll_call_at: parseLocal(g('roll_call_at')),
+      meetup: g('meetup'),
       voice_channel_id: g('voice_channel_id'),
     },
   })
@@ -250,9 +307,10 @@ missionRoutes.get('/:id', async c => {
     FROM missions m JOIN users u ON u.id = m.creator_id WHERE m.id = $1`, [id])
   if (!m) return c.notFound()
   const mine = user && user.id === m.creator_id
-  const launch = m.launch_at ? Math.floor(new Date(m.launch_at).getTime() / 1000) : null
   const roster = await missionRoster(id)
+  const ships = await missionShips(id)
   const myRole = user ? (await userSignup(id, user.id))?.role_id ?? null : null
+  const myShipIds = user && myRole ? await userShipIds(id, user.id) : []
 
   return c.html(layout({
     title: m.title, user, active: 'missions',
@@ -273,12 +331,15 @@ missionRoutes.get('/:id', async c => {
         ${m.crew_size ? html`<div><strong>Crew size</strong><br>${m.crew_size}</div>` : ''}
         ${m.mission_type ? html`<div><strong>Type</strong><br>${m.mission_type}</div>` : ''}
         ${m.pay ? html`<div><strong>Pay</strong><br>${m.pay}</div>` : ''}
-        ${launch ? html`<div><strong>Launch</strong><br>${fmtDate(m.launch_at)}</div>` : ''}
+        ${m.roll_call_at ? html`<div><strong>Roll call</strong><br>${fmtDate(m.roll_call_at)}</div>` : ''}
+        ${m.launch_at ? html`<div><strong>Mission time</strong><br>${fmtDate(m.launch_at)}</div>` : ''}
+        ${m.meetup ? html`<div><strong>Meet-up point</strong><br>${m.meetup}</div>` : ''}
         ${m.voice_channel_id ? html`<div><strong>Voice</strong><br><code>#${m.voice_channel_id}</code></div>` : ''}
         <div class="dim">Posted by ${m.global_name || m.username} · ${timeAgo(m.created_at)}</div>
       </div>
 
       ${roster.length ? rosterCard(m, roster, user, myRole) : ''}
+      ${ships.length ? shipsCard(m, ships, roster, user, myRole, myShipIds) : ''}
 
       <div class="card post-body">${raw(renderMarkdown(m.objective))}</div>
 
@@ -320,6 +381,18 @@ missionRoutes.post('/:id/leave', requireAuth, async c => {
   const user = c.get('user')
   const id = Number(c.req.param('id'))
   await leaveMission(id, user.id)
+  return c.redirect(`${B}/missions/${id}`)
+})
+
+missionRoutes.post('/:id/ships', requireAuth, async c => {
+  const user = c.get('user')
+  const id = Number(c.req.param('id'))
+  const m = await one('SELECT status FROM missions WHERE id = $1', [id])
+  if (!m) return c.notFound()
+  if (m.status !== 'open') return c.redirect(`${B}/missions/${id}`)
+  const f = await c.req.parseBody({ all: true })
+  const ids = [].concat(f['ship_id[]'] ?? f['ship_id'] ?? [])
+  await setSignupShips(id, user.id, ids)
   return c.redirect(`${B}/missions/${id}`)
 })
 
