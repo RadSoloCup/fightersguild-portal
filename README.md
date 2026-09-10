@@ -246,3 +246,7 @@ Copyright &copy; 2026 Fighters Guild. Licensed under the
 The Portal is a network service. Per AGPL section 13 it links its own source in
 the page footer, and if you run a modified copy you must do the same for your
 users.
+
+---
+
+Made in Canada 🇨🇦
