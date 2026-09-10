@@ -246,6 +246,21 @@ button.ok { color: var(--success) !important; border-color: hsla(155,64%,44%,.5)
 }
 .server-card > *:not(.server-hero) { position: relative; z-index: 1; }
 
+/* ── mission crew roster + role builder ────────────────────────────────── */
+.role-row { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
+.role-row:first-child { margin-top: 0; }
+.role-row input[type="text"] { flex: 1; }
+.role-row input[type="number"] { width: 74px; text-align: center; }
+
+.roster { display: flex; flex-direction: column; }
+.roster-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid var(--border); flex-wrap: wrap; }
+.roster-row:first-child { border-top: 0; padding-top: 0; }
+.roster-name { font-weight: 650; color: var(--text-1); min-width: 120px; }
+.roster-count { font-family: var(--mono); font-size: .82rem; color: var(--text-3); }
+.roster-members { display: flex; align-items: center; gap: 6px 4px; flex: 1; flex-wrap: wrap; min-width: 120px; }
+.roster-members img { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--border); }
+.roster-members .who { font-size: .82rem; color: var(--text-2); margin-right: 6px; }
+
 /* ── service / bot status board ────────────────────────────────────────── */
 .status-row { display: flex; align-items: baseline; gap: 10px; padding: 7px 0; font-size: .92rem; }
 .status-row + .status-row { border-top: 1px solid var(--border); }

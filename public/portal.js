@@ -104,6 +104,22 @@
     })
   })
 
+  // ── mission role builder: add / remove rows on the "new mission" form ────
+  const roleRows = document.getElementById('role-rows')
+  const roleAdd = document.getElementById('role-add')
+  if (roleRows && roleAdd) {
+    roleAdd.addEventListener('click', () => {
+      const row = roleRows.firstElementChild.cloneNode(true)
+      row.querySelectorAll('input').forEach(i => { i.value = i.type === 'number' ? '1' : '' })
+      roleRows.appendChild(row)
+      row.querySelector('input')?.focus()
+    })
+    roleRows.addEventListener('click', e => {
+      const b = e.target.closest('[data-role-remove]')
+      if (b && roleRows.children.length > 1) b.closest('.role-row').remove()
+    })
+  }
+
   // ── mission complete: reveal AAR fields once an outcome is picked ─────────
   const aar = document.getElementById('aar-fields')
   if (aar) {
