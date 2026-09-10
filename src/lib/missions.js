@@ -184,6 +184,75 @@ export function missionShips(missionId) {
   return many('SELECT * FROM mission_ships WHERE mission_id = $1 ORDER BY position, id', [missionId])
 }
 
+// Update a mission's fields and reconcile its roles / ships against the
+// submitted list. Rows carrying an existing id are kept (and their sign-ups
+// with them); rows with no id are added; existing rows not in the list are
+// removed (their sign-ups cascade away). `fields.roles` / `fields.ships` are
+// [{ id?, name, n }].
+export async function updateMission({ missionId, fields }) {
+  const shape = (list, maxName) => (list || [])
+    .map(r => ({ id: r.id ? Number(r.id) : null, name: cleanSpecName(r.name).slice(0, maxName), n: Math.min(Math.max((r.n ?? r.slots) | 0, 0), 99) }))
+    .filter(r => r.name)
+    .slice(0, 20)
+  const roles = shape(fields.roles, MISSION_MAX.roleName)
+  const ships = shape(fields.ships, MISSION_MAX.shipName)
+
+  return tx(async client => {
+    await client.query(
+      `UPDATE missions SET
+         title = $2, role = $3, mission_type = $4, objective = $5, pay = $6,
+         launch_at = $7, roll_call_at = $8, meetup = $9, voice_channel_id = $10
+       WHERE id = $1`,
+      [
+        missionId,
+        fields.title.slice(0, MISSION_MAX.title),
+        rolesSummary(roles.map(r => ({ name: r.name, slots: r.n }))),
+        (fields.mission_type || '').slice(0, MISSION_MAX.field),
+        fields.objective.slice(0, MISSION_MAX.objective),
+        (fields.pay || '').slice(0, MISSION_MAX.field),
+        fields.launch_at || null,
+        fields.roll_call_at || null,
+        (fields.meetup || '').slice(0, MISSION_MAX.field),
+        (fields.voice_channel_id || '').replace(/\D/g, '').slice(0, 32),
+      ],
+    )
+    await reconcile(client, 'mission_roles', 'slots', missionId, roles)
+    await reconcile(client, 'mission_ships', 'count', missionId, ships)
+
+    const m = (await client.query('SELECT * FROM missions WHERE id = $1', [missionId])).rows[0]
+    m.roles = (await client.query('SELECT * FROM mission_roles WHERE mission_id = $1 ORDER BY position, id', [missionId])).rows
+    m.ships = (await client.query('SELECT * FROM mission_ships WHERE mission_id = $1 ORDER BY position, id', [missionId])).rows
+    return m
+  })
+}
+
+const RECONCILE_TABLES = { mission_roles: 'slots', mission_ships: 'count' }
+
+async function reconcile(client, table, countCol, missionId, items) {
+  if (RECONCILE_TABLES[table] !== countCol) throw new Error('bad reconcile target')
+  const existing = (await client.query(`SELECT id FROM ${table} WHERE mission_id = $1`, [missionId])).rows.map(r => r.id)
+  const keep = items.map(it => (existing.includes(it.id) ? it.id : null)).filter(Boolean)
+
+  await client.query(
+    `DELETE FROM ${table} WHERE mission_id = $1 AND NOT (id = ANY($2::int[]))`,
+    [missionId, keep],
+  )
+  for (let i = 0; i < items.length; i++) {
+    const it = items[i]
+    if (existing.includes(it.id)) {
+      await client.query(
+        `UPDATE ${table} SET name = $2, ${countCol} = $3, position = $4 WHERE id = $1 AND mission_id = $5`,
+        [it.id, it.name, it.n, i, missionId],
+      )
+    } else {
+      await client.query(
+        `INSERT INTO ${table} (mission_id, name, ${countCol}, position) VALUES ($1, $2, $3, $4)`,
+        [missionId, it.name, it.n, i],
+      )
+    }
+  }
+}
+
 // Roles for a mission with the members signed up to each, and the ships each
 // member is bringing.
 export async function missionRoster(missionId) {

@@ -34,6 +34,24 @@ export function postMessage(channelId, payload) {
   return post(channelId, payload)
 }
 
+// Edit a message the bot previously posted.
+async function edit(channelId, messageId, payload) {
+  if (!config.bot.token || !channelId || !messageId) return null
+  try {
+    const res = await fetch(`${config.fluxerApiInternal}/channels/${channelId}/messages/${messageId}`, {
+      method: 'PATCH',
+      headers: {
+        authorization: `Bot ${config.bot.token}`,
+        'content-type': 'application/json',
+        'user-agent': config.userAgent,
+      },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(12_000),
+    })
+    return res.ok ? await res.json().catch(() => null) : null
+  } catch { return null }
+}
+
 export function announceThread({ thread, category, author, body }) {
   const url = `${config.baseUrl}/forum/t/${thread.id}/${thread.slug}`
   return post(config.bot.forumChannelId, {
@@ -48,13 +66,12 @@ export function announceThread({ thread, category, author, body }) {
   })
 }
 
-// Post a mission to the board channel. Returns the message id, or null.
-export async function announceMission({ mission, creator }) {
+function missionEmbed(mission, authorName) {
   const url = `${config.baseUrl}/missions/${mission.id}`
   const fields = []
   if (mission.roles?.length) {
     fields.push({
-      name: 'Roles — sign up on the board',
+      name: 'Roles, sign up on the board',
       value: mission.roles.map(r => `• ${r.slots ? `${r.slots}× ` : ''}${r.name}`).join('\n').slice(0, 1024),
     })
   } else if (mission.role) {
@@ -68,24 +85,38 @@ export async function announceMission({ mission, creator }) {
   }
   if (mission.mission_type) fields.push({ name: 'Type', value: mission.mission_type, inline: true })
   if (mission.pay) fields.push({ name: 'Pay', value: mission.pay, inline: true })
-  const ts = v => `<t:${Math.floor(new Date(v).getTime() / 1000)}:F> (<t:${Math.floor(new Date(v).getTime() / 1000)}:R>)`
+  const ts = v => { const u = Math.floor(new Date(v).getTime() / 1000); return `<t:${u}:F> (<t:${u}:R>)` }
   if (mission.roll_call_at) fields.push({ name: 'Roll call', value: ts(mission.roll_call_at), inline: true })
   if (mission.launch_at) fields.push({ name: 'Mission time', value: ts(mission.launch_at), inline: true })
   if (mission.meetup) fields.push({ name: 'Meet-up point', value: mission.meetup, inline: true })
   if (mission.voice_channel_id) fields.push({ name: 'Voice', value: `<#${mission.voice_channel_id}>`, inline: true })
+  return {
+    title: mission.title,
+    url,
+    description: `${mission.objective}\n\n**Sign up / details:** ${url}`,
+    color: 0x22d3ee,
+    author: { name: authorName },
+    fields,
+    footer: { text: 'Fighters Guild Portal · Mission board' },
+  }
+}
+
+// Post a mission to the board channel. Returns the message id, or null.
+export async function announceMission({ mission, creator }) {
   const msg = await post(config.bot.missionChannelId, {
     content: `🎯 **New mission** — ${mission.title}`,
-    embeds: [{
-      title: mission.title,
-      url,
-      description: `${mission.objective}\n\n**Sign up / details:** ${url}`,
-      color: 0x22d3ee,
-      author: { name: `${creator.name} posted a mission` },
-      fields,
-      footer: { text: 'Fighters Guild Portal · Mission board' },
-    }],
+    embeds: [missionEmbed(mission, `${creator.name} posted a mission`)],
   })
   return msg?.id || null
+}
+
+// Re-render the board message after an edit (best effort).
+export function editMissionAnnounce({ mission }) {
+  if (!mission.fluxer_message_id) return Promise.resolve(null)
+  return edit(config.bot.missionChannelId, mission.fluxer_message_id, {
+    content: `🎯 **Mission** — ${mission.title}`,
+    embeds: [missionEmbed(mission, 'Mission updated')],
+  })
 }
 
 export function announceMissionResult({ mission }) {

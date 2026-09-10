@@ -5,9 +5,9 @@ import { layout, html, raw, avatarUrl, fmtDate, timeAgo, markdownGuide } from '.
 import { renderMarkdown } from '../lib/markdown.js'
 import { requireAuth } from '../auth/session.js'
 import { logMod } from '../lib/modlog.js'
-import { announceMission, announceMissionResult } from '../bot/announce.js'
+import { announceMission, announceMissionResult, editMissionAnnounce } from '../bot/announce.js'
 import {
-  createMission, MISSION_MAX as MAX,
+  createMission, updateMission, MISSION_MAX as MAX,
   missionRoster, missionShips, userSignup, userShipIds, signUp, leaveMission, setSignupShips,
 } from '../lib/missions.js'
 import { createThread } from '../lib/forum.js'
@@ -21,13 +21,94 @@ function parseLocal(v) {
   return isNaN(d.getTime()) ? null : d
 }
 
-function specRowHtml(kind, placeholder) {
+function specRowHtml(kind, placeholder, item) {
+  const count = item ? (item.slots ?? item.count ?? 0) : 1
+  const signed = item?.members?.length || 0
   return html`
     <div class="role-row">
-      <input type="text" name="${kind}_name[]" maxlength="${MAX.roleName}" placeholder="${placeholder}">
-      <input type="number" name="${kind}_slots[]" value="1" min="0" max="99" title="how many — 0 = unspecified">
+      <input type="hidden" name="${kind}_id[]" value="${item?.id ?? 'new'}">
+      <input type="text" name="${kind}_name[]" maxlength="${MAX.roleName}" placeholder="${placeholder}" value="${item?.name || ''}">
+      <input type="number" name="${kind}_slots[]" value="${count}" min="0" max="99" title="how many; 0 = unspecified">
+      ${signed ? html`<span class="dim spec-signed" style="font-size:.74rem">${signed} in</span>` : ''}
       <button type="button" class="btn ghost sm" data-role-remove aria-label="remove">&times;</button>
     </div>`
+}
+
+// A datetime-local value from a stored timestamp.
+function dtLocal(v) {
+  if (!v) return ''
+  try { return new Date(v).toISOString().slice(0, 16) } catch { return '' }
+}
+
+// The shared new / edit mission form. `m`, `roles`, `ships` pre-fill it.
+function missionForm({ action, submitLabel, cancelHref, m = {}, roles = [], ships = [] }) {
+  const roleRows = roles.length ? roles.map(r => specRowHtml('role', 'e.g. Fighter escort', r))
+    : [0, 1].map(() => specRowHtml('role', 'e.g. Fighter escort'))
+  const shipRows = ships.length ? ships.map(s => specRowHtml('ship', 'e.g. Heavy fighter', s))
+    : [0, 1].map(() => specRowHtml('ship', 'e.g. Heavy fighter'))
+  return html`
+    <form method="post" action="${action}" class="stack">
+      <div class="field"><label>Title</label>
+        <input type="text" name="title" maxlength="${MAX.title}" required value="${m.title || ''}" ${m.title ? '' : 'autofocus'}></div>
+      <div class="field">
+        <label>Roles / crew needed</label>
+        <div id="role-rows" class="stack">${roleRows}</div>
+        <div class="md-tools">
+          <button type="button" class="btn ghost sm" id="role-add">+ Add role</button>
+          <span class="dim" style="font-size:.8rem">People pick one role from the mission page. Count <code>0</code> = unlimited.</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>Ships wanted</label>
+        <div id="ship-rows" class="stack">${shipRows}</div>
+        <div class="md-tools">
+          <button type="button" class="btn ghost sm" id="ship-add">+ Add ship</button>
+          <span class="dim" style="font-size:.8rem">Crew tick which of these they can bring when they sign up.</span>
+        </div>
+      </div>
+      <div class="row" style="gap:10px">
+        <div class="field" style="flex:1;margin:0"><label>Mission type</label>
+          <input type="text" name="mission_type" maxlength="${MAX.field}" value="${m.mission_type || ''}" placeholder="Bounty / cargo / salvage"></div>
+        <div class="field" style="flex:1;margin:0"><label>Pay</label>
+          <input type="text" name="pay" maxlength="${MAX.field}" value="${m.pay || ''}" placeholder="Split evenly after fees"></div>
+      </div>
+      <div class="row" style="gap:10px">
+        <div class="field" style="flex:1;margin:0"><label>Roll-call time (optional)</label>
+          <input type="datetime-local" name="roll_call_at" value="${dtLocal(m.roll_call_at)}">
+          <span class="dim" style="font-size:.78rem">be in voice, logged in, spawned</span></div>
+        <div class="field" style="flex:1;margin:0"><label>Mission time (optional)</label>
+          <input type="datetime-local" name="launch_at" value="${dtLocal(m.launch_at)}">
+          <span class="dim" style="font-size:.78rem">wheels-up, mission start</span></div>
+      </div>
+      <div class="row" style="gap:10px">
+        <div class="field" style="flex:2;margin:0"><label>Meet-up point (optional)</label>
+          <input type="text" name="meetup" maxlength="${MAX.field}" value="${m.meetup || ''}" placeholder="Seraphim Station, hangar 3"></div>
+        <div class="field" style="flex:1;margin:0"><label>Voice channel ID (optional)</label>
+          <input type="text" name="voice_channel_id" maxlength="32" value="${m.voice_channel_id || ''}" placeholder="#channel link"></div>
+      </div>
+      <div class="field"><label>Objective / briefing (markdown)</label>
+        <textarea name="objective" maxlength="${MAX.objective}" required>${m.objective || ''}</textarea>
+        ${markdownGuide()}</div>
+      <div class="btn-row">
+        <button class="btn" type="submit">${submitLabel}</button>
+        <a class="btn ghost" href="${cancelHref}">Cancel</a>
+      </div>
+    </form>`
+}
+
+// Read a role / ship spec list from a parsed edit-or-new form body.
+function readSpecs(f, kind, existingIds = []) {
+  const arr = k => [].concat(f[`${kind}_${k}[]`] ?? f[`${kind}_${k}`] ?? [])
+  const ids = arr('id'), names = arr('name'), counts = arr('slots')
+  return names.map((n, i) => {
+    const rid = Number.parseInt(ids[i], 10)
+    const cnt = Number.parseInt(counts[i], 10)
+    return {
+      id: Number.isFinite(rid) && existingIds.includes(rid) ? rid : null,
+      name: String(n || '').trim(),
+      n: Number.isFinite(cnt) ? cnt : 1,
+    }
+  }).filter(r => r.name)
 }
 
 // ── List: open missions ────────────────────────────────────────────────────
@@ -205,57 +286,7 @@ missionRoutes.get('/new', requireAuth, c => {
       <h1>Post a mission</h1>
       <p class="muted">Prefer chat? Post <code>!mission</code> in the Fluxer mission
         channel (<code>!mission help</code> for the format) and it shows up here.</p>
-      <form method="post" action="${B}/missions/new" class="stack">
-        <div class="field"><label>Title</label>
-          <input type="text" name="title" maxlength="${MAX.title}" required autofocus></div>
-        <div class="field">
-          <label>Roles / crew needed</label>
-          <div id="role-rows" class="stack">
-            ${[0, 1].map(() => specRowHtml('role', 'e.g. Fighter escort'))}
-          </div>
-          <div class="md-tools">
-            <button type="button" class="btn ghost sm" id="role-add">+ Add role</button>
-            <span class="dim" style="font-size:.8rem">People pick one role from the mission page. Count <code>0</code> = unlimited.</span>
-          </div>
-        </div>
-        <div class="field">
-          <label>Ships wanted</label>
-          <div id="ship-rows" class="stack">
-            ${[0, 1].map(() => specRowHtml('ship', 'e.g. Heavy fighter'))}
-          </div>
-          <div class="md-tools">
-            <button type="button" class="btn ghost sm" id="ship-add">+ Add ship</button>
-            <span class="dim" style="font-size:.8rem">Crew tick which of these they can bring when they sign up.</span>
-          </div>
-        </div>
-        <div class="row" style="gap:10px">
-          <div class="field" style="flex:1;margin:0"><label>Mission type</label>
-            <input type="text" name="mission_type" maxlength="${MAX.field}" placeholder="Bounty / cargo / salvage…"></div>
-          <div class="field" style="flex:1;margin:0"><label>Pay</label>
-            <input type="text" name="pay" maxlength="${MAX.field}" placeholder="Split evenly after fees"></div>
-        </div>
-        <div class="row" style="gap:10px">
-          <div class="field" style="flex:1;margin:0"><label>Roll-call time (optional)</label>
-            <input type="datetime-local" name="roll_call_at">
-            <span class="dim" style="font-size:.78rem">be in voice / logged in / spawned</span></div>
-          <div class="field" style="flex:1;margin:0"><label>Mission time (optional)</label>
-            <input type="datetime-local" name="launch_at">
-            <span class="dim" style="font-size:.78rem">wheels-up / mission start</span></div>
-        </div>
-        <div class="row" style="gap:10px">
-          <div class="field" style="flex:2;margin:0"><label>Meet-up point (optional)</label>
-            <input type="text" name="meetup" maxlength="${MAX.field}" placeholder="Seraphim Station, hangar 3"></div>
-          <div class="field" style="flex:1;margin:0"><label>Voice channel ID (optional)</label>
-            <input type="text" name="voice_channel_id" maxlength="32" placeholder="#channel link"></div>
-        </div>
-        <div class="field"><label>Objective / briefing — markdown</label>
-          <textarea name="objective" maxlength="${MAX.objective}" required></textarea>
-          ${markdownGuide()}</div>
-        <div class="btn-row">
-          <button class="btn" type="submit">Post mission</button>
-          <a class="btn ghost" href="${B}/missions">Cancel</a>
-        </div>
-      </form>`,
+      ${missionForm({ action: `${B}/missions/new`, submitLabel: 'Post mission', cancelHref: `${B}/missions` })}`,
   }))
 })
 
@@ -267,21 +298,12 @@ missionRoutes.post('/new', requireAuth, async c => {
   const objective = g('objective').slice(0, MAX.objective)
   if (!title || !objective) return c.text('Title and objective are required.', 400)
 
-  const specList = kind => {
-    const names = [].concat(f[`${kind}_name[]`] ?? f[`${kind}_name`] ?? [])
-    const counts = [].concat(f[`${kind}_slots[]`] ?? f[`${kind}_slots`] ?? [])
-    return names
-      .map((n, i) => ({ name: String(n || '').trim(), n: Number.parseInt(counts[i], 10) }))
-      .filter(r => r.name)
-      .map(r => ({ name: r.name, n: Number.isFinite(r.n) ? r.n : 1 }))
-  }
-
   const m = await createMission({
     creatorId: user.id,
     source: 'portal',
     fields: {
       title, objective,
-      roles: specList('role'), ships: specList('ship'),
+      roles: readSpecs(f, 'role'), ships: readSpecs(f, 'ship'),
       mission_type: g('mission_type'), pay: g('pay'),
       launch_at: parseLocal(g('launch_at')),
       roll_call_at: parseLocal(g('roll_call_at')),
@@ -296,6 +318,61 @@ missionRoutes.post('/new', requireAuth, async c => {
   } catch (e) { console.error('mission announce:', e.message) }
 
   return c.redirect(`${B}/missions/${m.id}`)
+})
+
+// ── Edit (creator / admin, while open) ─────────────────────────────────────
+async function loadEditable(c) {
+  const user = c.get('user')
+  const id = Number(c.req.param('id'))
+  const m = await one('SELECT * FROM missions WHERE id = $1', [id])
+  if (!m) return { err: c.notFound() }
+  if (m.creator_id !== user.id && !user.admin) return { err: c.text('Only the mission author can edit it.', 403) }
+  if (m.status !== 'open') return { err: c.redirect(`${B}/missions/${id}`) }
+  return { user, id, m }
+}
+
+missionRoutes.get('/:id/edit', requireAuth, async c => {
+  const { err, user, id, m } = await loadEditable(c)
+  if (err) return err
+  const roles = await missionRoster(id)
+  const ships = await missionShips(id)
+  return c.html(layout({
+    title: `Edit ${m.title}`, user, active: 'missions',
+    body: html`
+      <div class="crumbs"><a href="${B}/missions/${id}">${m.title}</a> / edit</div>
+      <h1>Edit mission</h1>
+      <p class="muted">Removing a role or ship also removes anyone signed up to it.</p>
+      ${missionForm({ action: `${B}/missions/${id}/edit`, submitLabel: 'Save changes', cancelHref: `${B}/missions/${id}`, m, roles, ships })}`,
+  }))
+})
+
+missionRoutes.post('/:id/edit', requireAuth, async c => {
+  const { err, id, m } = await loadEditable(c)
+  if (err) return err
+  const f = await c.req.parseBody({ all: true })
+  const g = k => String((Array.isArray(f[k]) ? f[k][0] : f[k]) || '').trim()
+  const title = g('title').slice(0, MAX.title)
+  const objective = g('objective').slice(0, MAX.objective)
+  if (!title || !objective) return c.text('Title and objective are required.', 400)
+
+  const roleIds = (await many('SELECT id FROM mission_roles WHERE mission_id = $1', [id])).map(r => r.id)
+  const shipIds = (await many('SELECT id FROM mission_ships WHERE mission_id = $1', [id])).map(r => r.id)
+
+  const updated = await updateMission({
+    missionId: id,
+    fields: {
+      title, objective,
+      roles: readSpecs(f, 'role', roleIds), ships: readSpecs(f, 'ship', shipIds),
+      mission_type: g('mission_type'), pay: g('pay'),
+      launch_at: parseLocal(g('launch_at')),
+      roll_call_at: parseLocal(g('roll_call_at')),
+      meetup: g('meetup'),
+      voice_channel_id: g('voice_channel_id'),
+    },
+  })
+  updated.fluxer_message_id = m.fluxer_message_id
+  editMissionAnnounce({ mission: updated }).catch(() => {})
+  return c.redirect(`${B}/missions/${id}`)
 })
 
 // ── Detail ─────────────────────────────────────────────────────────────────
@@ -343,9 +420,10 @@ missionRoutes.get('/:id', async c => {
 
       <div class="card post-body">${raw(renderMarkdown(m.objective))}</div>
 
-      ${m.status === 'open' && mine ? html`
+      ${m.status === 'open' && (mine || user?.admin) ? html`
         <div class="btn-row" style="margin-top:18px">
-          <a class="btn" href="${B}/missions/${m.id}/complete">Mark complete + AAR</a>
+          <a class="btn" href="${B}/missions/${m.id}/edit">Edit</a>
+          <a class="btn ghost" href="${B}/missions/${m.id}/complete">Mark complete + AAR</a>
           <form method="post" action="${B}/missions/${m.id}/cancel" onsubmit="return confirm('Cancel this mission?')">
             <button class="btn ghost">Cancel mission</button></form>
         </div>` : ''}
