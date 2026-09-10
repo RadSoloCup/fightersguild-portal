@@ -52,7 +52,14 @@ export function announceThread({ thread, category, author, body }) {
 export async function announceMission({ mission, creator }) {
   const url = `${config.baseUrl}/missions/${mission.id}`
   const fields = []
-  if (mission.role) fields.push({ name: 'Crew needed', value: mission.role, inline: true })
+  if (mission.roles?.length) {
+    fields.push({
+      name: 'Roles — sign up on the board',
+      value: mission.roles.map(r => `• ${r.slots ? `${r.slots}× ` : ''}${r.name}`).join('\n').slice(0, 1024),
+    })
+  } else if (mission.role) {
+    fields.push({ name: 'Crew needed', value: mission.role, inline: true })
+  }
   if (mission.crew_size) fields.push({ name: 'Crew size', value: mission.crew_size, inline: true })
   if (mission.mission_type) fields.push({ name: 'Type', value: mission.mission_type, inline: true })
   if (mission.pay) fields.push({ name: 'Pay', value: mission.pay, inline: true })
