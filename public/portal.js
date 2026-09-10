@@ -111,9 +111,14 @@
     if (!rows || !add) return
     add.addEventListener('click', () => {
       const row = rows.firstElementChild.cloneNode(true)
-      row.querySelectorAll('input').forEach(i => { i.value = i.type === 'number' ? '1' : '' })
+      row.querySelectorAll('input').forEach(i => {
+        if (i.type === 'hidden') i.value = 'new'
+        else if (i.type === 'number') i.value = '1'
+        else i.value = ''
+      })
+      row.querySelector('.spec-signed')?.remove()
       rows.appendChild(row)
-      row.querySelector('input')?.focus()
+      row.querySelector('input[type="text"]')?.focus()
     })
     rows.addEventListener('click', e => {
       const b = e.target.closest('[data-role-remove]')
