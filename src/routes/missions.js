@@ -148,7 +148,7 @@ function shipsCard(m, ships, roster, user, myRole, myShipIds) {
           </div>`)}
       </div>
       ${open && user && myRole ? html`
-        <form method="post" action="${B}/missions/${m.id}/ships" class="stack" style="margin-top:6px">
+        <form method="post" action="${B}/missions/${m.id}/ships" class="stack ship-mine">
           <div class="dim" style="font-size:.82rem">Which of these can you bring?</div>
           <div class="ship-picker">
             ${ships.map(s => html`
@@ -158,7 +158,7 @@ function shipsCard(m, ships, roster, user, myRole, myShipIds) {
           </div>
           <div><button class="btn sm">Save my ships</button></div>
         </form>`
-        : open && user ? html`<p class="dim" style="font-size:.82rem;margin:0">Claim a crew role above, then pick which ships you can bring.</p>` : ''}
+        : open && user ? html`<p class="dim ship-mine" style="font-size:.82rem">Claim a crew role above, then pick which ships you can bring.</p>` : ''}
     </div>`
 }
 

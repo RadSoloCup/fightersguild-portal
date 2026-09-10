@@ -43,15 +43,28 @@ function parseWhen(v) {
   return isNaN(d.getTime()) ? null : d
 }
 
+// Tidy a role/ship name: collapse whitespace, drop a dangling unmatched
+// bracket or trailing punctuation left over from parsing.
+export function cleanSpecName(s) {
+  return String(s || '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/\s*[([{]\s*$/, '')     // "Hornet (Mk1 or Mk2) (" -> "Hornet (Mk1 or Mk2)"
+    .replace(/^[)\]}\s]+/, '')
+    .trim()
+}
+
 // "Fighter x2" / "2x Fighter" / "2 fighters" / "Medic"  ->  { name, n }
+// The multiplier must be space-separated so it doesn't eat a name like
+// "Hornet (Mk1 or Mk2)".
 export function parseCountSpec(raw) {
   const s = String(raw || '').trim()
   if (!s) return null
-  let m = s.match(/^(.+?)\s*[x×*]\s*(\d{1,2})$/i)
-  if (m) return { name: m[1].trim(), n: Number(m[2]) }
-  m = s.match(/^(\d{1,2})\s*[x×*]?\s+(.+)$/i)
-  if (m) return { name: m[2].trim(), n: Number(m[1]) }
-  return { name: s, n: 1 }
+  let m = s.match(/^(.+?)\s+[x×*]\s*(\d{1,2})$/i)   // Fighter x2
+  if (m) return { name: cleanSpecName(m[1]), n: Number(m[2]) }
+  m = s.match(/^(\d{1,2})\s*[x×*]?\s+(.+)$/i)       // 2x Fighter / 2 fighters
+  if (m) return { name: cleanSpecName(m[2]), n: Number(m[1]) }
+  return { name: cleanSpecName(s), n: 1 }
 }
 
 function parseSpecList(value, maxName) {
@@ -126,7 +139,7 @@ export function parseMissionCommand(content) {
 // mission row with `.roles` and `.ships` attached.
 export async function createMission({ creatorId, fields, source = 'portal' }) {
   const clean = (list, maxName) => (list || [])
-    .map(r => ({ name: String(r.name || '').trim().slice(0, maxName), n: Math.min(Math.max((r.n ?? r.slots) | 0, 0), 99) }))
+    .map(r => ({ name: cleanSpecName(r.name).slice(0, maxName), n: Math.min(Math.max((r.n ?? r.slots) | 0, 0), 99) }))
     .filter(r => r.name)
     .slice(0, 20)
   const roles = clean(fields.roles, MISSION_MAX.roleName)
