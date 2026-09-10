@@ -1,4 +1,4 @@
-# Fighters Guild Portal — runs alongside the Fluxer stack, on the same Docker
+# Fighters Guild Portal, runs alongside the Fluxer stack on the same Docker
 # network so it can reach `api` and `postgres` directly. Caddy routes
 # /portal/* to it (see Caddyfile.snippet).
 services:
