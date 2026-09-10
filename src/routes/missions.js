@@ -65,7 +65,7 @@ function missionCard(m) {
     m.pay && `Pay: ${m.pay}`,
   ].filter(Boolean)
   return html`
-    <a class="card stack" style="text-decoration:none" href="${B}/missions/${m.id}">
+    <a class="card stack" style="text-decoration:none;display:block" href="${B}/missions/${m.id}">
       <div class="spread">
         <div class="title" style="color:var(--text-0);font-weight:650;font-size:1.05rem">${m.title}</div>
         ${m.launch_at ? html`<span class="meta">${fmtDate(m.launch_at)}</span>` : ''}

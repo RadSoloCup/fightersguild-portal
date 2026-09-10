@@ -123,6 +123,10 @@ small { color: var(--text-2); }
   padding: 18px 20px;
 }
 .card + .card { margin-top: 12px; }
+/* an <a class="card"> must not stay inline — inline boxes wrapping block
+   children fragment the border into stray slivers */
+a.card { display: block; }
+a.card.row { display: flex; }
 .list { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
 .list-item {
   display: block; padding: 14px 18px; border-top: 1px solid var(--border);
