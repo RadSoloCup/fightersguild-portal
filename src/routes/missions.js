@@ -256,6 +256,7 @@ missionRoutes.get('/:id', async c => {
 
   return c.html(layout({
     title: m.title, user, active: 'missions',
+    flash: c.req.query('full') ? { error: true, text: 'That role filled up before you claimed it — pick another.' } : undefined,
     body: html`
       <div class="crumbs"><a href="${B}/missions">Missions</a> / ${m.title}</div>
       <div class="spread">
@@ -310,8 +311,9 @@ missionRoutes.post('/:id/signup', requireAuth, async c => {
   if (m.status !== 'open') return c.redirect(`${B}/missions/${id}`)
   const f = await c.req.parseBody()
   const res = await signUp(id, Number(f.role_id), user.id)
-  if (!res.ok) return c.text(res.error, 409)
-  return c.redirect(`${B}/missions/${id}`)
+  // On a lost race for the last slot just bounce back — the re-rendered page
+  // shows the role as full.
+  return c.redirect(`${B}/missions/${id}${res.ok ? '' : '?full=1'}`)
 })
 
 missionRoutes.post('/:id/leave', requireAuth, async c => {
