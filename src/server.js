@@ -69,7 +69,7 @@ app.post(`${B}/api/status/crosstalk`, async c => {
 const portal = new Hono()
 portal.use('*', loadUser)
 
-// Auth gate — nothing under /portal is visible without a signed-in guild member.
+// Auth gate: nothing under /portal is visible without a signed-in guild member.
 // Only the /auth/* flow is open.
 portal.use('*', async (c, next) => {
   if (c.get('user')) return next()

@@ -24,7 +24,7 @@ async function checkServices() {
   const [web, api, voice] = await Promise.all([
     // Web client served (Caddy + the SPA bundle).
     probe(`${origin}/`, { needsBody: true, test: (r, b) => r.status === 200 && b.includes('__FLUXER_BOOTSTRAP__') }),
-    // API up — unauthenticated call is rejected with 401, which still proves
+    // API up: an unauthenticated call is rejected with 401, which still proves
     // the API container is answering (a dead one 502s / times out).
     probe(`${origin}/api/v1/gateway/bot`, { test: r => r.status === 401 || r.status === 200 }),
     // LiveKit health endpoint returns "OK".
