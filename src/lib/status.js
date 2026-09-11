@@ -1,5 +1,6 @@
 import { config } from '../config.js'
 import { gateway } from '../bot/missionbot.js'
+import { crosstalkRows } from './crosstalkStatus.js'
 
 // Lightweight status board for the Servers page: the Fluxer stack's services
 // (HTTP probes) plus the guild bots (presence via the gateway client).
@@ -70,7 +71,7 @@ export async function buildStatus() {
     await new Promise(r => setTimeout(r, 1200)) // let the chunk come back
   }
   const [services, bots] = [await checkServices(), checkBots()]
-  return { services, bots, checkedAt: new Date().toISOString() }
+  return { services: [...services, ...crosstalkRows()], bots, checkedAt: new Date().toISOString() }
 }
 
 // Cached snapshot served to the page; refreshed by a poller in server.js.
