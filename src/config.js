@@ -75,6 +75,8 @@ export const config = {
       const i = pair.lastIndexOf(':')
       return i > 0 ? { label: pair.slice(0, i).trim(), id: pair.slice(i + 1).trim() } : null
     }).filter(b => b && /^\d+$/.test(b.id)),
+    // Shared bearer token the Crosstalk bridge uses to POST its health snapshot.
+    ingestToken: env.STATUS_INGEST_TOKEN || null,
   },
 
   userAgent: env.USER_AGENT || 'fightersguild-portal (+https://github.com/RadSoloCup/fightersguild-portal)',

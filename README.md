@@ -84,7 +84,10 @@ optional faded box art background per game.
 
 On the Servers page, a live status panel for the whole stack: the chat service,
 the API, the realtime gateway, the voice server, and each guild bot (up or
-down, read from the gateway).
+down, read from the gateway). The
+[Crosstalk bridge](https://github.com/RadSoloCup/fightersguild-crosstalk) also
+pushes its own health here (Fluxer link, Discord link, text bridge, voice
+bridge) when `STATUS_INGEST_TOKEN` is set.
 
 ### Admin
 

@@ -12,6 +12,7 @@ import { sweepMembership } from './lib/membership.js'
 import { pollGameServers } from './lib/gameservers.js'
 import { startMissionBot } from './bot/missionbot.js'
 import { pollStatus } from './lib/status.js'
+import { setCrosstalkStatus } from './lib/crosstalkStatus.js'
 import { homeRoutes } from './routes/home.js'
 import { authRoutes } from './routes/auth.js'
 import { forumRoutes } from './routes/forum.js'
@@ -51,6 +52,17 @@ app.get(`${B}/uploads/:name`, async c => {
       : ext === 'webp' ? 'image/webp' : 'image/jpeg'
     return c.body(buf, 200, { 'content-type': type, 'cache-control': 'public, max-age=31536000, immutable' })
   } catch { return c.notFound() }
+})
+
+// Machine-to-machine: the Crosstalk bridge POSTs its health snapshot here.
+// Bearer-authenticated, outside the sign-in gate.
+app.post(`${B}/api/status/crosstalk`, async c => {
+  if (!config.status.ingestToken) return c.text('not configured', 404)
+  if (c.req.header('authorization') !== `Bearer ${config.status.ingestToken}`) return c.text('unauthorized', 401)
+  let body
+  try { body = await c.req.json() } catch { return c.text('bad json', 400) }
+  setCrosstalkStatus(body)
+  return c.body(null, 204)
 })
 
 // Everything below the base path.
