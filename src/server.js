@@ -4,15 +4,17 @@ import { serveStatic } from '@hono/node-server/serve-static'
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { config, assertConfig } from './config.js'
-import { pool } from './db.js'
+import { pool, one } from './db.js'
 import { migrate } from './migrate.js'
 import { loadUser } from './auth/session.js'
 import { layout, html, gatePage } from './lib/html.js'
+import { renderMarkdown } from './lib/markdown.js'
 import { sweepMembership } from './lib/membership.js'
 import { pollGameServers } from './lib/gameservers.js'
 import { startMissionBot } from './bot/missionbot.js'
 import { pollStatus } from './lib/status.js'
 import { setCrosstalkStatus } from './lib/crosstalkStatus.js'
+import { announceEvent } from './bot/announce.js'
 import { homeRoutes } from './routes/home.js'
 import { authRoutes } from './routes/auth.js'
 import { forumRoutes } from './routes/forum.js'
@@ -63,6 +65,39 @@ app.post(`${B}/api/status/crosstalk`, async c => {
   try { body = await c.req.json() } catch { return c.text('bad json', 400) }
   setCrosstalkStatus(body)
   return c.body(null, 204)
+})
+
+// Machine-to-machine: other services (e.g. fightersguild-mc-events, for a
+// seasonal battlepass launch) POST here to create an Events-page entry —
+// same shape as the human "new event" form, minus the browser session.
+// Reuses the normal insert path, so it also cross-posts to Fluxer via
+// announceEvent() exactly like a human-created event does.
+app.post(`${B}/api/events/ingest`, async c => {
+  if (!config.events.ingestToken) return c.text('not configured', 404)
+  if (c.req.header('authorization') !== `Bearer ${config.events.ingestToken}`) return c.text('unauthorized', 401)
+
+  let body
+  try { body = await c.req.json() } catch { return c.text('bad json', 400) }
+  const title = String(body.title || '').trim().slice(0, 140)
+  const startsAt = body.startsAt ? new Date(body.startsAt) : null
+  const endsAt = body.endsAt ? new Date(body.endsAt) : null
+  const location = String(body.location || '').trim().slice(0, 200)
+  const bodyMd = String(body.body || '').trim().slice(0, 8000)
+  if (!title || !startsAt || isNaN(startsAt.getTime())) return c.text('title and a valid startsAt are required', 400)
+
+  const creatorId = body.creatorId || config.events.defaultCreatorId
+  const creator = creatorId ? await one('SELECT * FROM users WHERE id = $1', [creatorId]) : null
+  if (!creator) {
+    return c.text('no creator user found — set EVENTS_INGEST_DEFAULT_CREATOR_ID to a user id that has signed into the Portal at least once, or pass creatorId', 400)
+  }
+
+  const e = await one(`
+    INSERT INTO events (creator_id, title, body_md, body_html, location, starts_at, ends_at)
+    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+    [creator.id, title, bodyMd, bodyMd ? renderMarkdown(bodyMd) : '', location, startsAt, endsAt])
+
+  announceEvent({ event: e, creator }).catch(() => {})
+  return c.json({ id: e.id, url: `${config.baseUrl}/events/${e.id}` })
 })
 
 // Everything below the base path.

@@ -79,6 +79,15 @@ export const config = {
     ingestToken: env.STATUS_INGEST_TOKEN || null,
   },
 
+  // Machine-to-machine event creation (e.g. fightersguild-mc-events posting a
+  // seasonal battlepass launch). Same bearer-token pattern as status.ingestToken.
+  events: {
+    ingestToken: env.EVENTS_INGEST_TOKEN || null,
+    // Fallback creator when the caller doesn't specify one — must be a user id
+    // that has signed into the Portal at least once (FK to users.id).
+    defaultCreatorId: env.EVENTS_INGEST_DEFAULT_CREATOR_ID || null,
+  },
+
   userAgent: env.USER_AGENT || 'fightersguild-portal (+https://github.com/RadSoloCup/fightersguild-portal)',
   // AGPL §13: the running service must point users at its source. Override if
   // you run a modified copy.
