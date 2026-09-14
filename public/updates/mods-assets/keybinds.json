@@ -1,0 +1,1255 @@
+[
+  {
+    "category": "key.ad_astra.open_radio",
+    "key": "R",
+    "modId": "ad_astra",
+    "modName": "Ad Astra",
+    "action": "Open Radio"
+  },
+  {
+    "category": "key.ad_astra.toggle_suit_flight",
+    "key": "V",
+    "modId": "ad_astra",
+    "modName": "Ad Astra",
+    "action": "Toggle Suit Flight"
+  },
+  {
+    "category": "keybind.advancedperipherals.description",
+    "key": "Left Ctrl",
+    "modId": "advancedperipherals",
+    "modName": "Advanced Peripherals",
+    "action": "Bind Description"
+  },
+  {
+    "category": "key.apotheosis.toggle_radial_mining",
+    "key": "Ctrl + O",
+    "modId": "apotheosis",
+    "modName": "Apotheosis",
+    "action": "Toggle Radial Mining"
+  },
+  {
+    "category": "key.ae2.guide",
+    "key": "G",
+    "modId": "ae2",
+    "modName": "Applied Energistics 2",
+    "action": "Guide"
+  },
+  {
+    "category": "key.ars_nouveau.head_curio_hotkey",
+    "key": "G",
+    "modId": "ars_nouveau",
+    "modName": "Ars Nouveau",
+    "action": "Head Curio Hotkey"
+  },
+  {
+    "category": "key.ars_nouveau.next_slot",
+    "key": "X",
+    "modId": "ars_nouveau",
+    "modName": "Ars Nouveau",
+    "action": "Next Slot"
+  },
+  {
+    "category": "key.ars_nouveau.open_book",
+    "key": "C",
+    "modId": "ars_nouveau",
+    "modName": "Ars Nouveau",
+    "action": "Open Book"
+  },
+  {
+    "category": "key.ars_nouveau.previous_slot",
+    "key": "Z",
+    "modId": "ars_nouveau",
+    "modName": "Ars Nouveau",
+    "action": "Previous Slot"
+  },
+  {
+    "category": "key.ars_nouveau.selection_hud",
+    "key": "V",
+    "modId": "ars_nouveau",
+    "modName": "Ars Nouveau",
+    "action": "Selection Hud"
+  },
+  {
+    "category": "key.botania_corporea_request",
+    "key": "C",
+    "modId": "botania",
+    "modName": "Botania",
+    "action": "Corporea Request"
+  },
+  {
+    "category": "key.buildinggadgets2.anchor",
+    "key": "H",
+    "modId": "buildinggadgets2",
+    "modName": "Building Gadgets 2",
+    "action": "Anchor"
+  },
+  {
+    "category": "key.buildinggadgets2.range",
+    "key": "R",
+    "modId": "buildinggadgets2",
+    "modName": "Building Gadgets 2",
+    "action": "Range"
+  },
+  {
+    "category": "key.buildinggadgets2.settings_menu",
+    "key": "G",
+    "modId": "buildinggadgets2",
+    "modName": "Building Gadgets 2",
+    "action": "Settings Menu"
+  },
+  {
+    "category": "key.buildinggadgets2.undo",
+    "key": "U",
+    "modId": "buildinggadgets2",
+    "modName": "Building Gadgets 2",
+    "action": "Undo"
+  },
+  {
+    "category": "key.cataclysm.ability",
+    "key": "X",
+    "modId": "cataclysm",
+    "modName": "Cataclysm Mod",
+    "action": "Ability"
+  },
+  {
+    "category": "key.cataclysm.armor_ability",
+    "key": "Y",
+    "modId": "cataclysm",
+    "modName": "Cataclysm Mod",
+    "action": "Armor Ability"
+  },
+  {
+    "category": "mod.chiselsandbits.keys.key.measuring-tape.reset",
+    "key": "Ctrl + R",
+    "modId": "chiselsandbits",
+    "modName": "chisels-and-bits",
+    "action": "Keys Key Measuring Tape Reset"
+  },
+  {
+    "category": "mod.chiselsandbits.keys.key.modded-tool.open",
+    "key": "R",
+    "modId": "chiselsandbits",
+    "modName": "chisels-and-bits",
+    "action": "Keys Key Modded Tool Open"
+  },
+  {
+    "category": "mod.chiselsandbits.keys.key.redo",
+    "key": "Ctrl + Y",
+    "modId": "chiselsandbits",
+    "modName": "chisels-and-bits",
+    "action": "Keys Key Redo"
+  },
+  {
+    "category": "mod.chiselsandbits.keys.key.undo",
+    "key": "Ctrl + Z",
+    "modId": "chiselsandbits",
+    "modName": "chisels-and-bits",
+    "action": "Keys Key Undo"
+  },
+  {
+    "category": "mod.chiselsandbits.keys.key.zoom",
+    "key": "Z",
+    "modId": "chiselsandbits",
+    "modName": "chisels-and-bits",
+    "action": "Keys Key Zoom"
+  },
+  {
+    "category": "mod.chiselsandbits.keys.reset-caches",
+    "key": "C",
+    "modId": "chiselsandbits",
+    "modName": "chisels-and-bits",
+    "action": "Keys Reset Caches"
+  },
+  {
+    "category": "key.cofh.mode_change_decrement",
+    "key": "B",
+    "modId": null,
+    "modName": "CoFH Core",
+    "action": "Cofh Mode Change Decrement"
+  },
+  {
+    "category": "key.cofh.mode_change_increment",
+    "key": "V",
+    "modId": null,
+    "modName": "CoFH Core",
+    "action": "Cofh Mode Change Increment"
+  },
+  {
+    "category": "key.craftingtweaks.compress_all",
+    "key": "Shift + K",
+    "modId": "craftingtweaks",
+    "modName": "CraftingTweaks",
+    "action": "Compress All"
+  },
+  {
+    "category": "key.craftingtweaks.compress_one",
+    "key": "Ctrl + K",
+    "modId": "craftingtweaks",
+    "modName": "CraftingTweaks",
+    "action": "Compress One"
+  },
+  {
+    "category": "key.craftingtweaks.compress_stack",
+    "key": "K",
+    "modId": "craftingtweaks",
+    "modName": "CraftingTweaks",
+    "action": "Compress Stack"
+  },
+  {
+    "category": "key.craftingtweaks.refill_last",
+    "key": "Ctrl + Tab",
+    "modId": "craftingtweaks",
+    "modName": "CraftingTweaks",
+    "action": "Refill Last"
+  },
+  {
+    "category": "key.craftingtweaks.refill_last_stack",
+    "key": "Tab",
+    "modId": "craftingtweaks",
+    "modName": "CraftingTweaks",
+    "action": "Refill Last Stack"
+  },
+  {
+    "category": "create.keyinfo.toolbelt",
+    "key": "Left Alt",
+    "modId": "create",
+    "modName": "Create",
+    "action": "Keyinfo Toolbelt"
+  },
+  {
+    "category": "create.keyinfo.toolmenu",
+    "key": "Left Alt",
+    "modId": "create",
+    "modName": "Create",
+    "action": "Keyinfo Toolmenu"
+  },
+  {
+    "category": "railways.keyinfo.bogey_menu",
+    "key": "Left Alt",
+    "modId": "railways",
+    "modName": "Create: Steam 'n' Rails",
+    "action": "Keyinfo Bogey Menu"
+  },
+  {
+    "category": "railways.keyinfo.cycle_menu",
+    "key": "Left Alt",
+    "modId": "railways",
+    "modName": "Create: Steam 'n' Rails",
+    "action": "Keyinfo Cycle Menu"
+  },
+  {
+    "category": "key.curios.open.desc",
+    "key": "G",
+    "modId": "curios",
+    "modName": "Curios API",
+    "action": "Open Desc"
+  },
+  {
+    "category": "key.cyclic.cake",
+    "key": "X",
+    "modId": "cyclic",
+    "modName": "Cyclic",
+    "action": "Cake"
+  },
+  {
+    "category": "key.findme.pull_one",
+    "key": "Numpad 0",
+    "modId": "findme",
+    "modName": "FindMe",
+    "action": "Pull One"
+  },
+  {
+    "category": "key.findme.pull_stack",
+    "key": "Numpad 1",
+    "modId": "findme",
+    "modName": "FindMe",
+    "action": "Pull Stack"
+  },
+  {
+    "category": "key.findme.search",
+    "key": "Y",
+    "modId": "findme",
+    "modName": "FindMe",
+    "action": "Search"
+  },
+  {
+    "category": "framedblocks.key.update_cull",
+    "key": "F9",
+    "modId": "framedblocks",
+    "modName": "FramedBlocks",
+    "action": "Key Update Cull"
+  },
+  {
+    "category": "key.ftbchunks.map",
+    "key": "M",
+    "modId": "ftbchunks",
+    "modName": "FTB Chunks",
+    "action": "Map"
+  },
+  {
+    "category": "key.ftbchunks.minimap.zoomIn",
+    "key": "=",
+    "modId": "ftbchunks",
+    "modName": "FTB Chunks",
+    "action": "Minimap Zoom In"
+  },
+  {
+    "category": "key.ftbchunks.minimap.zoomOut",
+    "key": "-",
+    "modId": "ftbchunks",
+    "modName": "FTB Chunks",
+    "action": "Minimap Zoom Out"
+  },
+  {
+    "category": "key.integrateddynamics.logic_programmer_focus_search",
+    "key": "Alt + F",
+    "modId": "integrateddynamics",
+    "modName": "IntegratedDynamics",
+    "action": "Logic Programmer Focus Search"
+  },
+  {
+    "category": "key.integrateddynamics.logic_programmer_open_rename",
+    "key": "Alt + R",
+    "modId": "integrateddynamics",
+    "modName": "IntegratedDynamics",
+    "action": "Logic Programmer Open Rename"
+  },
+  {
+    "category": "key.integratedterminals.terminal.craftinggrid.balance",
+    "key": "B",
+    "modId": "integratedterminals",
+    "modName": "IntegratedTerminals",
+    "action": "Terminal Craftinggrid Balance"
+  },
+  {
+    "category": "key.integratedterminals.terminal.craftinggrid.clearplayer",
+    "key": "Shift + C",
+    "modId": "integratedterminals",
+    "modName": "IntegratedTerminals",
+    "action": "Terminal Craftinggrid Clearplayer"
+  },
+  {
+    "category": "key.integratedterminals.terminal.craftinggrid.clearstorage",
+    "key": "C",
+    "modId": "integratedterminals",
+    "modName": "IntegratedTerminals",
+    "action": "Terminal Craftinggrid Clearstorage"
+  },
+  {
+    "category": "key.integratedterminals.terminal.portable.open",
+    "key": "C",
+    "modId": "integratedterminals",
+    "modName": "IntegratedTerminals",
+    "action": "Terminal Portable Open"
+  },
+  {
+    "category": "key.integratedterminals.terminal.tab.next",
+    "key": "Tab",
+    "modId": "integratedterminals",
+    "modName": "IntegratedTerminals",
+    "action": "Terminal Tab Next"
+  },
+  {
+    "category": "key.integratedterminals.terminal.tab.previous",
+    "key": "Shift + Tab",
+    "modId": "integratedterminals",
+    "modName": "IntegratedTerminals",
+    "action": "Terminal Tab Previous"
+  },
+  {
+    "category": "key.inventoryessentials.screen_bulk_drop",
+    "key": "Shift + Mouse Left Click",
+    "modId": "inventoryessentials",
+    "modName": "Inventory Essentials",
+    "action": "Screen Bulk Drop"
+  },
+  {
+    "category": "key.inventoryessentials.single_transfer",
+    "key": "Ctrl + Mouse Left Click",
+    "modId": "inventoryessentials",
+    "modName": "Inventory Essentials",
+    "action": "Single Transfer"
+  },
+  {
+    "category": "keybind.ironjetpacks.decrement_throttle",
+    "key": ",",
+    "modId": "ironjetpacks",
+    "modName": "Iron Jetpacks",
+    "action": "Bind Decrement Throttle"
+  },
+  {
+    "category": "keybind.ironjetpacks.engine",
+    "key": "V",
+    "modId": "ironjetpacks",
+    "modName": "Iron Jetpacks",
+    "action": "Bind Engine"
+  },
+  {
+    "category": "keybind.ironjetpacks.hover",
+    "key": "H",
+    "modId": "ironjetpacks",
+    "modName": "Iron Jetpacks",
+    "action": "Bind Hover"
+  },
+  {
+    "category": "keybind.ironjetpacks.increment_throttle",
+    "key": ".",
+    "modId": "ironjetpacks",
+    "modName": "Iron Jetpacks",
+    "action": "Bind Increment Throttle"
+  },
+  {
+    "category": "key.irons_spellbooks.spell_bar_modifier",
+    "key": "Left Alt",
+    "modId": "irons_spellbooks",
+    "modName": "Iron's Spells 'n Spellbooks",
+    "action": "Spell Bar Modifier"
+  },
+  {
+    "category": "key.irons_spellbooks.spell_wheel",
+    "key": "R",
+    "modId": "irons_spellbooks",
+    "modName": "Iron's Spells 'n Spellbooks",
+    "action": "Spell Wheel"
+  },
+  {
+    "category": "key.irons_spellbooks.spellbook_cast",
+    "key": "V",
+    "modId": "irons_spellbooks",
+    "modName": "Iron's Spells 'n Spellbooks",
+    "action": "Spellbook Cast"
+  },
+  {
+    "category": "key.jei.bookmark",
+    "key": "A",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Bookmark"
+  },
+  {
+    "category": "key.jei.cheatItemStack",
+    "key": "Shift + Mouse Left Click",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Cheat Item Stack"
+  },
+  {
+    "category": "key.jei.cheatItemStack2",
+    "key": "Mouse Middle Click",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Cheat Item Stack2"
+  },
+  {
+    "category": "key.jei.cheatOneItem",
+    "key": "Mouse Left Click",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Cheat One Item"
+  },
+  {
+    "category": "key.jei.cheatOneItem2",
+    "key": "Mouse Right Click",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Cheat One Item2"
+  },
+  {
+    "category": "key.jei.clearSearchBar",
+    "key": "Mouse Right Click",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Clear Search Bar"
+  },
+  {
+    "category": "key.jei.closeRecipeGui",
+    "key": "Escape",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Close Recipe Gui"
+  },
+  {
+    "category": "key.jei.focusSearch",
+    "key": "Ctrl + F",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Focus Search"
+  },
+  {
+    "category": "key.jei.nextCategory",
+    "key": "Shift + Page Down",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Next Category"
+  },
+  {
+    "category": "key.jei.nextRecipePage",
+    "key": "Page Down",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Next Recipe Page"
+  },
+  {
+    "category": "key.jei.nextSearch",
+    "key": "Down",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Next Search"
+  },
+  {
+    "category": "key.jei.previousCategory",
+    "key": "Shift + Page Up",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Previous Category"
+  },
+  {
+    "category": "key.jei.previousRecipePage",
+    "key": "Page Up",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Previous Recipe Page"
+  },
+  {
+    "category": "key.jei.previousSearch",
+    "key": "Up",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Previous Search"
+  },
+  {
+    "category": "key.jei.recipeBack",
+    "key": "Backspace",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Recipe Back"
+  },
+  {
+    "category": "key.jei.showRecipe",
+    "key": "R",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Show Recipe"
+  },
+  {
+    "category": "key.jei.showRecipe2",
+    "key": "Mouse Left Click",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Show Recipe2"
+  },
+  {
+    "category": "key.jei.showUses",
+    "key": "U",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Show Uses"
+  },
+  {
+    "category": "key.jei.showUses2",
+    "key": "Mouse Right Click",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Show Uses2"
+  },
+  {
+    "category": "key.jei.toggleCheatModeConfigButton",
+    "key": "Ctrl + Mouse Left Click",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Toggle Cheat Mode Config Button"
+  },
+  {
+    "category": "key.jei.toggleHideIngredient",
+    "key": "Ctrl + Mouse Left Click",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Toggle Hide Ingredient"
+  },
+  {
+    "category": "key.jei.toggleOverlay",
+    "key": "Ctrl + O",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Toggle Overlay"
+  },
+  {
+    "category": "key.jei.toggleWildcardHideIngredient",
+    "key": "Ctrl + Mouse Right Click",
+    "modId": "jei",
+    "modName": "Just Enough Items",
+    "action": "Toggle Wildcard Hide Ingredient"
+  },
+  {
+    "category": "key.l2mods.down",
+    "key": "Down",
+    "modId": null,
+    "modName": "L2 Mods",
+    "action": "L2mods Down"
+  },
+  {
+    "category": "key.l2mods.left",
+    "key": "Left Click",
+    "modId": null,
+    "modName": "L2 Mods",
+    "action": "L2mods Left"
+  },
+  {
+    "category": "key.l2mods.right",
+    "key": "Right Click",
+    "modId": null,
+    "modName": "L2 Mods",
+    "action": "L2mods Right"
+  },
+  {
+    "category": "key.l2mods.swap",
+    "key": "R",
+    "modId": null,
+    "modName": "L2 Mods",
+    "action": "L2mods Swap"
+  },
+  {
+    "category": "key.l2mods.up",
+    "key": "Up",
+    "modId": null,
+    "modName": "L2 Mods",
+    "action": "L2mods Up"
+  },
+  {
+    "category": "key.lightoverlay.enable_overlay",
+    "key": "F7",
+    "modId": "lightoverlay",
+    "modName": "Light Overlay",
+    "action": "Enable Overlay"
+  },
+  {
+    "category": "keybind.luggage.call",
+    "key": "`",
+    "modId": "luggage",
+    "modName": "Luggage",
+    "action": "Bind Call"
+  },
+  {
+    "category": "keybind.luggage.wait",
+    "key": "Alt + `",
+    "modId": "luggage",
+    "modName": "Luggage",
+    "action": "Bind Wait"
+  },
+  {
+    "category": "key.mekanism.chest_mode",
+    "key": "G",
+    "modId": "mekanism",
+    "modName": "Mekanism",
+    "action": "Chest Mode"
+  },
+  {
+    "category": "key.mekanism.description",
+    "key": "Shift + N",
+    "modId": "mekanism",
+    "modName": "Mekanism",
+    "action": "Description"
+  },
+  {
+    "category": "key.mekanism.details",
+    "key": "Left Shift",
+    "modId": "mekanism",
+    "modName": "Mekanism",
+    "action": "Details"
+  },
+  {
+    "category": "key.mekanism.feet_mode",
+    "key": "B",
+    "modId": "mekanism",
+    "modName": "Mekanism",
+    "action": "Feet Mode"
+  },
+  {
+    "category": "key.mekanism.head_mode",
+    "key": "V",
+    "modId": "mekanism",
+    "modName": "Mekanism",
+    "action": "Head Mode"
+  },
+  {
+    "category": "key.mekanism.key_boost",
+    "key": "Left Ctrl",
+    "modId": "mekanism",
+    "modName": "Mekanism",
+    "action": "Key Boost"
+  },
+  {
+    "category": "key.mekanism.key_hud",
+    "key": "H",
+    "modId": "mekanism",
+    "modName": "Mekanism",
+    "action": "Key Hud"
+  },
+  {
+    "category": "key.mekanism.legs_mode",
+    "key": "J",
+    "modId": "mekanism",
+    "modName": "Mekanism",
+    "action": "Legs Mode"
+  },
+  {
+    "category": "key.mekanism.mode",
+    "key": "N",
+    "modId": "mekanism",
+    "modName": "Mekanism",
+    "action": "Mode"
+  },
+  {
+    "category": "key.mekanism.module_tweaker",
+    "key": "\\\\",
+    "modId": "mekanism",
+    "modName": "Mekanism",
+    "action": "Module Tweaker"
+  },
+  {
+    "category": "key.mekanismadditions.voice",
+    "key": "U",
+    "modId": "mekanismadditions",
+    "modName": "Mekanism: Additions",
+    "action": "Voice"
+  },
+  {
+    "category": "key.modularrouters.configure",
+    "key": "C",
+    "modId": "modularrouters",
+    "modName": "Modular Routers",
+    "action": "Configure"
+  },
+  {
+    "category": "key.modularrouters.moduleInfo",
+    "key": "I",
+    "modId": "modularrouters",
+    "modName": "Modular Routers",
+    "action": "Module Info"
+  },
+  {
+    "category": "key.occultism.backpack",
+    "key": "B",
+    "modId": "occultism",
+    "modName": "Occultism",
+    "action": "Backpack"
+  },
+  {
+    "category": "key.occultism.storage_remote",
+    "key": "N",
+    "modId": "occultism",
+    "modName": "Occultism",
+    "action": "Storage Remote"
+  },
+  {
+    "category": "key.questcycle",
+    "key": "M",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Cycle Quest"
+  },
+  {
+    "category": "key.descend",
+    "key": "C",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Descend"
+  },
+  {
+    "category": "key.hover",
+    "key": "H",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Hover"
+  },
+  {
+    "category": "key.nextDestination",
+    "key": "]",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Next Destination"
+  },
+  {
+    "category": "key.nextexternalmove",
+    "key": "B",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Nextexternalmove"
+  },
+  {
+    "category": "key.nextpokemon",
+    "key": "Down",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Nextpokemon"
+  },
+  {
+    "category": "key.openManual",
+    "key": "F1",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Open Manual"
+  },
+  {
+    "category": "key.minmaxoverlay",
+    "key": "P",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Open Party Overlay"
+  },
+  {
+    "category": "key.pokedex",
+    "key": "I",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Open Pokedex"
+  },
+  {
+    "category": "key.questjournal",
+    "key": "N",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Open Quest Journal"
+  },
+  {
+    "category": "key.trainercard",
+    "key": "U",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Open Trainer Card"
+  },
+  {
+    "category": "key.pixelmonoptions",
+    "key": "Numpad 7",
+    "modId": "pixelmon",
+    "modName": "Pixelmon",
+    "action": "Options"
+  },
+  {
+    "category": "key.pcrename",
+    "key": "R",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Pcrename"
+  },
+  {
+    "category": "key.pcsearch",
+    "key": "S",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Pcsearch"
+  },
+  {
+    "category": "key.pcwallpaper",
+    "key": "W",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Pcwallpaper"
+  },
+  {
+    "category": "key.pokemonaction",
+    "key": "V",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Pokemonaction"
+  },
+  {
+    "category": "key.pokemonexternal",
+    "key": "G",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Pokemonexternal"
+  },
+  {
+    "category": "key.prevDestination",
+    "key": "[",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Prev Destination"
+  },
+  {
+    "category": "key.previouspokemon",
+    "key": "Up",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Previouspokemon"
+  },
+  {
+    "category": "key.sendpokemon",
+    "key": "R",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Send Out Pokemon"
+  },
+  {
+    "category": "key.spectateBattle",
+    "key": "Y",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Spectate Battle"
+  },
+  {
+    "category": "key.unmountVehicle",
+    "key": "\\\\",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Unmount Vehicle"
+  },
+  {
+    "category": "key.wiki",
+    "key": "K",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "Wiki"
+  },
+  {
+    "category": "placebo.toggleTrails",
+    "key": "Numpad 9",
+    "modId": "placebo",
+    "modName": "Placebo",
+    "action": "Toggle Trails"
+  },
+  {
+    "category": "placebo.toggleWings",
+    "key": "Numpad 8",
+    "modId": "placebo",
+    "modName": "Placebo",
+    "action": "Toggle Wings"
+  },
+  {
+    "category": "pneumaticcraft.armor.options",
+    "key": "U",
+    "modId": "pneumaticcraft",
+    "modName": "PneumaticCraft: Repressurized",
+    "action": "Armor Options"
+  },
+  {
+    "category": "pneumaticcraft.boots.jet_boots",
+    "key": "Space",
+    "modId": "pneumaticcraft",
+    "modName": "PneumaticCraft: Repressurized",
+    "action": "Boots Jet Boots"
+  },
+  {
+    "category": "pneumaticcraft.boots.kick",
+    "key": "Ctrl + X",
+    "modId": "pneumaticcraft",
+    "modName": "PneumaticCraft: Repressurized",
+    "action": "Boots Kick"
+  },
+  {
+    "category": "pneumaticcraft.chestplate.launcher",
+    "key": "Ctrl + C",
+    "modId": "pneumaticcraft",
+    "modName": "PneumaticCraft: Repressurized",
+    "action": "Chestplate Launcher"
+  },
+  {
+    "category": "pneumaticcraft.helmet.debugging.drone",
+    "key": "Y",
+    "modId": "pneumaticcraft",
+    "modName": "PneumaticCraft: Repressurized",
+    "action": "Helmet Debugging Drone"
+  },
+  {
+    "category": "pneumaticcraft.helmet.hack",
+    "key": "H",
+    "modId": "pneumaticcraft",
+    "modName": "PneumaticCraft: Repressurized",
+    "action": "Helmet Hack"
+  },
+  {
+    "category": "key.railcraft.change_aura",
+    "key": "G",
+    "modId": "railcraft",
+    "modName": "Railcraft Reborn",
+    "action": "Change Aura"
+  },
+  {
+    "category": "key.rebornstorage.openWirelessCraftingGrid",
+    "key": "Ctrl + G",
+    "modId": "rebornstorage",
+    "modName": "RebornStorage",
+    "action": "Open Wireless Crafting Grid"
+  },
+  {
+    "category": "key.rebornstorage.switchModeWirelessCraftingGrid",
+    "key": "Ctrl + G",
+    "modId": "rebornstorage",
+    "modName": "RebornStorage",
+    "action": "Switch Mode Wireless Crafting Grid"
+  },
+  {
+    "category": "key.refinedstorage.clearGridCraftingMatrix",
+    "key": "Ctrl + X",
+    "modId": "refinedstorage",
+    "modName": "Refined Storage",
+    "action": "Clear Grid Crafting Matrix"
+  },
+  {
+    "category": "key.refinedstorage.focusSearchBar",
+    "key": "Tab",
+    "modId": "refinedstorage",
+    "modName": "Refined Storage",
+    "action": "Focus Search Bar"
+  },
+  {
+    "category": "key.refinedstorageaddons.openWirelessCraftingGrid",
+    "key": "Ctrl + G",
+    "modId": "refinedstorageaddons",
+    "modName": "Refined Storage Addons",
+    "action": "Open Wireless Crafting Grid"
+  },
+  {
+    "category": "key.shetiphiancore.tool.next",
+    "key": "Page Up",
+    "modId": "shetiphiancore",
+    "modName": "ShetiPhian-Core",
+    "action": "Tool Next"
+  },
+  {
+    "category": "key.shetiphiancore.tool.previous",
+    "key": "Page Down",
+    "modId": "shetiphiancore",
+    "modName": "ShetiPhian-Core",
+    "action": "Tool Previous"
+  },
+  {
+    "category": "key.shrink.shrink",
+    "key": "G",
+    "modId": "shrink",
+    "modName": "Shrink",
+    "action": "Shrink"
+  },
+  {
+    "category": "key.inventorysorter.itemin",
+    "key": "Mouse 100",
+    "modId": "inventorysorter",
+    "modName": "Simple Inventory Sorter",
+    "action": "Itemin"
+  },
+  {
+    "category": "key.inventorysorter.itemout",
+    "key": "Mouse 102",
+    "modId": "inventorysorter",
+    "modName": "Simple Inventory Sorter",
+    "action": "Itemout"
+  },
+  {
+    "category": "key.inventorysorter.sort",
+    "key": "Mouse Middle Click",
+    "modId": "inventorysorter",
+    "modName": "Simple Inventory Sorter",
+    "action": "Sort"
+  },
+  {
+    "category": "simplemagnets.keys.toggle",
+    "key": "H",
+    "modId": "simplemagnets",
+    "modName": "Simple Magnets",
+    "action": "Keys Toggle"
+  },
+  {
+    "category": "keybind.sophisticatedbackpacks.inventory_interaction",
+    "key": "C",
+    "modId": "sophisticatedbackpacks",
+    "modName": "Sophisticated Backpacks",
+    "action": "Bind Inventory Interaction"
+  },
+  {
+    "category": "keybind.sophisticatedbackpacks.open_backpack",
+    "key": "B",
+    "modId": "sophisticatedbackpacks",
+    "modName": "Sophisticated Backpacks",
+    "action": "Bind Open Backpack"
+  },
+  {
+    "category": "keybind.sophisticatedbackpacks.sort",
+    "key": "Mouse Middle Click",
+    "modId": "sophisticatedbackpacks",
+    "modName": "Sophisticated Backpacks",
+    "action": "Bind Sort"
+  },
+  {
+    "category": "keybind.sophisticatedbackpacks.toggle_upgrade_1",
+    "key": "Alt + Z",
+    "modId": "sophisticatedbackpacks",
+    "modName": "Sophisticated Backpacks",
+    "action": "Bind Toggle Upgrade 1"
+  },
+  {
+    "category": "keybind.sophisticatedbackpacks.toggle_upgrade_2",
+    "key": "Alt + X",
+    "modId": "sophisticatedbackpacks",
+    "modName": "Sophisticated Backpacks",
+    "action": "Bind Toggle Upgrade 2"
+  },
+  {
+    "category": "keybind.sophisticatedstorage.sort",
+    "key": "Mouse Middle Click",
+    "modId": "sophisticatedstorage",
+    "modName": "Sophisticated Storage",
+    "action": "Bind Sort"
+  },
+  {
+    "category": "key.structurize.mirror",
+    "key": "M",
+    "modId": "structurize",
+    "modName": "Structurize",
+    "action": "Mirror"
+  },
+  {
+    "category": "key.structurize.move_back",
+    "key": "Down",
+    "modId": "structurize",
+    "modName": "Structurize",
+    "action": "Move Back"
+  },
+  {
+    "category": "key.structurize.move_down",
+    "key": "Numpad subtract",
+    "modId": "structurize",
+    "modName": "Structurize",
+    "action": "Move Down"
+  },
+  {
+    "category": "key.structurize.move_forward",
+    "key": "Up",
+    "modId": "structurize",
+    "modName": "Structurize",
+    "action": "Move Forward"
+  },
+  {
+    "category": "key.structurize.move_left",
+    "key": "Left Click",
+    "modId": "structurize",
+    "modName": "Structurize",
+    "action": "Move Left"
+  },
+  {
+    "category": "key.structurize.move_right",
+    "key": "Right Click",
+    "modId": "structurize",
+    "modName": "Structurize",
+    "action": "Move Right"
+  },
+  {
+    "category": "key.structurize.move_up",
+    "key": "Numpad add",
+    "modId": "structurize",
+    "modName": "Structurize",
+    "action": "Move Up"
+  },
+  {
+    "category": "key.structurize.place",
+    "key": "Enter",
+    "modId": "structurize",
+    "modName": "Structurize",
+    "action": "Place"
+  },
+  {
+    "category": "key.structurize.rotate_ccw",
+    "key": "Shift + Left Click",
+    "modId": "structurize",
+    "modName": "Structurize",
+    "action": "Rotate Ccw"
+  },
+  {
+    "category": "key.structurize.rotate_cw",
+    "key": "Shift + Right Click",
+    "modId": "structurize",
+    "modName": "Structurize",
+    "action": "Rotate Cw"
+  },
+  {
+    "category": "supplementaries.keybind.quiver",
+    "key": "V",
+    "modId": "supplementaries",
+    "modName": "Supplementaries",
+    "action": "Keybind Quiver"
+  },
+  {
+    "category": "key.tempad.favorite",
+    "key": "G",
+    "modId": "tempad",
+    "modName": "Tempad",
+    "action": "Favorite"
+  },
+  {
+    "category": "key.tempad.shortcut",
+    "key": "B",
+    "modId": "tempad",
+    "modName": "Tempad",
+    "action": "Shortcut"
+  },
+  {
+    "category": "key.aether.gravitite_jump_ability.desc",
+    "key": "Space",
+    "modId": "aether",
+    "modName": "The Aether",
+    "action": "Gravitite Jump Ability Desc"
+  },
+  {
+    "category": "key.aether.invisibility_toggle.desc",
+    "key": "V",
+    "modId": "aether",
+    "modName": "The Aether",
+    "action": "Invisibility Toggle Desc"
+  },
+  {
+    "category": "key.aether.open_accessories.desc",
+    "key": "I",
+    "modId": "aether",
+    "modName": "The Aether",
+    "action": "Open Accessories Desc"
+  },
+  {
+    "category": "key.curiotiab.hide",
+    "key": "H",
+    "modId": "curiotiab",
+    "modName": "Time in a bottle Curio Support",
+    "action": "Hide"
+  },
+  {
+    "category": "key.curiotiab.use",
+    "key": "G",
+    "modId": "curiotiab",
+    "modName": "Time in a bottle Curio Support",
+    "action": "Use"
+  },
+  {
+    "category": "key.toastcontrol.clear",
+    "key": "J",
+    "modId": "toastcontrol",
+    "modName": "Toast Control",
+    "action": "Clear"
+  },
+  {
+    "category": "keys.vampirism.select_skills",
+    "key": "Numpad 4",
+    "modId": "vampirism",
+    "modName": "Vampirism",
+    "action": "S Select Skills"
+  },
+  {
+    "category": "keys.werewolves.leap",
+    "key": "Numpad 6",
+    "modId": "werewolves",
+    "modName": "Werewolves",
+    "action": "S Leap"
+  },
+  {
+    "category": "key.xycraft_core.modifier_key",
+    "key": "Left Ctrl",
+    "modId": "xycraft_core",
+    "modName": "XyCraft: Core",
+    "action": "Modifier Key"
+  },
+  {
+    "category": "key.weaponmaster_ydm.opengui",
+    "key": "V",
+    "modId": "weaponmaster_ydm",
+    "modName": "YDM's Weapon Master",
+    "action": "Opengui"
+  }
+]

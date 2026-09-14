@@ -82,6 +82,19 @@ app.use('/updates/assets/*', serveStatic({
   rewriteRequestPath: p => p.replace('/updates/assets', ''),
 }))
 
+// Full mod list + keybind reference, generated from the actual installed
+// mods (mods.toml metadata + options.txt) rather than hand-maintained, so it
+// won't drift as mods get added/removed. Same public, no-auth treatment as
+// the update pages above.
+app.get('/updates/mods', async c => {
+  const html = await readFile('./public/updates/mods.html', 'utf8')
+  return c.html(html)
+})
+app.use('/updates/mods-assets/*', serveStatic({
+  root: './public/updates/mods-assets',
+  rewriteRequestPath: p => p.replace('/updates/mods-assets', ''),
+}))
+
 // Machine-to-machine: the Crosstalk bridge POSTs its health snapshot here.
 // Bearer-authenticated, outside the sign-in gate.
 app.post(`${B}/api/status/crosstalk`, async c => {

@@ -335,6 +335,34 @@
   .keybind-table td.mod { color: var(--text-1); font-weight: 600; }
   .keybind-table td.desc { color: var(--text-2); }
 
+  .mods-link {
+    margin-top: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px 30px;
+  }
+  .mods-link h4 { margin: 0 0 6px; font-size: 17px; font-weight: 700; color: var(--text-0); }
+  .mods-link p { margin: 0; font-size: 14px; color: var(--text-2); }
+  .mods-link a {
+    flex-shrink: 0;
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 10px;
+    background: var(--cyan);
+    color: var(--bg-0);
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .mods-link a:hover { opacity: 0.9; }
+
   footer {
     margin-top: 110px;
     padding: 48px 20px 60px;
@@ -583,6 +611,14 @@
           <tr><td class="key">P</td><td class="mod">Pixelmon</td><td class="desc">Open the Pixelmon party overlay</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="mods-link">
+      <div>
+        <h4>Looking for the full picture?</h4>
+        <p>See every mod currently installed in the pack, and every keybind, on one page.</p>
+      </div>
+      <a href="/updates/mods">View Full Mod List &amp; Keybinds</a>
     </div>
 
   </div>
