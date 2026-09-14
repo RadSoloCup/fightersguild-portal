@@ -201,6 +201,83 @@
   }
   .lib-note strong { color: var(--text-2); }
 
+  .spotlight {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 0;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .spotlight .shot { min-height: 260px; overflow: hidden; background: var(--bg-3); }
+  .spotlight .shot img { width: 100%; height: 100%; object-fit: cover; }
+  .spotlight .copy { padding: 40px 44px; display: flex; flex-direction: column; justify-content: center; }
+  .spotlight .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    background: hsla(192, 85%, 60%, 0.1);
+    border: 1px solid var(--border-hi);
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  .spotlight h3 {
+    margin: 0 0 14px;
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--text-0);
+  }
+  .spotlight p { margin: 0; font-size: 15px; color: var(--text-2); }
+  .spotlight .icon-row { display: flex; align-items: center; gap: 14px; margin-bottom: 4px; }
+  .spotlight .icon-row img { width: 48px; height: 48px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-1); padding: 5px; }
+  @media (max-width: 720px) {
+    .spotlight { grid-template-columns: 1fr; }
+    .spotlight .shot { min-height: 200px; }
+    .spotlight .copy { padding: 30px 26px; }
+  }
+
+  .bp-section {
+    background: linear-gradient(160deg, hsla(28, 90%, 50%, 0.10), var(--bg-2) 55%);
+    border: 1px solid hsla(28, 80%, 55%, 0.28);
+    border-radius: 16px;
+    padding: 44px;
+  }
+  .bp-head { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
+  .bp-emoji { font-size: 34px; line-height: 1; }
+  .bp-head h3 { margin: 0; font-size: 26px; font-weight: 800; color: var(--text-0); }
+  .bp-dates {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: hsl(32, 90%, 68%);
+    background: hsla(28, 90%, 55%, 0.14);
+    border: 1px solid hsla(28, 80%, 55%, 0.32);
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+  .bp-section > p.intro { font-size: 15.5px; color: var(--text-2); margin: 0 0 28px; max-width: 700px; }
+  .bp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 18px;
+  }
+  .bp-stat {
+    background: var(--bg-1);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .bp-stat .n { font-size: 24px; font-weight: 800; color: hsl(32, 90%, 68%); margin-bottom: 4px; }
+  .bp-stat .l { font-size: 13.5px; color: var(--text-2); }
+
   .fix-list {
     background: var(--bg-2);
     border: 1px solid var(--border);
@@ -277,13 +354,27 @@
     <h1>A New Chapter of<br>Magic and Monsters</h1>
     <div class="version">UPDATE 1.3</div>
     <p class="tagline">
-      Eight new mods, a cleaner client, and a stack of fixes. Here is everything
-      that changed in this update.
+      Eight new mods, a live Pixelmon battlepass, and a stack of fixes. Here is
+      everything that changed in this update.
     </p>
     <div class="download-slot" id="download-slot"></div>
   </div>
 
   <div class="wrap">
+
+    <div class="spotlight" style="margin-top: 64px;">
+      <div class="shot"><img src="assets/pixelmon-gallery.webp" alt="Pixelmon screenshot" loading="lazy"></div>
+      <div class="copy">
+        <span class="badge">Core Mod</span>
+        <div class="icon-row"><img src="assets/pixelmon-icon.webp" alt="Pixelmon icon"></div>
+        <h3>Built on Pixelmon</h3>
+        <p>The heart of the pack. Pixelmon brings the actual Pokemon into Minecraft: catching,
+        battling, trading, and breeding, plus its own items like Poke Balls and TMs and new
+        resources to find out in the world. Most of the fixes and content in this update exist
+        to make Pixelmon run better alongside everything else in the pack, from the interface
+        cleanup below to the Pokemon themed battlepass rewards.</p>
+      </div>
+    </div>
 
     <div class="section-head">
       <div class="kicker">New Content</div>
@@ -399,6 +490,31 @@
       in play: <strong>Lodestone</strong> (used by Malum and Goety) and
       <strong>MUtil</strong> (used by Tetra).
     </p>
+
+    <div class="section-head">
+      <div class="kicker">Seasonal Event</div>
+      <h2>Battlepass</h2>
+      <p>A free, level based battlepass is live for everyone. No purchase, just play and earn.</p>
+    </div>
+
+    <div class="bp-section">
+      <div class="bp-head">
+        <span class="bp-emoji">&#127875;</span>
+        <h3>Trick or Trainer</h3>
+        <span class="bp-dates">Sep 13, 2026 to Dec 13, 2026</span>
+      </div>
+      <p class="intro">
+        Halloween themed zombie hordes and a full Pokemon prize track. Every level pays out
+        Pixelmon items instead of the usual vanilla loot: Poke Balls, potions, rare candy,
+        evolution stones, and more, building up to Master Balls at the top level.
+      </p>
+      <div class="bp-grid">
+        <div class="bp-stat"><div class="n">30 Levels</div><div class="l">Full reward track for the season, earned through normal play.</div></div>
+        <div class="bp-stat"><div class="n">Zombie Hordes</div><div class="l">A horde event every 7 days with a 12x spawn rate while it's active.</div></div>
+        <div class="bp-stat"><div class="n">Daily Rewards</div><div class="l">Log in each day for a rotating Pixelmon item bonus.</div></div>
+        <div class="bp-stat"><div class="n">Master Balls</div><div class="l">Level 30 pays out 2 Master Balls plus a stack of rare candy.</div></div>
+      </div>
+    </div>
 
     <div class="section-head">
       <div class="kicker">Under The Hood</div>
