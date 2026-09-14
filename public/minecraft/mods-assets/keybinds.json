@@ -781,7 +781,7 @@
     "key": "Down",
     "modId": null,
     "modName": "Pixelmon",
-    "action": "Nextpokemon"
+    "action": "Next Pixelmon"
   },
   {
     "category": "key.openManual",
@@ -851,14 +851,14 @@
     "key": "V",
     "modId": null,
     "modName": "Pixelmon",
-    "action": "Pokemonaction"
+    "action": "Pixelmon Action"
   },
   {
     "category": "key.pokemonexternal",
     "key": "G",
     "modId": null,
     "modName": "Pixelmon",
-    "action": "Pokemonexternal"
+    "action": "External Pixelmon"
   },
   {
     "category": "key.prevDestination",
@@ -872,14 +872,14 @@
     "key": "Up",
     "modId": null,
     "modName": "Pixelmon",
-    "action": "Previouspokemon"
+    "action": "Previous Pixelmon"
   },
   {
     "category": "key.sendpokemon",
     "key": "R",
     "modId": null,
     "modName": "Pixelmon",
-    "action": "Send Out Pokemon"
+    "action": "Send Out Pixelmon"
   },
   {
     "category": "key.spectateBattle",
