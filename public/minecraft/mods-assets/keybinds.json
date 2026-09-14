@@ -4,21 +4,21 @@
     "key": "R",
     "modId": "ad_astra",
     "modName": "Ad Astra",
-    "action": "Open Radio"
+    "action": "Ad Astra Open Radio"
   },
   {
     "category": "key.ad_astra.toggle_suit_flight",
     "key": "V",
     "modId": "ad_astra",
     "modName": "Ad Astra",
-    "action": "Toggle Suit Flight"
+    "action": "Ad Astra Toggle Suit Flight"
   },
   {
     "category": "keybind.advancedperipherals.description",
     "key": "Left Ctrl",
     "modId": "advancedperipherals",
     "modName": "Advanced Peripherals",
-    "action": "Bind Description"
+    "action": "Description"
   },
   {
     "category": "key.apotheosis.toggle_radial_mining",
@@ -39,35 +39,35 @@
     "key": "G",
     "modId": "ars_nouveau",
     "modName": "Ars Nouveau",
-    "action": "Head Curio Hotkey"
+    "action": "Ars Nouveau Head Curio Hotkey"
   },
   {
     "category": "key.ars_nouveau.next_slot",
     "key": "X",
     "modId": "ars_nouveau",
     "modName": "Ars Nouveau",
-    "action": "Next Slot"
+    "action": "Ars Nouveau Next Slot"
   },
   {
     "category": "key.ars_nouveau.open_book",
     "key": "C",
     "modId": "ars_nouveau",
     "modName": "Ars Nouveau",
-    "action": "Open Book"
+    "action": "Ars Nouveau Open Book"
   },
   {
     "category": "key.ars_nouveau.previous_slot",
     "key": "Z",
     "modId": "ars_nouveau",
     "modName": "Ars Nouveau",
-    "action": "Previous Slot"
+    "action": "Ars Nouveau Previous Slot"
   },
   {
     "category": "key.ars_nouveau.selection_hud",
     "key": "V",
     "modId": "ars_nouveau",
     "modName": "Ars Nouveau",
-    "action": "Selection Hud"
+    "action": "Ars Nouveau Selection Hud"
   },
   {
     "category": "key.botania_corporea_request",
@@ -123,42 +123,42 @@
     "key": "Ctrl + R",
     "modId": "chiselsandbits",
     "modName": "chisels-and-bits",
-    "action": "Keys Key Measuring Tape Reset"
+    "action": "Measuring Tape Reset"
   },
   {
     "category": "mod.chiselsandbits.keys.key.modded-tool.open",
     "key": "R",
     "modId": "chiselsandbits",
     "modName": "chisels-and-bits",
-    "action": "Keys Key Modded Tool Open"
+    "action": "Modded Tool Open"
   },
   {
     "category": "mod.chiselsandbits.keys.key.redo",
     "key": "Ctrl + Y",
     "modId": "chiselsandbits",
     "modName": "chisels-and-bits",
-    "action": "Keys Key Redo"
-  },
-  {
-    "category": "mod.chiselsandbits.keys.key.undo",
-    "key": "Ctrl + Z",
-    "modId": "chiselsandbits",
-    "modName": "chisels-and-bits",
-    "action": "Keys Key Undo"
-  },
-  {
-    "category": "mod.chiselsandbits.keys.key.zoom",
-    "key": "Z",
-    "modId": "chiselsandbits",
-    "modName": "chisels-and-bits",
-    "action": "Keys Key Zoom"
+    "action": "Redo"
   },
   {
     "category": "mod.chiselsandbits.keys.reset-caches",
     "key": "C",
     "modId": "chiselsandbits",
     "modName": "chisels-and-bits",
-    "action": "Keys Reset Caches"
+    "action": "Reset Caches"
+  },
+  {
+    "category": "mod.chiselsandbits.keys.key.undo",
+    "key": "Ctrl + Z",
+    "modId": "chiselsandbits",
+    "modName": "chisels-and-bits",
+    "action": "Undo"
+  },
+  {
+    "category": "mod.chiselsandbits.keys.key.zoom",
+    "key": "Z",
+    "modId": "chiselsandbits",
+    "modName": "chisels-and-bits",
+    "action": "Zoom"
   },
   {
     "category": "key.cofh.mode_change_decrement",
@@ -277,7 +277,7 @@
     "key": "F9",
     "modId": "framedblocks",
     "modName": "FramedBlocks",
-    "action": "Key Update Cull"
+    "action": "Update Cull"
   },
   {
     "category": "key.ftbchunks.map",
@@ -375,49 +375,49 @@
     "key": ",",
     "modId": "ironjetpacks",
     "modName": "Iron Jetpacks",
-    "action": "Bind Decrement Throttle"
+    "action": "Decrement Throttle"
   },
   {
     "category": "keybind.ironjetpacks.engine",
     "key": "V",
     "modId": "ironjetpacks",
     "modName": "Iron Jetpacks",
-    "action": "Bind Engine"
+    "action": "Engine"
   },
   {
     "category": "keybind.ironjetpacks.hover",
     "key": "H",
     "modId": "ironjetpacks",
     "modName": "Iron Jetpacks",
-    "action": "Bind Hover"
+    "action": "Hover"
   },
   {
     "category": "keybind.ironjetpacks.increment_throttle",
     "key": ".",
     "modId": "ironjetpacks",
     "modName": "Iron Jetpacks",
-    "action": "Bind Increment Throttle"
+    "action": "Increment Throttle"
   },
   {
     "category": "key.irons_spellbooks.spell_bar_modifier",
     "key": "Left Alt",
     "modId": "irons_spellbooks",
     "modName": "Iron's Spells 'n Spellbooks",
-    "action": "Spell Bar Modifier"
+    "action": "Irons Spellbooks Spell Bar Modifier"
   },
   {
     "category": "key.irons_spellbooks.spell_wheel",
     "key": "R",
     "modId": "irons_spellbooks",
     "modName": "Iron's Spells 'n Spellbooks",
-    "action": "Spell Wheel"
+    "action": "Irons Spellbooks Spell Wheel"
   },
   {
     "category": "key.irons_spellbooks.spellbook_cast",
     "key": "V",
     "modId": "irons_spellbooks",
     "modName": "Iron's Spells 'n Spellbooks",
-    "action": "Spellbook Cast"
+    "action": "Irons Spellbooks Spellbook Cast"
   },
   {
     "category": "key.jei.bookmark",
@@ -627,14 +627,21 @@
     "key": "`",
     "modId": "luggage",
     "modName": "Luggage",
-    "action": "Bind Call"
+    "action": "Call"
   },
   {
     "category": "keybind.luggage.wait",
     "key": "Alt + `",
     "modId": "luggage",
     "modName": "Luggage",
-    "action": "Bind Wait"
+    "action": "Wait"
+  },
+  {
+    "category": "key.mekanism.key_boost",
+    "key": "Left Ctrl",
+    "modId": "mekanism",
+    "modName": "Mekanism",
+    "action": "Boost"
   },
   {
     "category": "key.mekanism.chest_mode",
@@ -672,18 +679,11 @@
     "action": "Head Mode"
   },
   {
-    "category": "key.mekanism.key_boost",
-    "key": "Left Ctrl",
-    "modId": "mekanism",
-    "modName": "Mekanism",
-    "action": "Key Boost"
-  },
-  {
     "category": "key.mekanism.key_hud",
     "key": "H",
     "modId": "mekanism",
     "modName": "Mekanism",
-    "action": "Key Hud"
+    "action": "Hud"
   },
   {
     "category": "key.mekanism.legs_mode",
@@ -756,6 +756,20 @@
     "action": "Descend"
   },
   {
+    "category": "key.nextexternalmove",
+    "key": "B",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "External Move"
+  },
+  {
+    "category": "key.pokemonexternal",
+    "key": "G",
+    "modId": null,
+    "modName": "Pixelmon",
+    "action": "External Pixelmon"
+  },
+  {
     "category": "key.hover",
     "key": "H",
     "modId": null,
@@ -768,13 +782,6 @@
     "modId": null,
     "modName": "Pixelmon",
     "action": "Next Destination"
-  },
-  {
-    "category": "key.nextexternalmove",
-    "key": "B",
-    "modId": null,
-    "modName": "Pixelmon",
-    "action": "Nextexternalmove"
   },
   {
     "category": "key.nextpokemon",
@@ -819,13 +826,6 @@
     "action": "Open Trainer Card"
   },
   {
-    "category": "key.pixelmonoptions",
-    "key": "Numpad 7",
-    "modId": "pixelmon",
-    "modName": "Pixelmon",
-    "action": "Options"
-  },
-  {
     "category": "key.pcrename",
     "key": "R",
     "modId": null,
@@ -854,11 +854,11 @@
     "action": "Pixelmon Action"
   },
   {
-    "category": "key.pokemonexternal",
-    "key": "G",
-    "modId": null,
+    "category": "key.pixelmonoptions",
+    "key": "Numpad 7",
+    "modId": "pixelmon",
     "modName": "Pixelmon",
-    "action": "External Pixelmon"
+    "action": "Pixelmonoptions"
   },
   {
     "category": "key.prevDestination",
@@ -1019,7 +1019,7 @@
     "key": "G",
     "modId": "shrink",
     "modName": "Shrink",
-    "action": "Shrink"
+    "action": "key.shrink.shrink"
   },
   {
     "category": "key.inventorysorter.itemin",
@@ -1047,49 +1047,49 @@
     "key": "H",
     "modId": "simplemagnets",
     "modName": "Simple Magnets",
-    "action": "Keys Toggle"
+    "action": "Toggle"
   },
   {
     "category": "keybind.sophisticatedbackpacks.inventory_interaction",
     "key": "C",
     "modId": "sophisticatedbackpacks",
     "modName": "Sophisticated Backpacks",
-    "action": "Bind Inventory Interaction"
+    "action": "Inventory Interaction"
   },
   {
     "category": "keybind.sophisticatedbackpacks.open_backpack",
     "key": "B",
     "modId": "sophisticatedbackpacks",
     "modName": "Sophisticated Backpacks",
-    "action": "Bind Open Backpack"
+    "action": "Open Backpack"
   },
   {
     "category": "keybind.sophisticatedbackpacks.sort",
     "key": "Mouse Middle Click",
     "modId": "sophisticatedbackpacks",
     "modName": "Sophisticated Backpacks",
-    "action": "Bind Sort"
+    "action": "Sort"
   },
   {
     "category": "keybind.sophisticatedbackpacks.toggle_upgrade_1",
     "key": "Alt + Z",
     "modId": "sophisticatedbackpacks",
     "modName": "Sophisticated Backpacks",
-    "action": "Bind Toggle Upgrade 1"
+    "action": "Toggle Upgrade 1"
   },
   {
     "category": "keybind.sophisticatedbackpacks.toggle_upgrade_2",
     "key": "Alt + X",
     "modId": "sophisticatedbackpacks",
     "modName": "Sophisticated Backpacks",
-    "action": "Bind Toggle Upgrade 2"
+    "action": "Toggle Upgrade 2"
   },
   {
     "category": "keybind.sophisticatedstorage.sort",
     "key": "Mouse Middle Click",
     "modId": "sophisticatedstorage",
     "modName": "Sophisticated Storage",
-    "action": "Bind Sort"
+    "action": "Sort"
   },
   {
     "category": "key.structurize.mirror",
@@ -1166,7 +1166,7 @@
     "key": "V",
     "modId": "supplementaries",
     "modName": "Supplementaries",
-    "action": "Keybind Quiver"
+    "action": "Quiver"
   },
   {
     "category": "key.tempad.favorite",
@@ -1229,27 +1229,27 @@
     "key": "Numpad 4",
     "modId": "vampirism",
     "modName": "Vampirism",
-    "action": "S Select Skills"
+    "action": "Select Skills"
   },
   {
     "category": "keys.werewolves.leap",
     "key": "Numpad 6",
     "modId": "werewolves",
     "modName": "Werewolves",
-    "action": "S Leap"
+    "action": "Leap"
   },
   {
     "category": "key.xycraft_core.modifier_key",
     "key": "Left Ctrl",
     "modId": "xycraft_core",
     "modName": "XyCraft: Core",
-    "action": "Modifier Key"
+    "action": "Xycraft Core Modifier"
   },
   {
     "category": "key.weaponmaster_ydm.opengui",
     "key": "V",
     "modId": "weaponmaster_ydm",
     "modName": "YDM's Weapon Master",
-    "action": "Opengui"
+    "action": "Weaponmaster Ydm Opengui"
   }
 ]
