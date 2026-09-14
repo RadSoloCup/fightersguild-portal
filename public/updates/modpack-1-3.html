@@ -105,6 +105,26 @@
 
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
 
+  .tabbar {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    padding: 0 20px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border);
+  }
+  .tabbar a {
+    color: var(--text-3);
+    text-decoration: none;
+    font-size: 14.5px;
+    font-weight: 700;
+    padding: 16px 22px;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+  .tabbar a:hover { color: var(--text-1); }
+  .tabbar a.active { color: var(--text-0); border-bottom-color: var(--cyan); }
+
   .section-head {
     text-align: center;
     margin: 96px 0 48px;
@@ -386,6 +406,13 @@
       everything that changed in this update.
     </p>
     <div class="download-slot" id="download-slot"></div>
+  </div>
+
+  <div class="tabbar">
+    <a href="/minecraft#download">Download</a>
+    <a href="/minecraft#updates" class="active">Updates</a>
+    <a href="/minecraft#mods">Mods</a>
+    <a href="/minecraft#keybinds">Keybinds</a>
   </div>
 
   <div class="wrap">
