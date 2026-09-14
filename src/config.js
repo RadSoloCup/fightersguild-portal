@@ -57,6 +57,12 @@ export const config = {
   uploadDir: env.UPLOAD_DIR || '/data/uploads',
   uploadMaxBytes: Number(env.UPLOAD_MAX_BYTES || 8 * 1024 * 1024),
 
+  // Launcher distribution: distribution.json + packaged mod/config files
+  // (built by Nebula). Served unauthenticated at /downloads — the desktop
+  // launcher has no Portal browser session, so this sits outside the sign-in
+  // gate, same trust model as any other unlisted download link.
+  downloadsDir: env.DOWNLOADS_DIR || '/data/launcher-downloads',
+
   // Optional cross-posting to Fluxer via the Portal bot.
   bot: {
     token: env.PORTAL_BOT_TOKEN || null,

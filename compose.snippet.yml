@@ -8,7 +8,8 @@ services:
     restart: unless-stopped
     env_file: ./portal.env
     volumes:
-      - portal-data:/data          # uploaded forum/mission images
+      - portal-data:/data          # uploaded forum/mission images (/data/uploads)
+                                    # + launcher distribution files (/data/launcher-downloads)
     networks:
       fluxer:
         aliases: [portal]

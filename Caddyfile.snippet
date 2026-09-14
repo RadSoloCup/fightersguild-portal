@@ -1,15 +1,20 @@
 # Add this INSIDE the main Fluxer site block, BEFORE the catch-all
 #   `handle { reverse_proxy app-proxy:8080 }`:
 
-	@portal path /portal /portal/*
+	@portal path /portal /portal/* /downloads/*
 	handle @portal {
 		reverse_proxy fightersguild-portal:3000
 	}
 
-# `handle` takes a single matcher, so the two paths go in a named matcher.
+# `handle` takes a single matcher, so the three paths go in a named matcher.
 # The app serves its own pages, static assets (/portal/static/*) and the OAuth
 # callback (/portal/auth/callback) — everything under /portal, with the prefix
 # intact (PORTAL_BASE_PATH=/portal). Do not use handle_path.
+#
+# /downloads/* is separate: it's the launcher's distribution.json + packaged
+# mod/config files, served unauthenticated (no Portal session — the desktop
+# launcher has no browser session to gate on) and deliberately outside the
+# /portal prefix and its sign-in gate.
 #
 # Apply after editing:
 #   docker compose -p <project> exec caddy caddy reload --config /etc/caddy/Caddyfile

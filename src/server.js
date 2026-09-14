@@ -56,6 +56,18 @@ app.get(`${B}/uploads/:name`, async c => {
   } catch { return c.notFound() }
 })
 
+// Launcher distribution: distribution.json + the packaged mod/config files it
+// references (built by Nebula). No portal session required — the desktop
+// launcher has no browser session to gate on, so this is public, same as any
+// other unlisted download link. Uses serveStatic (not readFile) since these
+// files can be GB-scale; serveStatic streams and supports range requests,
+// which readFile-into-memory (as used for small forum image uploads below)
+// would not handle well.
+app.use('/downloads/*', serveStatic({
+  root: config.downloadsDir,
+  rewriteRequestPath: p => p.replace('/downloads', ''),
+}))
+
 // Machine-to-machine: the Crosstalk bridge POSTs its health snapshot here.
 // Bearer-authenticated, outside the sign-in gate.
 app.post(`${B}/api/status/crosstalk`, async c => {
