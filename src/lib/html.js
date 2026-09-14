@@ -50,6 +50,10 @@ export function layout({ title, user, active = '', flash, body, bare = false }) 
     ['missions', 'Missions', `${B}/missions`],
     ['events', 'Events', `${B}/events`],
     ['servers', 'Servers', `${B}/servers`],
+    // Outside the base path and outside the auth gate: /minecraft is a
+    // public page (see server.js) that works without signing in. Listed
+    // here too so signed-in members can find it from the normal nav.
+    ['minecraft', 'Minecraft', '/minecraft'],
   ]
   if (user?.admin) nav.push(['admin', 'Admin', `${B}/admin`])
   return html`<!doctype html>

@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fighters Guild Minecraft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-0: hsl(214, 32%, 4.4%);
+    --bg-1: hsl(213, 38%, 6.2%);
+    --bg-2: hsl(213, 34%, 9.2%);
+    --bg-3: hsl(213, 32%, 12.4%);
+    --text-0: hsl(200, 18%, 95%);
+    --text-1: hsl(202, 16%, 82%);
+    --text-2: hsl(205, 14%, 61%);
+    --text-3: hsl(206, 12%, 46%);
+    --link: hsl(189, 92%, 62%);
+    --brand: hsl(202, 78%, 47%);
+    --cyan: #22d3ee;
+    --success: hsl(155, 64%, 44%);
+    --border: hsla(200, 55%, 62%, 0.16);
+    --border-hi: hsla(192, 85%, 62%, 0.35);
+    --font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { color-scheme: dark; }
+  body { margin: 0; background: var(--bg-0); color: var(--text-1); font-family: var(--font); line-height: 1.55; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  [hidden] { display: none !important; }
+
+  .top {
+    padding: 56px 20px 0;
+    text-align: center;
+    background: radial-gradient(ellipse 900px 400px at 50% -20%, hsla(192, 85%, 55%, 0.14), transparent 60%), var(--bg-1);
+    border-bottom: 1px solid var(--border);
+  }
+  .top .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
+  .top h1 { margin: 0; font-size: clamp(30px, 5vw, 46px); font-weight: 900; color: var(--text-0); letter-spacing: -0.01em; }
+  .top p { max-width: 560px; margin: 16px auto 0; color: var(--text-2); font-size: 15.5px; }
+
+  .tabbar {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 40px;
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+    overflow-x: auto;
+  }
+  .tabbar button {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-3);
+    font-family: var(--font);
+    font-size: 14.5px;
+    font-weight: 700;
+    padding: 14px 22px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .tabbar button:hover { color: var(--text-1); }
+  .tabbar button.active { color: var(--text-0); border-bottom-color: var(--cyan); }
+
+  .panel { padding: 44px 0 40px; }
+
+  /* Download tab */
+  .dl-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px 40px;
+    text-align: center;
+  }
+  .dl-card h2 { margin: 0 0 12px; font-size: 26px; font-weight: 800; color: var(--text-0); }
+  .dl-card p { max-width: 520px; margin: 0 auto 26px; color: var(--text-2); font-size: 15px; }
+  .dl-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: hsl(38, 92%, 65%);
+    background: hsla(38, 92%, 55%, 0.12);
+    border: 1px solid hsla(38, 92%, 55%, 0.32);
+    padding: 6px 14px;
+    border-radius: 999px;
+  }
+  .dl-req {
+    text-align: left;
+    max-width: 480px;
+    margin: 30px auto 0;
+    font-size: 13.5px;
+    color: var(--text-3);
+    border-top: 1px solid var(--border);
+    padding-top: 22px;
+  }
+  .dl-req strong { color: var(--text-2); }
+
+  /* Updates tab (blog style) */
+  .update-post {
+    display: flex;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+  }
+  .update-post:first-child { padding-top: 0; }
+  .update-post:last-child { border-bottom: none; }
+  .update-post .emoji {
+    flex-shrink: 0;
+    width: 56px; height: 56px;
+    border-radius: 12px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+  }
+  .update-post .body h3 { margin: 0 0 4px; font-size: 19px; font-weight: 700; color: var(--text-0); }
+  .update-post .date { font-size: 12.5px; color: var(--text-3); font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .update-post p.excerpt { margin: 0; font-size: 14.5px; color: var(--text-2); }
+  .update-post .read-more { margin-top: 10px; font-size: 13.5px; color: var(--link); font-weight: 600; }
+  .update-post:hover .read-more { text-decoration: underline; }
+
+  /* Mods tab */
+  .search-row { display: flex; gap: 12px; align-items: center; margin-bottom: 22px; flex-wrap: wrap; }
+  .search-row input {
+    flex: 1; min-width: 220px;
+    background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 16px; color: var(--text-0); font-size: 14.5px; font-family: var(--font);
+  }
+  .search-row input:focus { outline: none; border-color: var(--border-hi); }
+  .count { font-size: 13.5px; color: var(--text-3); white-space: nowrap; }
+
+  .mod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .mcard { display: flex; gap: 14px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+  .mcard .logo { flex-shrink: 0; width: 40px; height: 40px; border-radius: 9px; border: 1px solid var(--border); background: var(--bg-1); object-fit: contain; padding: 4px; }
+  .mcard .logo-fallback { flex-shrink: 0; width: 40px; height: 40px; border-radius: 9px; border: 1px solid var(--border); background: var(--bg-1); display: flex; align-items: center; justify-content: center; color: var(--text-3); font-size: 15px; font-weight: 800; }
+  .mcard .body { min-width: 0; }
+  .mcard .name-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 3px; }
+  .mcard h3 { margin: 0; font-size: 14.5px; font-weight: 700; color: var(--text-0); }
+  .mcard .ver { font-size: 11px; color: var(--text-3); font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+  .mcard p { margin: 0; font-size: 12.5px; color: var(--text-2); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+
+  /* Keybinds tab */
+  .kb-table { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--bg-2); }
+  .kb-table table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .kb-table th, .kb-table td { text-align: left; padding: 12px 18px; border-bottom: 1px solid var(--border); }
+  .kb-table th { color: var(--text-3); font-weight: 700; font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .kb-table tr:last-child td { border-bottom: none; }
+  .kb-table td.key { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; color: var(--cyan); font-weight: 600; white-space: nowrap; }
+  .kb-table td.mod { color: var(--text-0); font-weight: 600; }
+  .kb-table td.action { color: var(--text-2); }
+
+  .empty { text-align: center; padding: 60px 20px; color: var(--text-3); }
+
+  footer { margin-top: 20px; padding: 40px 20px 60px; text-align: center; border-top: 1px solid var(--border); color: var(--text-3); font-size: 13.5px; }
+  footer a { color: var(--link); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+  <div class="top">
+    <div class="eyebrow">Fighters Guild</div>
+    <h1>Minecraft</h1>
+    <p>Everything for the Fighters Guild modpack: the launcher, update history, the full mod list, and keybinds.</p>
+  </div>
+
+  <div class="tabbar">
+    <button data-tab="download">Download</button>
+    <button data-tab="updates">Updates</button>
+    <button data-tab="mods">Mods</button>
+    <button data-tab="keybinds">Keybinds</button>
+  </div>
+
+  <div class="wrap">
+
+    <div class="panel" id="panel-download" hidden>
+      <div class="dl-card">
+        <div class="dl-status">Launching Soon</div>
+        <h2 style="margin-top:18px">Modpack Downloader</h2>
+        <p>A lightweight installer that sets up the Fighters Guild modpack over your own official
+        Minecraft install and adds a desktop shortcut to launch it. No extra accounts, no separate
+        launcher. The download link goes here as soon as it's ready.</p>
+        <div class="dl-req">
+          <strong>Before it lands, you'll need:</strong> the official Minecraft Launcher installed
+          and signed in, with vanilla Minecraft 1.20.1 downloaded at least once.
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-updates" hidden>
+      <div id="updates-list"></div>
+      <div class="empty" id="updates-empty" hidden>No updates posted yet.</div>
+    </div>
+
+    <div class="panel" id="panel-mods" hidden>
+      <div class="search-row">
+        <input type="text" id="mod-search" placeholder="Search mods by name or description...">
+        <span class="count" id="mod-count"></span>
+      </div>
+      <div class="mod-grid" id="mod-grid"></div>
+      <div class="empty" id="mod-empty" hidden>No mods match your search.</div>
+    </div>
+
+    <div class="panel" id="panel-keybinds" hidden>
+      <div class="search-row">
+        <input type="text" id="kb-search" placeholder="Search keybinds by mod, action, or key...">
+        <span class="count" id="kb-count"></span>
+      </div>
+      <div class="kb-table">
+        <table>
+          <thead><tr><th>Mod</th><th>Action</th><th>Key</th></tr></thead>
+          <tbody id="kb-body"></tbody>
+        </table>
+      </div>
+      <div class="empty" id="kb-empty" hidden>No keybinds match your search.</div>
+    </div>
+
+  </div>
+
+  <footer>
+    Fighters Guild &middot; <a href="/portal">Back to the Portal</a>
+  </footer>
+
+<script>
+(function () {
+  var TABS = ['download', 'updates', 'mods', 'keybinds']
+  var buttons = document.querySelectorAll('.tabbar button')
+  var panels = {}
+  TABS.forEach(function (t) { panels[t] = document.getElementById('panel-' + t) })
+
+  function showTab(tab) {
+    if (TABS.indexOf(tab) === -1) tab = 'updates'
+    buttons.forEach(function (b) { b.classList.toggle('active', b.dataset.tab === tab) })
+    TABS.forEach(function (t) { panels[t].hidden = t !== tab })
+  }
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      location.hash = b.dataset.tab
+    })
+  })
+  window.addEventListener('hashchange', function () {
+    showTab(location.hash.replace('#', ''))
+  })
+  showTab(location.hash.replace('#', ''))
+
+  function esc(s) {
+    var d = document.createElement('div')
+    d.textContent = s == null ? '' : s
+    return d.innerHTML
+  }
+
+  // Updates (blog style)
+  var updatesList = document.getElementById('updates-list')
+  var updatesEmpty = document.getElementById('updates-empty')
+  fetch('/minecraft/updates-index.json').then(function (r) { return r.json() }).then(function (posts) {
+    if (!posts.length) { updatesEmpty.hidden = false; return }
+    updatesList.innerHTML = posts.map(function (p) {
+      return '<a class="update-post" href="' + esc(p.url) + '">' +
+        '<div class="emoji">' + esc(p.emoji || '\u{1F4E2}') + '</div>' +
+        '<div class="body"><span class="date">' + esc(p.date) + '</span>' +
+        '<h3>' + esc(p.title) + '</h3>' +
+        '<p class="excerpt">' + esc(p.excerpt) + '</p>' +
+        '<div class="read-more">Read the full update &rarr;</div></div></a>'
+    }).join('')
+  }).catch(function () { updatesEmpty.hidden = false; updatesEmpty.textContent = 'Could not load updates right now.' })
+
+  // Mods + Keybinds
+  var modGrid = document.getElementById('mod-grid')
+  var modEmpty = document.getElementById('mod-empty')
+  var modCount = document.getElementById('mod-count')
+  var modSearch = document.getElementById('mod-search')
+  var kbBody = document.getElementById('kb-body')
+  var kbEmpty = document.getElementById('kb-empty')
+  var kbCount = document.getElementById('kb-count')
+  var kbSearch = document.getElementById('kb-search')
+  var mods = [], keybinds = []
+
+  function initials(name) {
+    var parts = name.replace(/[^A-Za-z0-9 ]/g, ' ').trim().split(/\s+/)
+    return ((parts[0] || '?')[0] + (parts[1] ? parts[1][0] : '')).toUpperCase()
+  }
+
+  function renderMods(list) {
+    modGrid.innerHTML = list.map(function (m) {
+      var logo = m.logo
+        ? '<img class="logo" src="/minecraft/mods-assets/' + m.logo + '" alt="" loading="lazy">'
+        : '<div class="logo-fallback">' + esc(initials(m.name)) + '</div>'
+      return '<div class="mcard">' + logo +
+        '<div class="body"><div class="name-row"><h3>' + esc(m.name) + '</h3>' +
+        (m.version ? '<span class="ver">' + esc(m.version) + '</span>' : '') + '</div>' +
+        '<p>' + esc(m.description || 'No description provided.') + '</p></div></div>'
+    }).join('')
+    modEmpty.hidden = list.length > 0
+    modCount.textContent = list.length + ' mod' + (list.length === 1 ? '' : 's')
+  }
+  function renderKeybinds(list) {
+    kbBody.innerHTML = list.map(function (k) {
+      return '<tr><td class="mod">' + esc(k.modName) + '</td><td class="action">' + esc(k.action) + '</td><td class="key">' + esc(k.key) + '</td></tr>'
+    }).join('')
+    kbEmpty.hidden = list.length > 0
+    kbCount.textContent = list.length + ' keybind' + (list.length === 1 ? '' : 's')
+  }
+  modSearch.addEventListener('input', function () {
+    var q = modSearch.value.trim().toLowerCase()
+    renderMods(!q ? mods : mods.filter(function (m) {
+      return (m.name && m.name.toLowerCase().indexOf(q) !== -1) || (m.description && m.description.toLowerCase().indexOf(q) !== -1)
+    }))
+  })
+  kbSearch.addEventListener('input', function () {
+    var q = kbSearch.value.trim().toLowerCase()
+    renderKeybinds(!q ? keybinds : keybinds.filter(function (k) {
+      return (k.modName && k.modName.toLowerCase().indexOf(q) !== -1) || (k.action && k.action.toLowerCase().indexOf(q) !== -1) || (k.key && k.key.toLowerCase().indexOf(q) !== -1)
+    }))
+  })
+
+  Promise.all([
+    fetch('/minecraft/mods-assets/mods-final.json').then(function (r) { return r.json() }),
+    fetch('/minecraft/mods-assets/keybinds.json').then(function (r) { return r.json() }),
+  ]).then(function (results) {
+    mods = results[0]; keybinds = results[1]
+    renderMods(mods); renderKeybinds(keybinds)
+  }).catch(function () {
+    modEmpty.hidden = false; modEmpty.textContent = 'Could not load the mod list right now.'
+    kbEmpty.hidden = false; kbEmpty.textContent = 'Could not load keybinds right now.'
+  })
+})()
+</script>
+
+</body>
+</html>

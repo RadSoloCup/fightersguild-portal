@@ -82,17 +82,21 @@ app.use('/updates/assets/*', serveStatic({
   rewriteRequestPath: p => p.replace('/updates/assets', ''),
 }))
 
-// Full mod list + keybind reference, generated from the actual installed
-// mods (mods.toml metadata + options.txt) rather than hand-maintained, so it
-// won't drift as mods get added/removed. Same public, no-auth treatment as
-// the update pages above.
-app.get('/updates/mods', async c => {
-  const html = await readFile('./public/updates/mods.html', 'utf8')
+// The Minecraft hub: download, updates (blog style, each post keeps its own
+// page under /updates/*), full mod list, and keybinds — all in one public
+// page with client-side tabs. Linked from the portal's nav (see
+// lib/html.js), but reachable and fully functional without signing in,
+// same as the update pages above. The mod list and keybind data here are
+// generated from the actual installed mods (mods.toml metadata + options.txt)
+// rather than hand-maintained, so they won't drift as mods change.
+app.get('/minecraft', async c => {
+  const html = await readFile('./public/minecraft/index.html', 'utf8')
   return c.html(html)
 })
-app.use('/updates/mods-assets/*', serveStatic({
-  root: './public/updates/mods-assets',
-  rewriteRequestPath: p => p.replace('/updates/mods-assets', ''),
+app.get('/updates/mods', c => c.redirect('/minecraft#mods'))
+app.use('/minecraft/*', serveStatic({
+  root: './public/minecraft',
+  rewriteRequestPath: p => p.replace('/minecraft', ''),
 }))
 
 // Machine-to-machine: the Crosstalk bridge POSTs its health snapshot here.
