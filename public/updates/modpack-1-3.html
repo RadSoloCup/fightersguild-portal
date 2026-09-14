@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fighters Guild Modpack — Update 1.3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-0: hsl(214, 32%, 4.4%);
+    --bg-1: hsl(213, 38%, 6.2%);
+    --bg-2: hsl(213, 34%, 9.2%);
+    --bg-3: hsl(213, 32%, 12.4%);
+    --text-0: hsl(200, 18%, 95%);
+    --text-1: hsl(202, 16%, 82%);
+    --text-2: hsl(205, 14%, 61%);
+    --text-3: hsl(206, 12%, 46%);
+    --link: hsl(189, 92%, 62%);
+    --brand: hsl(202, 78%, 47%);
+    --cyan: #22d3ee;
+    --success: hsl(155, 64%, 44%);
+    --border: hsla(200, 55%, 62%, 0.16);
+    --border-hi: hsla(192, 85%, 62%, 0.35);
+    --font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { color-scheme: dark; }
+  body {
+    margin: 0;
+    background: var(--bg-0);
+    color: var(--text-1);
+    font-family: var(--font);
+    line-height: 1.55;
+  }
+  img { max-width: 100%; display: block; }
+
+  .hero {
+    position: relative;
+    padding: 96px 20px 80px;
+    text-align: center;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 900px 500px at 50% -10%, hsla(192, 85%, 55%, 0.16), transparent 60%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-0));
+    border-bottom: 1px solid var(--border);
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(hsla(195, 70%, 70%, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, hsla(195, 70%, 70%, 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 800px 400px at 50% 0%, black, transparent 70%);
+    pointer-events: none;
+  }
+  .eyebrow {
+    position: relative;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    position: relative;
+    margin: 0;
+    font-size: clamp(40px, 7vw, 84px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+    color: var(--text-0);
+    text-shadow: 0 0 60px hsla(192, 85%, 60%, 0.35);
+  }
+  .hero .version {
+    position: relative;
+    display: inline-block;
+    margin-top: 22px;
+    padding: 8px 22px;
+    border: 1px solid var(--border-hi);
+    border-radius: 999px;
+    background: hsla(192, 85%, 60%, 0.08);
+    color: var(--cyan);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+  }
+  .hero p.tagline {
+    position: relative;
+    max-width: 640px;
+    margin: 26px auto 0;
+    font-size: 18px;
+    color: var(--text-2);
+  }
+  .download-slot {
+    position: relative;
+    margin-top: 34px;
+    min-height: 1px;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  .section-head {
+    text-align: center;
+    margin: 96px 0 48px;
+  }
+  .section-head .kicker {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 10px;
+  }
+  .section-head h2 {
+    margin: 0;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    color: var(--text-0);
+    letter-spacing: -0.01em;
+  }
+  .section-head p {
+    max-width: 620px;
+    margin: 14px auto 0;
+    color: var(--text-2);
+    font-size: 16px;
+  }
+
+  .mod-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .mod-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .mod-card:hover { border-color: var(--border-hi); transform: translateY(-2px); }
+  .mod-card .shot {
+    aspect-ratio: 16/8;
+    background: var(--bg-3);
+    overflow: hidden;
+  }
+  .mod-card .shot img { width: 100%; height: 100%; object-fit: cover; }
+  .mod-card .body { padding: 20px 22px 24px; }
+  .mod-card .head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .mod-card .icon {
+    width: 40px; height: 40px;
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    background: var(--bg-1);
+    object-fit: contain;
+    padding: 4px;
+    flex-shrink: 0;
+  }
+  .mod-card h3 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-0);
+  }
+  .mod-card .desc {
+    font-size: 14.5px;
+    color: var(--text-2);
+    margin: 0;
+  }
+  .mod-card .tag {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--success);
+    background: hsla(155, 64%, 44%, 0.12);
+    border: 1px solid hsla(155, 64%, 44%, 0.3);
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+
+  .lib-note {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 13.5px;
+    color: var(--text-3);
+  }
+  .lib-note strong { color: var(--text-2); }
+
+  .fix-list {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 8px;
+  }
+  .fix-item {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .fix-item:last-child { border-bottom: none; }
+  .fix-icon {
+    flex-shrink: 0;
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: hsla(192, 85%, 60%, 0.12);
+    border: 1px solid var(--border-hi);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cyan);
+    font-size: 16px;
+    font-weight: 800;
+  }
+  .fix-body h4 {
+    margin: 3px 0 6px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-0);
+  }
+  .fix-body p {
+    margin: 0;
+    font-size: 14.5px;
+    color: var(--text-2);
+  }
+
+  .keybind-table {
+    margin-top: 40px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-2);
+  }
+  .keybind-table table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  .keybind-table th, .keybind-table td { text-align: left; padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .keybind-table th { color: var(--text-3); font-weight: 700; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .keybind-table tr:last-child td { border-bottom: none; }
+  .keybind-table td.key {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    color: var(--cyan);
+    font-weight: 600;
+  }
+  .keybind-table td.mod { color: var(--text-1); font-weight: 600; }
+  .keybind-table td.desc { color: var(--text-2); }
+
+  footer {
+    margin-top: 110px;
+    padding: 48px 20px 60px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    color: var(--text-3);
+    font-size: 13.5px;
+  }
+  footer a { color: var(--link); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="eyebrow">Fighters Guild Modpack</div>
+    <h1>A New Chapter of<br>Magic and Monsters</h1>
+    <div class="version">UPDATE 1.3</div>
+    <p class="tagline">
+      Eight new mods, a cleaner client, and a stack of fixes. Here is everything
+      that changed in this update.
+    </p>
+    <div class="download-slot" id="download-slot"></div>
+  </div>
+
+  <div class="wrap">
+
+    <div class="section-head">
+      <div class="kicker">New Content</div>
+      <h2>What's New</h2>
+      <p>Eight new mods have joined the pack, adding dark magic, ancient technology,
+      dwarven engineering, and a new way to play as a monster instead of hunting one.</p>
+    </div>
+
+    <div class="mod-grid">
+
+      <div class="mod-card">
+        <div class="shot"><img src="assets/malum-gallery.webp" alt="Malum screenshot" loading="lazy"></div>
+        <div class="body">
+          <div class="head">
+            <img class="icon" src="assets/malum-icon.webp" alt="Malum icon">
+            <h3>Malum</h3>
+          </div>
+          <p class="desc">A mod about dark magic, built around a new arcane resource called
+          Soul Fire and eerie, otherworldly structures to explore. Brings a whole new
+          magic progression path into the world.</p>
+          <span class="tag">Added</span>
+        </div>
+      </div>
+
+      <div class="mod-card">
+        <div class="shot"><img src="assets/convenient-malum-gallery.webp" alt="Convenient Malum screenshot" loading="lazy"></div>
+        <div class="body">
+          <div class="head">
+            <img class="icon" src="assets/convenient-malum-icon.png" alt="Convenient Malum icon">
+            <h3>Convenient Malum</h3>
+          </div>
+          <p class="desc">A small quality of life addon for Malum that smooths out some of its
+          more tedious mechanics. Installed alongside Malum to make the new magic system
+          less of a chore to work with.</p>
+          <span class="tag">Added</span>
+        </div>
+      </div>
+
+      <div class="mod-card">
+        <div class="shot"><img src="assets/goety-gallery.png" alt="Goety screenshot" loading="lazy"></div>
+        <div class="body">
+          <div class="head">
+            <img class="icon" src="assets/goety-icon.png" alt="Goety icon">
+            <h3>Goety</h3>
+          </div>
+          <p class="desc">Necromancy and dark rituals powered by souls. Raise the dead, bind
+          spirits, and build out a whole gothic aesthetic with dozens of new blocks and
+          decorations along the way.</p>
+          <span class="tag">Added</span>
+        </div>
+      </div>
+
+      <div class="mod-card">
+        <div class="shot"><img src="assets/embers-gallery.webp" alt="Embers Rekindled screenshot" loading="lazy"></div>
+        <div class="body">
+          <div class="head">
+            <img class="icon" src="assets/embers-icon.png" alt="Embers Rekindled icon">
+            <h3>Embers Rekindled</h3>
+          </div>
+          <p class="desc">A dwarven themed tech and magic mod centered on heat, fire, and
+          forgework. A slower, more grounded alternative to the pack's other tech mods
+          with its own machines and processing chains.</p>
+          <span class="tag">Added</span>
+        </div>
+      </div>
+
+      <div class="mod-card">
+        <div class="shot"><img src="assets/tetra-icon.png" alt="Tetra icon" style="object-fit: contain; background: var(--bg-3); padding: 30px;"></div>
+        <div class="body">
+          <div class="head">
+            <img class="icon" src="assets/tetra-icon.png" alt="Tetra icon">
+            <h3>Tetra</h3>
+          </div>
+          <p class="desc">Modular tools and weapons that you build piece by piece and repair
+          and improve over time instead of replacing. Also opens up ancient technology
+          to find and restore while exploring.</p>
+          <span class="tag">Added</span>
+        </div>
+      </div>
+
+      <div class="mod-card">
+        <div class="shot"><img src="assets/vampirism-gallery.webp" alt="Vampirism screenshot" loading="lazy"></div>
+        <div class="body">
+          <div class="head">
+            <img class="icon" src="assets/vampirism-icon.png" alt="Vampirism icon">
+            <h3>Vampirism</h3>
+          </div>
+          <p class="desc">Become a vampire, or hunt them down as a vampire hunter. A full
+          skill and progression system either way, with its own factions, villages, and
+          late game vampire lord content.</p>
+          <span class="tag">Added</span>
+        </div>
+      </div>
+
+      <div class="mod-card">
+        <div class="shot"><img src="assets/werewolves-gallery.webp" alt="Werewolves screenshot" loading="lazy"></div>
+        <div class="body">
+          <div class="head">
+            <img class="icon" src="assets/werewolves-icon.png" alt="Werewolves icon">
+            <h3>Werewolves</h3>
+          </div>
+          <p class="desc">An addon for Vampirism that adds a second path: become a werewolf
+          instead. Its own abilities, transformations, and progression, built to sit
+          alongside the vampire side rather than replace it.</p>
+          <span class="tag">Added</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="lib-note">
+      Also included as supporting libraries, required by the mods above and invisible
+      in play: <strong>Lodestone</strong> (used by Malum and Goety) and
+      <strong>MUtil</strong> (used by Tetra).
+    </p>
+
+    <div class="section-head">
+      <div class="kicker">Under The Hood</div>
+      <h2>Fixes &amp; Improvements</h2>
+      <p>Alongside the new mods, this update cleans up a number of long standing
+      issues with the client and server.</p>
+    </div>
+
+    <div class="fix-list">
+      <div class="fix-item">
+        <div class="fix-icon">&#10003;</div>
+        <div class="fix-body">
+          <h4>Removed Oculus and Iris</h4>
+          <p>These shaders mods had a rendering conflict with Malum's effects that could
+          not be fixed while they were installed. Nothing else in the pack depended on
+          them, so they have been removed entirely.</p>
+        </div>
+      </div>
+      <div class="fix-item">
+        <div class="fix-icon">&#10003;</div>
+        <div class="fix-body">
+          <h4>Fixed Pixelmon interface bugs</h4>
+          <p>Removed Pixelmon's extra buttons from the main menu and pause menu, and fixed
+          a conflict where opening your inventory could sometimes pull up Pixelmon's
+          screen instead of the normal one. The P key now reliably opens the Pixelmon
+          party overlay.</p>
+        </div>
+      </div>
+      <div class="fix-item">
+        <div class="fix-icon">&#10003;</div>
+        <div class="fix-body">
+          <h4>Removed telemetry and ad injection</h4>
+          <p>Stripped MineTogether and the launcher's built in ad and telemetry injection
+          from both the client and server. The pack no longer phones home to anyone
+          it does not need to.</p>
+        </div>
+      </div>
+      <div class="fix-item">
+        <div class="fix-icon">&#10003;</div>
+        <div class="fix-body">
+          <h4>Cleaned up leftover data from removed content</h4>
+          <p>Player save data still referencing the old Rats mod, which was removed
+          previously, has been cleaned up. This was only ever cosmetic log noise, but
+          it is gone now.</p>
+        </div>
+      </div>
+      <div class="fix-item">
+        <div class="fix-icon">&#10003;</div>
+        <div class="fix-body">
+          <h4>Rebound conflicting keybinds</h4>
+          <p>The new mods introduced a few keybind collisions with each other and with
+          existing keys. These have been rebound so every feature has its own key.
+          See the table below.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="keybind-table">
+      <table>
+        <thead>
+          <tr><th>Key</th><th>Mod</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="key">Numpad 4</td><td class="mod">Vampirism</td><td class="desc">Open the skill selection menu</td></tr>
+          <tr><td class="key">Numpad 6</td><td class="mod">Werewolves</td><td class="desc">Leap (was conflicting with Sprint and other mods on the default key)</td></tr>
+          <tr><td class="key">P</td><td class="mod">Pixelmon</td><td class="desc">Open the Pixelmon party overlay</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <footer>
+    Fighters Guild &middot; <a href="/portal">Back to the Portal</a>
+  </footer>
+
+</body>
+</html>

@@ -68,6 +68,20 @@ app.use('/downloads/*', serveStatic({
   rewriteRequestPath: p => p.replace('/downloads', ''),
 }))
 
+// Modpack update pages: public changelog/announcement pages, styled as
+// standalone one-off HTML (not the portal's Hono layout). No sign-in
+// required — these are meant to be shareable with anyone, guild member
+// or not.
+app.get('/updates', c => c.redirect('/updates/modpack-1-3'))
+app.get('/updates/modpack-1-3', async c => {
+  const html = await readFile('./public/updates/modpack-1-3.html', 'utf8')
+  return c.html(html)
+})
+app.use('/updates/assets/*', serveStatic({
+  root: './public/updates/assets',
+  rewriteRequestPath: p => p.replace('/updates/assets', ''),
+}))
+
 // Machine-to-machine: the Crosstalk bridge POSTs its health snapshot here.
 // Bearer-authenticated, outside the sign-in gate.
 app.post(`${B}/api/status/crosstalk`, async c => {
