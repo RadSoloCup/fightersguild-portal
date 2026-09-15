@@ -147,6 +147,33 @@
   .known-issues li { font-size: 14px; color: var(--text-2); margin-bottom: 8px; line-height: 1.5; }
   .known-issues li:last-child { margin-bottom: 0; }
 
+  /* Install guide tab */
+  .guide-intro { max-width: 640px; margin: 0 auto 36px; text-align: center; color: var(--text-2); font-size: 15px; }
+  .guide-intro h2 { margin: 0 0 10px; font-size: 24px; font-weight: 800; color: var(--text-0); }
+  .guide-step { display: flex; gap: 28px; align-items: flex-start; padding: 32px 0; border-bottom: 1px solid var(--border); }
+  .guide-step:first-of-type { padding-top: 0; }
+  .guide-step:last-of-type { border-bottom: none; padding-bottom: 0; }
+  .guide-step .num {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: hsla(192, 85%, 55%, 0.12);
+    border: 1px solid var(--border-hi);
+    color: var(--cyan);
+    font-weight: 800;
+    font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .guide-step .content { flex: 1; min-width: 0; }
+  .guide-step h3 { margin: 4px 0 8px; font-size: 18px; font-weight: 700; color: var(--text-0); }
+  .guide-step p { margin: 0 0 16px; font-size: 14.5px; color: var(--text-2); }
+  .guide-step img {
+    width: 100%;
+    max-width: 640px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
   /* Updates tab (blog style) */
   .update-post {
     display: flex;
@@ -219,6 +246,7 @@
 
   <div class="tabbar">
     <button data-tab="download">Download</button>
+    <button data-tab="install-guide">Install Guide</button>
     <button data-tab="updates">Updates</button>
     <button data-tab="mods">Mods</button>
     <button data-tab="keybinds">Keybinds</button>
@@ -249,6 +277,58 @@
           <li>There are a few issues with Pixelmon's UI, those will be fixed later this week, including a way to hide it completely.</li>
           <li>Any issues, please drop them in the Minecraft General channel on Discord.</li>
         </ul>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-install-guide" hidden>
+      <div class="guide-intro">
+        <h2>Setting up Minecraft 1.20.1</h2>
+        <p>The Fighters Guild Launcher installs the modpack on top of a vanilla 1.20.1 install, so you need to create that installation in the official Minecraft Launcher first. Follow the steps below before running the Fighters Guild installer.</p>
+      </div>
+
+      <div class="guide-step">
+        <div class="num">1</div>
+        <div class="content">
+          <h3>Open the Java Edition tab</h3>
+          <p>Launch the official Minecraft Launcher and select <strong>Minecraft: Java Edition</strong> from the sidebar on the left.</p>
+          <img src="/minecraft/install-guide-assets/step-1.png" alt="Minecraft Launcher home screen with Minecraft: Java Edition highlighted in the sidebar" loading="lazy">
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="num">2</div>
+        <div class="content">
+          <h3>Go to Installations</h3>
+          <p>Along the top of the Java Edition page, click the <strong>Installations</strong> tab.</p>
+          <img src="/minecraft/install-guide-assets/step-2.png" alt="Java Edition page with the Installations tab highlighted" loading="lazy">
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="num">3</div>
+        <div class="content">
+          <h3>Create a new installation</h3>
+          <p>Click <strong>New installation</strong>.</p>
+          <img src="/minecraft/install-guide-assets/step-3.png" alt="Installations list with the New installation button highlighted" loading="lazy">
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="num">4</div>
+        <div class="content">
+          <h3>Name it and pick version 1.20.1</h3>
+          <p>Give the installation a name (e.g. "Minecraft 1.20.1"), then open the <strong>Version</strong> dropdown and choose <strong>release 1.20.1</strong>. Click <strong>Install</strong>.</p>
+          <img src="/minecraft/install-guide-assets/step-4.png" alt="Create new installation dialog with name field and version dropdown set to release 1.20.1" loading="lazy">
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="num">5</div>
+        <div class="content">
+          <h3>Launch it once</h3>
+          <p>Select your new 1.20.1 installation and hit Play at least once to finish downloading it. Once you see the main menu, you're ready to install the Fighters Guild Launcher from the Download tab.</p>
+          <img src="/minecraft/install-guide-assets/step-5.png" alt="Minecraft 1.20.1 main menu confirming the vanilla install completed" loading="lazy">
+        </div>
       </div>
     </div>
 
@@ -288,7 +368,7 @@
 
 <script>
 (function () {
-  var TABS = ['download', 'updates', 'mods', 'keybinds']
+  var TABS = ['download', 'install-guide', 'updates', 'mods', 'keybinds']
   var buttons = document.querySelectorAll('.tabbar button')
   var panels = {}
   TABS.forEach(function (t) { panels[t] = document.getElementById('panel-' + t) })
