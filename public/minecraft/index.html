@@ -94,6 +94,23 @@
     padding: 6px 14px;
     border-radius: 999px;
   }
+  .dl-status-live {
+    color: var(--success);
+    background: hsla(155, 64%, 44%, 0.12);
+    border-color: hsla(155, 64%, 44%, 0.32);
+  }
+  .btn-download {
+    display: inline-block;
+    margin: 8px 0 4px;
+    padding: 14px 32px;
+    border-radius: 10px;
+    background: var(--cyan);
+    color: var(--bg-0);
+    font-weight: 800;
+    font-size: 16px;
+    text-decoration: none;
+  }
+  .btn-download:hover { opacity: 0.9; }
   .dl-req {
     text-align: left;
     max-width: 480px;
@@ -104,6 +121,27 @@
     padding-top: 22px;
   }
   .dl-req strong { color: var(--text-2); }
+
+  .known-issues {
+    max-width: 640px;
+    margin: 24px auto 0;
+    text-align: left;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 26px;
+  }
+  .known-issues h4 {
+    margin: 0 0 12px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: hsl(38, 92%, 65%);
+  }
+  .known-issues ul { margin: 0; padding-left: 18px; }
+  .known-issues li { font-size: 14px; color: var(--text-2); margin-bottom: 8px; line-height: 1.5; }
+  .known-issues li:last-child { margin-bottom: 0; }
 
   /* Updates tab (blog style) */
   .update-post {
@@ -186,12 +224,27 @@
 
     <div class="panel" id="panel-download" hidden>
       <div class="dl-card">
-        <div class="dl-status">Launching Soon</div>
-        <h2 style="margin-top:18px">Modpack Downloader</h2>
+        <div class="dl-status dl-status-live">Available Now</div>
+        <h2 style="margin-top:18px">Fighters Guild Launcher</h2>
+        <p>Installs and keeps the Fighters Guild modpack in sync on top of your own official
+        Minecraft install. No extra accounts, no separate login, the official launcher handles
+        all of that.</p>
+        <a class="btn-download" href="https://github.com/RadSoloCup/fightersguild-launcher/releases/latest/download/FightersGuildLauncher-Setup.exe">
+          Download for Windows
+        </a>
         <div class="dl-req">
-          <strong>Before it lands, you'll need:</strong> the official Minecraft Launcher installed
-          and signed in, with vanilla Minecraft 1.20.1 downloaded at least once.
+          <strong>Before you install:</strong> the official Minecraft Launcher installed and
+          signed in, with vanilla Minecraft 1.20.1 downloaded at least once.
         </div>
+      </div>
+
+      <div class="known-issues">
+        <h4>Known Issues</h4>
+        <ul>
+          <li>The Fighters Guild Launcher is still in beta, this is a rough first release.</li>
+          <li>There are a few issues with Pixelmon's UI, those will be fixed later this week, including a way to hide it completely.</li>
+          <li>Any issues, please drop them in the Minecraft General channel on Discord.</li>
+        </ul>
       </div>
     </div>
 
