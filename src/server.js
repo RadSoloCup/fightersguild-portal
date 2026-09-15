@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
+import { cors } from 'hono/cors'
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { config, assertConfig } from './config.js'
@@ -67,6 +68,14 @@ app.use('/downloads/*', serveStatic({
   root: config.downloadsDir,
   rewriteRequestPath: p => p.replace('/downloads', ''),
 }))
+
+// These are fully public, no-auth data (the mod list, keybinds, recipe
+// index, update posts). CORS is needed here because the desktop launcher's
+// webview fetches these URLs directly from a different origin (tauri://) —
+// browsers block reading the response body cross-origin without this,
+// even for a plain public GET.
+app.use('/minecraft/*', cors())
+app.use('/updates/*', cors())
 
 // Modpack update pages: public changelog/announcement pages, styled as
 // standalone one-off HTML (not the portal's Hono layout). No sign-in
