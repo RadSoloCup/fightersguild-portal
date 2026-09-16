@@ -1816,22 +1816,6 @@
     "logo": "logos/pipez.png"
   },
   {
-    "modId": "pixelmon",
-    "name": "Pixelmon",
-    "version": "9.2.3",
-    "description": "Pixelmon adds many aspects of the Pokémon into Minecraft, including the Pokémon themselves, battling, trading, and breeding. Pixelmon also includes an assortment of new items, including prominent items like Poké Balls and TMs, new resources like bauxite ore and Apricorns, and new decorative blocks like chairs and clocks.",
-    "authors": "https://pixelmonmod.com/team.php",
-    "logo": null
-  },
-  {
-    "modId": "tcg",
-    "name": "Pixelmon TCG",
-    "version": "9.2.3",
-    "description": "TCG is fun!",
-    "authors": "https://pixelmonmod.com/team.php",
-    "logo": null
-  },
-  {
     "modId": "placebo",
     "name": "Placebo",
     "version": "8.6.2",
