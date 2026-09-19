@@ -7,6 +7,15 @@ const adminSet = new Set(config.adminIds)
 // Create or update the Portal user record from a Fluxer userinfo payload,
 // and persist the OAuth token set. Refresh token is encrypted at rest; no
 // email is stored (the Portal doesn't use it).
+//
+// Only called from the OAuth callback, after a fresh login has already been
+// confirmed as a guild member (see routes/auth.js) — so a call here always
+// means "this person just proved they belong", and clears any earlier
+// revocation (membership-sweep false positive, or an admin revoke) the same
+// way the admin "Restore" action does. Previously this left revoked_at
+// untouched, so anyone revoked could never sign back in even after Fluxer
+// approved them: loadUser would see the stale revoked_at on the very next
+// request and immediately clear their new session.
 export async function upsertUser(info, tokenSet) {
   const isAdmin = adminSet.has(info.id)
   const user = await one(
@@ -18,7 +27,8 @@ export async function upsertUser(info, tokenSet) {
        avatar = EXCLUDED.avatar,
        is_admin = EXCLUDED.is_admin,
        last_seen = now(),
-       membership_checked_at = now()
+       membership_checked_at = now(),
+       revoked_at = NULL
      RETURNING *`,
     [info.id, info.username, info.global_name ?? null, info.avatar ?? null, isAdmin],
   )

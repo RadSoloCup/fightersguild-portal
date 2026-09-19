@@ -53,9 +53,16 @@ export async function sweepMembership() {
         await revokeUser(row.user_id, 'left guild')
       }
     } catch (e) {
-      // A hard refresh failure (revoked upstream) also means they're gone.
-      if (/→ 4\d\d/.test(e.message)) await revokeUser(row.user_id, 'token revoked')
-      else console.error('membership sweep:', row.user_id, e.message)
+      // Only a refresh token Fluxer itself calls dead means they're gone.
+      // Matching any 4xx here was too broad — a rate limit (429) or a
+      // momentarily wrong client secret (401) during rotation would 4xx
+      // every row in the sweep and mass-revoke everyone, not just the one
+      // account whose token actually expired/was revoked upstream.
+      if (/→ 4\d\d.*"error"\s*:\s*"invalid_grant"/.test(e.message)) {
+        await revokeUser(row.user_id, 'token revoked')
+      } else {
+        console.error('membership sweep:', row.user_id, e.message)
+      }
     }
   }
 }
