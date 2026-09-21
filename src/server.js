@@ -86,6 +86,10 @@ app.get('/updates/modpack-1-3', async c => {
   const html = await readFile('./public/updates/modpack-1-3.html', 'utf8')
   return c.html(html)
 })
+app.get('/updates/modpack-1-4', async c => {
+  const html = await readFile('./public/updates/modpack-1-4.html', 'utf8')
+  return c.html(html)
+})
 app.use('/updates/assets/*', serveStatic({
   root: './public/updates/assets',
   rewriteRequestPath: p => p.replace('/updates/assets', ''),
