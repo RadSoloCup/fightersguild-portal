@@ -176,6 +176,8 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    text-decoration: none;
+    color: inherit;
     transition: border-color 0.15s, transform 0.15s;
   }
   .mod-card:hover { border-color: var(--border-hi); transform: translateY(-2px); }
@@ -222,7 +224,6 @@
   }
   .mod-card .tag {
     display: inline-block;
-    margin-top: 12px;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -233,6 +234,20 @@
     padding: 4px 10px;
     border-radius: 999px;
   }
+  .card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .mod-card .link-out {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--link);
+  }
+  .mod-card:hover .link-out { text-decoration: underline; }
 
   .lib-note {
     margin-top: 28px;
@@ -320,10 +335,8 @@
 
     <div class="mod-grid">
 
-      <div class="mod-card">
-        <div class="shot" style="display:flex; align-items:center; justify-content:center; background: var(--bg-3); padding: 30px;">
-          <img src="assets/vanillabackport-icon.webp" alt="VanillaBackport icon" style="width: 96px; height: 96px; object-fit: contain;">
-        </div>
+      <a class="mod-card" href="https://www.minecraft.net/en-us/article/minecraft-java-edition-1-20-3" target="_blank" rel="noopener">
+        <div class="shot"><img src="assets/mc-1-20-3-promo.jpg" alt="Minecraft 1.20.3 Bats and Pots official screenshot" loading="lazy"></div>
         <div class="body">
           <div class="head">
             <img class="icon" src="assets/vanillabackport-icon.webp" alt="VanillaBackport icon">
@@ -333,14 +346,15 @@
           <p class="desc">Decorated pots can now hold a single item and interact with
           hoppers, droppers, and comparators — smash one with a projectile and it
           shatters. Bats also got a full visual redesign.</p>
-          <span class="tag">Added</span>
+          <div class="card-foot">
+            <span class="tag">Added</span>
+            <span class="link-out">Official patch notes &rarr;</span>
+          </div>
         </div>
-      </div>
+      </a>
 
-      <div class="mod-card">
-        <div class="shot" style="display:flex; align-items:center; justify-content:center; background: var(--bg-3); padding: 30px;">
-          <img src="assets/vanillabackport-icon.webp" alt="VanillaBackport icon" style="width: 96px; height: 96px; object-fit: contain;">
-        </div>
+      <a class="mod-card" href="https://www.minecraft.net/en-us/article/minecraft-java-edition-1-20-5" target="_blank" rel="noopener">
+        <div class="shot"><img src="assets/mc-1-20-5-promo.jpg" alt="Minecraft 1.20.5 Armored Paws official screenshot" loading="lazy"></div>
         <div class="body">
           <div class="head">
             <img class="icon" src="assets/vanillabackport-icon.webp" alt="VanillaBackport icon">
@@ -350,14 +364,15 @@
           <p class="desc">Wolves can wear armor now, crafted from Armadillo Scutes and
           dyeable like leather armor. Eight new wolf coat variants spawn based on biome,
           alongside the Armadillo itself in savanna and badlands.</p>
-          <span class="tag">Added</span>
+          <div class="card-foot">
+            <span class="tag">Added</span>
+            <span class="link-out">Official patch notes &rarr;</span>
+          </div>
         </div>
-      </div>
+      </a>
 
-      <div class="mod-card">
-        <div class="shot" style="display:flex; align-items:center; justify-content:center; background: var(--bg-3); padding: 30px;">
-          <img src="assets/vanillabackport-icon.webp" alt="VanillaBackport icon" style="width: 96px; height: 96px; object-fit: contain;">
-        </div>
+      <a class="mod-card" href="https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21-2" target="_blank" rel="noopener">
+        <div class="shot"><img src="assets/mc-1-21-2-promo.jpg" alt="Minecraft 1.21.2 Bundles of Bravery official screenshot" loading="lazy"></div>
         <div class="body">
           <div class="head">
             <img class="icon" src="assets/vanillabackport-icon.webp" alt="VanillaBackport icon">
@@ -367,12 +382,15 @@
           <p class="desc">Bundles: craft one from string and leather and carry a mixed
           stack of up to 64 items in a single slot, dyeable into 16 colors. Also brings
           baby Dolphins and Squids, plus small, medium, and large Salmon.</p>
-          <span class="tag">Added</span>
+          <div class="card-foot">
+            <span class="tag">Added</span>
+            <span class="link-out">Official patch notes &rarr;</span>
+          </div>
         </div>
-      </div>
+      </a>
 
-      <div class="mod-card">
-        <div class="shot"><img src="assets/vanillabackport-garden-awakens-gallery.webp" alt="The Garden Awakens screenshot" loading="lazy"></div>
+      <a class="mod-card" href="https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21-4" target="_blank" rel="noopener">
+        <div class="shot"><img src="assets/mc-1-21-4-promo.jpg" alt="Minecraft 1.21.4 The Garden Awakens official screenshot" loading="lazy"></div>
         <div class="body">
           <div class="head">
             <img class="icon" src="assets/vanillabackport-icon.webp" alt="VanillaBackport icon">
@@ -382,14 +400,15 @@
           <p class="desc">The Pale Garden: a moss-covered, animal-free biome built around
           Pale Oak trees and home to the Creaking, a mob that only moves when nobody is
           looking at it. Brings the Pale Oak wood set and Resin blocks too.</p>
-          <span class="tag">Added</span>
+          <div class="card-foot">
+            <span class="tag">Added</span>
+            <span class="link-out">Official patch notes &rarr;</span>
+          </div>
         </div>
-      </div>
+      </a>
 
-      <div class="mod-card">
-        <div class="shot" style="display:flex; align-items:center; justify-content:center; background: var(--bg-3); padding: 30px;">
-          <img src="assets/vanillabackport-icon.webp" alt="VanillaBackport icon" style="width: 96px; height: 96px; object-fit: contain;">
-        </div>
+      <a class="mod-card" href="https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21-5" target="_blank" rel="noopener">
+        <div class="shot"><img src="assets/mc-1-21-5-promo.jpg" alt="Minecraft 1.21.5 Spring to Life official screenshot" loading="lazy"></div>
         <div class="body">
           <div class="head">
             <img class="icon" src="assets/vanillabackport-icon.webp" alt="VanillaBackport icon">
@@ -399,12 +418,15 @@
           <p class="desc">Warm and cold variants for pigs, cows, and chickens depending
           on the biome they spawn in, plus new foliage — Leaf Litter, Wildflowers,
           Firefly Bushes, Cactus Flowers — and falling leaf particles.</p>
-          <span class="tag">Added</span>
+          <div class="card-foot">
+            <span class="tag">Added</span>
+            <span class="link-out">Official patch notes &rarr;</span>
+          </div>
         </div>
-      </div>
+      </a>
 
-      <div class="mod-card">
-        <div class="shot"><img src="assets/vanillabackport-chase-the-skies-gallery.webp" alt="Chase the Skies screenshot" loading="lazy"></div>
+      <a class="mod-card" href="https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21-6" target="_blank" rel="noopener">
+        <div class="shot"><img src="assets/mc-1-21-6-promo.jpg" alt="Minecraft 1.21.6 Chase the Skies official screenshot" loading="lazy"></div>
         <div class="body">
           <div class="head">
             <img class="icon" src="assets/vanillabackport-icon.webp" alt="VanillaBackport icon">
@@ -414,9 +436,12 @@
           <p class="desc">The Happy Ghast: raise a Ghastling found in the Nether into a
           rideable flying mount with a craftable saddle. Also brings the player locator
           bar and the new "Tears" music disc.</p>
-          <span class="tag">Added</span>
+          <div class="card-foot">
+            <span class="tag">Added</span>
+            <span class="link-out">Official patch notes &rarr;</span>
+          </div>
         </div>
-      </div>
+      </a>
 
     </div>
 
@@ -440,7 +465,7 @@
           them an image or video URL — YouTube, Twitch, or a direct link — to build
           screens, cinemas, or simple picture frames around the base. A Remote Control
           item and the <code>/waterframes</code> command let you manage them from afar.</p>
-          <span class="tag">Added</span>
+          <span class="tag" style="margin-top: 12px;">Added</span>
         </div>
       </div>
 
@@ -452,14 +477,6 @@
       (the multimedia engine that decodes video and audio). WATERMeDIA's native codec
       files are client-only and are not installed on the server.
     </p>
-
-    <div class="mods-link">
-      <div>
-        <h4>Looking for the full picture?</h4>
-        <p>See every mod currently installed in the pack, and every keybind, on one page.</p>
-      </div>
-      <a href="/minecraft#mods">View Full Mod List &amp; Keybinds</a>
-    </div>
 
   </div>
 
