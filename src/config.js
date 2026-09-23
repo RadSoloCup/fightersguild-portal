@@ -63,6 +63,12 @@ export const config = {
   // gate, same trust model as any other unlisted download link.
   downloadsDir: env.DOWNLOADS_DIR || '/data/launcher-downloads',
 
+  // The in-world theater: a handful of transcoded movie files, served
+  // unauthenticated (the Waterframes/WATERMeDIA player on each client has no
+  // Portal session either) at a narrow, purpose-built route rather than
+  // exposing the full Jellyfin library.
+  theaterDir: env.THEATER_DIR || '/data/theater',
+
   // Optional cross-posting to Fluxer via the Portal bot.
   bot: {
     token: env.PORTAL_BOT_TOKEN || null,

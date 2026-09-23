@@ -69,6 +69,16 @@ app.use('/downloads/*', serveStatic({
   rewriteRequestPath: p => p.replace('/downloads', ''),
 }))
 
+// The theater: a fixed, narrow set of movie files (not the whole Jellyfin
+// library) driven by a CC:Tweaked script on the in-world Waterframes
+// projector. serveStatic (not readFile) for the same reason as /downloads —
+// these are GB-scale and need range-request support for video seeking.
+app.use('/theater/*', cors())
+app.use('/theater/*', serveStatic({
+  root: config.theaterDir,
+  rewriteRequestPath: p => p.replace('/theater', ''),
+}))
+
 // These are fully public, no-auth data (the mod list, keybinds, recipe
 // index, update posts). CORS is needed here because the desktop launcher's
 // webview fetches these URLs directly from a different origin (tauri://) —
