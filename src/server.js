@@ -100,6 +100,13 @@ app.get('/updates/modpack-1-4', async c => {
   const html = await readFile('./public/updates/modpack-1-4.html', 'utf8')
   return c.html(html)
 })
+// Not a real update, not in updates-index.json, not linked from the tabbar
+// or minecraft hub anywhere. Standalone ARG page, content changes in place
+// over time at this same URL.
+app.get('/updates/leak', async c => {
+  const html = await readFile('./public/updates/leak.html', 'utf8')
+  return c.html(html)
+})
 app.use('/updates/assets/*', serveStatic({
   root: './public/updates/assets',
   rewriteRequestPath: p => p.replace('/updates/assets', ''),

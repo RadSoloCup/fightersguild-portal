@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>&hellip;</title>
+<style>
+  :root {
+    --bg: hsl(260, 22%, 3%);
+    --ink: hsl(0, 0%, 68%);
+    --glow: hsl(272, 70%, 55%);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+  }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .void {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 45%, hsla(272, 70%, 30%, 0.10), transparent 70%);
+    pointer-events: none;
+  }
+  .scene {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 42px;
+    padding: 24px;
+  }
+  .frame {
+    position: relative;
+    width: 132px;
+    height: 132px;
+  }
+  .frame img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 26px hsla(272, 70%, 55%, 0.35));
+    animation: breathe 7s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%, 100% { filter: drop-shadow(0 0 26px hsla(272, 70%, 55%, 0.35)); transform: scale(1); }
+    50% { filter: drop-shadow(0 0 40px hsla(272, 70%, 60%, 0.6)); transform: scale(1.015); }
+  }
+  .drip {
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    width: 2px;
+    background: linear-gradient(hsla(272, 70%, 65%, 0.55), transparent);
+    animation: fall 5.5s linear infinite;
+    opacity: 0;
+  }
+  .drip:nth-child(1) { left: 34%; height: 60px; animation-delay: 0.4s; }
+  .drip:nth-child(2) { left: 58%; height: 40px; animation-delay: 2.6s; }
+  .drip:nth-child(3) { left: 47%; height: 80px; animation-delay: 4.1s; }
+  @keyframes fall {
+    0% { opacity: 0; transform: translateY(0); }
+    8% { opacity: 0.8; }
+    70% { opacity: 0.5; }
+    100% { opacity: 0; transform: translateY(90px); }
+  }
+  .line {
+    max-width: 460px;
+    text-align: center;
+    font-size: 17px;
+    font-style: italic;
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    color: var(--ink);
+    opacity: 0;
+    animation: surface 4s ease-out 0.6s forwards;
+  }
+  @keyframes surface {
+    0% { opacity: 0; letter-spacing: 0.3em; filter: blur(4px); }
+    100% { opacity: 0.82; letter-spacing: 0.02em; filter: blur(0); }
+  }
+  .line::selection { background: hsla(272, 70%, 55%, 0.3); }
+</style>
+</head>
+<body>
+  <div class="void"></div>
+  <div class="scene">
+    <div class="frame">
+      <img src="assets/glimpse.webp" alt="">
+      <div class="drip"></div>
+      <div class="drip"></div>
+      <div class="drip"></div>
+    </div>
+    <p class="line">Something is leaking from the periphery of your vision.</p>
+  </div>
+</body>
+</html>
