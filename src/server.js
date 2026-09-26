@@ -79,9 +79,9 @@ app.use('/theater/*', serveStatic({
   rewriteRequestPath: p => p.replace('/theater', ''),
 }))
 
-// Standalone downloadable extras (e.g. the Android/MJ Launcher modpack
-// export) linked from the Minecraft page, kept separate from downloadsDir so
-// a manifest rebuild never wipes them.
+// Standalone downloadable extras (e.g. the Linux/Mac modpack export) linked
+// from the Minecraft page, kept separate from downloadsDir so a manifest
+// rebuild never wipes them.
 app.use('/extras/*', cors())
 app.use('/extras/*', serveStatic({
   root: config.extrasDir,
