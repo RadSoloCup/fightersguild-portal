@@ -1090,5 +1090,40 @@
     "modId": "weaponmaster_ydm",
     "modName": "YDM's Weapon Master",
     "action": "Weaponmaster Ydm Opengui"
+  },
+  {
+    "category": "key.voice_chat",
+    "key": "V",
+    "modId": "voicechat",
+    "modName": "Simple Voice Chat",
+    "action": "Open Voice Chat Menu"
+  },
+  {
+    "category": "key.mute_microphone",
+    "key": "M",
+    "modId": "voicechat",
+    "modName": "Simple Voice Chat",
+    "action": "Mute Microphone"
+  },
+  {
+    "category": "key.disable_voice_chat",
+    "key": "N",
+    "modId": "voicechat",
+    "modName": "Simple Voice Chat",
+    "action": "Disable Voice Chat"
+  },
+  {
+    "category": "key.hide_icons",
+    "key": "H",
+    "modId": "voicechat",
+    "modName": "Simple Voice Chat",
+    "action": "Hide Icons"
+  },
+  {
+    "category": "key.voice_chat_group",
+    "key": "G",
+    "modId": "voicechat",
+    "modName": "Simple Voice Chat",
+    "action": "Voice Chat Group"
   }
 ]

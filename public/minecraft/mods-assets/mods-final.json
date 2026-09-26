@@ -346,7 +346,7 @@
   {
     "modId": "computercraft",
     "name": "CC: Tweaked",
-    "version": "1.111.0",
+    "version": "1.113.1",
     "description": "CC: Tweaked is a fork of ComputerCraft, adding programmable computers, turtles and more to Minecraft.",
     "authors": "Daniel Ratcliffe, Aaron Mills, SquidDev",
     "logo": null
@@ -770,7 +770,7 @@
   {
     "modId": "fancymenu",
     "name": "FancyMenu",
-    "version": "3.2.3",
+    "version": "3.9.3",
     "description": "Customize Minecraft's menus with ease!",
     "authors": "Keksuccino",
     "logo": "logos/fancymenu.png"
@@ -2710,5 +2710,77 @@
     "description": "Utility mod and multiblock API",
     "authors": "ZeroNoRyouki",
     "logo": null
+  },
+  {
+    "modId": "vanillabackport",
+    "name": "VanillaBackport",
+    "version": "1.1.7.10",
+    "description": "Backporting Minecraft Features to previous versions!",
+    "authors": "BlackGear",
+    "logo": "logos/vanillabackport.png"
+  },
+  {
+    "modId": "platform",
+    "name": "Platform",
+    "version": "1.3.4",
+    "description": "Cross-Platform library mod based on Architectury to access both Forge and Fabric APIs",
+    "authors": "ItsBlackGear",
+    "logo": "logos/platform.png"
+  },
+  {
+    "modId": "waterframes",
+    "name": "WaterFrames",
+    "version": "2.1.15",
+    "description": "Display custom video and pictures in your world.",
+    "authors": "SrRapero720",
+    "logo": "logos/waterframes.png"
+  },
+  {
+    "modId": "creativecore",
+    "name": "CreativeCore",
+    "version": "2.12.40",
+    "description": "A simple but powerful coremod.",
+    "authors": "CreativeMD",
+    "logo": "logos/creativecore.png"
+  },
+  {
+    "modId": "watermedia",
+    "name": "WaterMedia",
+    "version": "2.1.37",
+    "description": "Library with an API using VLC for multimedia integration with Minecraft. Works also standalone",
+    "authors": "SrRapero720, Goedix",
+    "logo": "logos/watermedia.png"
+  },
+  {
+    "modId": "watermedia_youtube_plugin",
+    "name": "WaterMedia YT Plugin",
+    "version": "2.1.2",
+    "description": "Plugin for WATERMeDIA that adds YouTube as a media source, was not on the original project for legal reasons.",
+    "authors": "SrRapero720",
+    "logo": "logos/watermedia_youtube_plugin.png"
+  },
+  {
+    "modId": "waterframescctcompat",
+    "name": "WaterFrames cc:t compat",
+    "version": "0.2.0",
+    "description": "Adds a Waterframes display peripheral for CC: Tweaked computers.",
+    "authors": "",
+    "logo": null
+  },
+  {
+    "modId": "immersive_paintings",
+    "name": "Immersive Paintings",
+    "version": "0.6.13+1.20.1",
+    "description": "Use your own paintings! Admin only on this pack.",
+    "authors": "Luke100000",
+    "logo": "logos/immersive_paintings.png"
+  },
+  {
+    "modId": "voicechat",
+    "name": "Simple Voice Chat",
+    "version": "1.20.1-2.6.22",
+    "description": "A working voice chat in Minecraft!",
+    "authors": "Max Henkel",
+    "logo": "logos/voicechat.png"
   }
 ]
