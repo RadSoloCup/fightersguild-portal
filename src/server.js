@@ -79,6 +79,15 @@ app.use('/theater/*', serveStatic({
   rewriteRequestPath: p => p.replace('/theater', ''),
 }))
 
+// Standalone downloadable extras (e.g. the Android/MJ Launcher modpack
+// export) linked from the Minecraft page, kept separate from downloadsDir so
+// a manifest rebuild never wipes them.
+app.use('/extras/*', cors())
+app.use('/extras/*', serveStatic({
+  root: config.extrasDir,
+  rewriteRequestPath: p => p.replace('/extras', ''),
+}))
+
 // These are fully public, no-auth data (the mod list, keybinds, recipe
 // index, update posts). CORS is needed here because the desktop launcher's
 // webview fetches these URLs directly from a different origin (tauri://) —

@@ -69,6 +69,12 @@ export const config = {
   // exposing the full Jellyfin library.
   theaterDir: env.THEATER_DIR || '/data/theater',
 
+  // Standalone downloadable extras linked from the Minecraft page (e.g. the
+  // Android/MJ Launcher modpack export) that aren't part of the versioned
+  // launcher manifest - kept in a separate directory so a build-manifest
+  // redeploy (which wipes and rewrites downloadsDir) never touches these.
+  extrasDir: env.EXTRAS_DIR || '/data/extras',
+
   // Optional cross-posting to Fluxer via the Portal bot.
   bot: {
     token: env.PORTAL_BOT_TOKEN || null,
