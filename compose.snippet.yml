@@ -10,6 +10,9 @@ services:
     volumes:
       - portal-data:/data          # uploaded forum/mission images (/data/uploads)
                                     # + launcher distribution files (/data/launcher-downloads)
+      # Minecraft player stats for the weekly leaderboard (read-only)
+      - /mnt/user/appdata/ftbdirewolf20_120/fightersguild/stats:/mnt/mcstats/stats:ro
+      - /mnt/user/appdata/ftbdirewolf20_120/usercache.json:/mnt/mcstats/usercache.json:ro
     networks:
       fluxer:
         aliases: [portal]

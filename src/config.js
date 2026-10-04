@@ -75,6 +75,8 @@ export const config = {
   // (which wipes and rewrites downloadsDir) never touches these.
   extrasDir: env.EXTRAS_DIR || '/data/extras',
   mapDir: env.MAP_DIR || '/data/map',
+  mcStatsDir: env.MC_STATS_DIR || '/mnt/mcstats/stats',
+  mcUsercache: env.MC_USERCACHE || '/mnt/mcstats/usercache.json',
 
   // Optional cross-posting to Fluxer via the Portal bot.
   bot: {

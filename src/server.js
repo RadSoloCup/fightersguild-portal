@@ -1,3 +1,5 @@
+import { startLeaderboard } from './lib/leaderboard.js'
+const getLeaderboard = startLeaderboard(config, msg => console.log(msg))
 import { Hono } from 'hono'
 import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
@@ -140,6 +142,8 @@ app.use('/minecraft/map/*', serveStatic({
   rewriteRequestPath: p => p.replace('/minecraft/map', ''),
 }))
 app.all('/minecraft/map/*', c => c.text('Not found', 404))
+
+app.get('/minecraft/leaderboard.json', c => c.json(getLeaderboard()))
 
 app.use('/minecraft/*', serveStatic({
   root: './public/minecraft',
