@@ -27,7 +27,17 @@
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
-  body { margin: 0; background: var(--bg-0); color: var(--text-1); font-family: var(--font); line-height: 1.55; }
+  body {
+    margin: 0;
+    color: var(--text-1);
+    font-family: var(--font);
+    line-height: 1.55;
+    background:
+      radial-gradient(ellipse 900px 400px at 50% -10%, hsla(192, 85%, 55%, 0.14), transparent 60%),
+      linear-gradient(to bottom, hsla(214, 32%, 4.4%, 0.25) 0%, hsla(214, 32%, 4.4%, 0.8) 40%, hsla(214, 32%, 4.4%, 0.97) 70%, var(--bg-0) 100%),
+      url('/minecraft/background.jpg') center top / cover no-repeat,
+      var(--bg-0);
+  }
   img { max-width: 100%; display: block; }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
   [hidden] { display: none !important; }
@@ -35,7 +45,7 @@
   .top {
     padding: 56px 20px 0;
     text-align: center;
-    background: radial-gradient(ellipse 900px 400px at 50% -20%, hsla(192, 85%, 55%, 0.14), transparent 60%), var(--bg-1);
+    background: radial-gradient(ellipse 900px 400px at 50% -20%, hsla(192, 85%, 55%, 0.14), transparent 60%), hsla(213, 38%, 6.2%, 0.55);
     border-bottom: 1px solid var(--border);
   }
   .top .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
