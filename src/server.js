@@ -139,7 +139,7 @@ app.use('/minecraft/map/*', serveStatic({
   root: config.mapDir,
   rewriteRequestPath: p => p.replace('/minecraft/map', ''),
 }))
-app.all('/minecraft/map/*', c => c.notFound())
+app.all('/minecraft/map/*', c => c.text('Not found', 404))
 
 app.use('/minecraft/*', serveStatic({
   root: './public/minecraft',
