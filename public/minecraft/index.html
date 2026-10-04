@@ -240,6 +240,14 @@
   .kb-table td.mod { color: var(--text-0); font-weight: 600; }
   .kb-table td.action { color: var(--text-2); }
 
+  .shader-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .shader-card { background: hsla(213, 34%, 9.2%, 0.94); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+  .shader-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: var(--bg-1); }
+  .shader-body { padding: 16px 18px 18px; }
+  .shader-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  .shader-meta h3 { margin: 0; font-size: 15.5px; font-weight: 700; color: var(--text-0); }
+  .shader-tier { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--cyan); white-space: nowrap; }
+  .shader-body p { margin: 0; font-size: 13.5px; color: var(--text-1); }
   .empty { text-align: center; padding: 60px 20px; color: var(--text-3); }
 
   footer { margin-top: 20px; padding: 40px 20px 60px; text-align: center; border-top: 1px solid var(--border); color: var(--text-3); font-size: 13.5px; }
@@ -260,6 +268,7 @@
     <button data-tab="updates">Updates</button>
     <button data-tab="mods">Mods</button>
     <button data-tab="keybinds">Keybinds</button>
+    <button data-tab="shaders">Shaders</button>
   </div>
 
   <div class="wrap">
@@ -368,6 +377,155 @@
       <div class="empty" id="mod-empty" hidden>No mods match your search.</div>
     </div>
 
+    <div class="panel" id="panel-shaders" hidden>
+      <div class="guide-intro">
+        <h2>Shader packs</h2>
+        <p>Optional. Pick any of these in the Fighters Guild Launcher with the Shaders button, or install one by hand. Shaders need Oculus, which the launcher installs for you.</p>
+      </div>
+      <div class="shader-grid">
+      <div class="shader-card">
+        <img src="/minecraft/shaders/complementary-reimagined.jpg" alt="Complementary Shaders - Reimagined screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Complementary Shaders - Reimagined</h3><span class="shader-tier">Heavy</span></div>
+          <p>Preserving the elements of Minecraft with exceptional quality, detail, and performance.</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/complementary-unbound.jpg" alt="Complementary Shaders - Unbound screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Complementary Shaders - Unbound</h3><span class="shader-tier">Heavy</span></div>
+          <p>Transforming the visuals of Minecraft with exceptional quality, detail, and performance.</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/bsl-shaders.jpg" alt="BSL Shaders screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>BSL Shaders</h3><span class="shader-tier">Light</span></div>
+          <p>Shaderpack for Minecraft: Java Edition. It's bright, colorful, and distinct.</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/photon-shader.jpg" alt="Photon Shaders screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Photon Shaders</h3><span class="shader-tier">Heavy</span></div>
+          <p>A gameplay-focused shader pack with a semi-realistic style</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/solas-shader.jpg" alt="Solas Shader screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Solas Shader</h3><span class="shader-tier">Heavy</span></div>
+          <p>A modern fantasy stylized shaderpack with colored lighting and stunning visuals</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/bliss-shader.jpg" alt="Bliss Shaders screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Bliss Shaders</h3><span class="shader-tier">Heavy</span></div>
+          <p>A well performing fantasy styled shaderpack with emphasis on scene variation and customization.</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/rethinking-voxels.jpg" alt="Rethinking Voxels screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Rethinking Voxels</h3><span class="shader-tier">Heavy</span></div>
+          <p>[WIP] A gameplay shaderpack based on complementary reimagined that has coloured block light with sharp shadows</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/makeup-ultra-fast-shaders.jpg" alt="MakeUp - Ultra Fast screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>MakeUp - Ultra Fast</h3><span class="shader-tier">Light</span></div>
+          <p>MakeUp aims to provide the best quality / performance ratio, building a shader that can be adapted to anyone's resources.</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/super-duper-vanilla.jpg" alt="Super Duper Vanilla screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Super Duper Vanilla</h3><span class="shader-tier">Light</span></div>
+          <p>A shader pack created to convey the style of the cancelled Super Duper Graphics Pack and other popular Minecraft titles.</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/insanity-shader.jpg" alt="Insanity Shader screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Insanity Shader</h3><span class="shader-tier">Light</span></div>
+          <p>A stylized, horror themed Iris shaderpack with high customizability and performance.</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/mellow.jpg" alt="Mellow screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Mellow</h3><span class="shader-tier">Light</span></div>
+          <p>Shaderpack with a painterly aesthetic made for people who want to actually play the game. It's easy on your eyes and on your computer!</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/astralex.jpg" alt="AstraLex Shaders screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>AstraLex Shaders</h3><span class="shader-tier">Medium</span></div>
+          <p>Shaderpack with very high customization. If you like effects, this shaderpack is made for you!</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/pastel-shaders.jpg" alt="Pastel Shaders screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Pastel Shaders</h3><span class="shader-tier">Medium</span></div>
+          <p>An aesthetic, performant pastel-colored shaderpack with multiple color presets.</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/miniature-shader.jpg" alt="Miniature Shader screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Miniature Shader</h3><span class="shader-tier">Light</span></div>
+          <p>Extremely lightweight with shadows and reflections</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/nostalgia-shader.jpg" alt="Nostalgia Shader screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Nostalgia Shader</h3><span class="shader-tier">Medium</span></div>
+          <p>Capturing the essence of old shaderpacks to create a stylized and modern Minecraft-look.</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/hysteria-shaders.jpg" alt="Hysteria Shaders screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Hysteria Shaders</h3><span class="shader-tier">Light</span></div>
+          <p>Atmospheric, highly customizable horror shaderpack, successor of Insanity Shader.</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/vanillaa.jpg" alt="VanillAA screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>VanillAA</h3><span class="shader-tier">Light</span></div>
+          <p>Vanilla rendering, but with TAA</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/kappa-shader.jpg" alt="Kappa Shader screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Kappa Shader</h3><span class="shader-tier">Heavy</span></div>
+          <p>A high-quality realistic, yet also somewhat stylized shaderpack.</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/spooklementary.jpg" alt="Spooklementary screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Spooklementary</h3><span class="shader-tier">Heavy</span></div>
+          <p>A Spooky, very moody and atmospheric Complementary Shaders Edit</p>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/shaders/potato-shaders.jpg" alt="Potato Shaders screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Potato Shaders</h3><span class="shader-tier">Light</span></div>
+          <p>A very lightweight shaderpack that is still fancy in its own way.</p>
+        </div>
+      </div>
+      </div>
+    </div>
+
     <div class="panel" id="panel-keybinds" hidden>
       <div class="search-row">
         <input type="text" id="kb-search" placeholder="Search keybinds by mod, action, or key...">
@@ -390,7 +548,7 @@
 
 <script>
 (function () {
-  var TABS = ['download', 'install-guide', 'updates', 'mods', 'keybinds']
+  var TABS = ['download', 'install-guide', 'updates', 'mods', 'keybinds', 'shaders']
   var buttons = document.querySelectorAll('.tabbar button')
   var panels = {}
   TABS.forEach(function (t) { panels[t] = document.getElementById('panel-' + t) })
