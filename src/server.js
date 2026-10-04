@@ -133,6 +133,13 @@ app.get('/minecraft', async c => {
   return c.html(html)
 })
 app.get('/updates/mods', c => c.redirect('/minecraft#mods'))
+// The BlueMap render, copied in from the server. Served before the static Minecraft page.
+app.use('/minecraft/map/*', cors())
+app.use('/minecraft/map/*', serveStatic({
+  root: config.mapDir,
+  rewriteRequestPath: p => p.replace('/minecraft/map', ''),
+}))
+
 app.use('/minecraft/*', serveStatic({
   root: './public/minecraft',
   rewriteRequestPath: p => p.replace('/minecraft', ''),

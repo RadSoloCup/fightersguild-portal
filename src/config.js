@@ -74,6 +74,7 @@ export const config = {
   // manifest - kept in a separate directory so a build-manifest redeploy
   // (which wipes and rewrites downloadsDir) never touches these.
   extrasDir: env.EXTRAS_DIR || '/data/extras',
+  mapDir: env.MAP_DIR || '/data/map',
 
   // Optional cross-posting to Fluxer via the Portal bot.
   bot: {

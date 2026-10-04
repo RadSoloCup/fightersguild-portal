@@ -248,6 +248,8 @@
   .shader-meta h3 { margin: 0; font-size: 15.5px; font-weight: 700; color: var(--text-0); }
   .shader-tier { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--cyan); white-space: nowrap; }
   .shader-body p { margin: 0; font-size: 13.5px; color: var(--text-1); }
+  .map-frame { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--bg-2); }
+  .map-frame iframe { display: block; width: 100%; height: 75vh; min-height: 420px; border: 0; }
   .empty { text-align: center; padding: 60px 20px; color: var(--text-3); }
 
   footer { margin-top: 20px; padding: 40px 20px 60px; text-align: center; border-top: 1px solid var(--border); color: var(--text-3); font-size: 13.5px; }
@@ -269,6 +271,7 @@
     <button data-tab="mods">Mods</button>
     <button data-tab="keybinds">Keybinds</button>
     <button data-tab="shaders">Shaders</button>
+    <button data-tab="map">Map</button>
   </div>
 
   <div class="wrap">
@@ -617,6 +620,16 @@
       </div>
     </div>
 
+    <div class="panel" id="panel-map" hidden>
+      <div class="guide-intro">
+        <h2>Server map</h2>
+        <p>A live map of the Fighters Guild worlds. It is rendered from the server and refreshed periodically, so newer areas may still be filling in.</p>
+      </div>
+      <div class="map-frame">
+        <iframe src="/minecraft/map/" title="Fighters Guild server map" loading="lazy"></iframe>
+      </div>
+    </div>
+
     <div class="panel" id="panel-keybinds" hidden>
       <div class="search-row">
         <input type="text" id="kb-search" placeholder="Search keybinds by mod, action, or key...">
@@ -639,7 +652,7 @@
 
 <script>
 (function () {
-  var TABS = ['download', 'install-guide', 'updates', 'mods', 'keybinds', 'shaders']
+  var TABS = ['download', 'install-guide', 'updates', 'mods', 'keybinds', 'shaders', 'map']
   var buttons = document.querySelectorAll('.tabbar button')
   var panels = {}
   TABS.forEach(function (t) { panels[t] = document.getElementById('panel-' + t) })
