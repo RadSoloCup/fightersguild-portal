@@ -27,16 +27,17 @@
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
-  body {
-    margin: 0;
-    color: var(--text-1);
-    font-family: var(--font);
-    line-height: 1.55;
+  html { background: var(--bg-0); }
+  body { margin: 0; color: var(--text-1); font-family: var(--font); line-height: 1.55; }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
     background:
       radial-gradient(ellipse 900px 400px at 50% -10%, hsla(192, 85%, 55%, 0.14), transparent 60%),
-      linear-gradient(to bottom, hsla(214, 32%, 4.4%, 0.25) 0%, hsla(214, 32%, 4.4%, 0.8) 40%, hsla(214, 32%, 4.4%, 0.97) 70%, var(--bg-0) 100%),
-      url('/minecraft/background.jpg') center top / cover no-repeat,
-      var(--bg-0);
+      linear-gradient(to bottom, hsla(214, 32%, 4.4%, 0.3) 0%, hsla(214, 32%, 4.4%, 0.85) 45%, hsla(214, 32%, 4.4%, 0.97) 80%, var(--bg-0) 100%),
+      url('/minecraft/background.jpg') center top / cover no-repeat;
   }
   img { max-width: 100%; display: block; }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
@@ -64,10 +65,10 @@
     overflow-x: auto;
   }
   .tabbar button {
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    color: var(--text-3);
+    background: hsla(213, 34%, 9.2%, 0.9);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-1);
     font-family: var(--font);
     font-size: 14.5px;
     font-weight: 700;
@@ -158,11 +159,9 @@
   .known-issues li:last-child { margin-bottom: 0; }
 
   /* Install guide tab */
-  .guide-intro { max-width: 640px; margin: 0 auto 36px; text-align: center; color: var(--text-2); font-size: 15px; }
+  .guide-intro { max-width: 680px; margin: 0 auto 28px; padding: 24px 30px; text-align: center; color: var(--text-1); font-size: 15px; background: hsla(213, 34%, 9.2%, 0.94); border: 1px solid var(--border); border-radius: 14px; }
   .guide-intro h2 { margin: 0 0 10px; font-size: 24px; font-weight: 800; color: var(--text-0); }
-  .guide-step { display: flex; gap: 28px; align-items: flex-start; padding: 32px 0; border-bottom: 1px solid var(--border); }
-  .guide-step:first-of-type { padding-top: 0; }
-  .guide-step:last-of-type { border-bottom: none; padding-bottom: 0; }
+  .guide-step { display: flex; gap: 28px; align-items: flex-start; padding: 26px 30px; margin-bottom: 16px; background: hsla(213, 34%, 9.2%, 0.94); border: 1px solid var(--border); border-radius: 14px; }
   .guide-step .num {
     flex-shrink: 0;
     width: 36px; height: 36px;
@@ -176,7 +175,7 @@
   }
   .guide-step .content { flex: 1; min-width: 0; }
   .guide-step h3 { margin: 4px 0 8px; font-size: 18px; font-weight: 700; color: var(--text-0); }
-  .guide-step p { margin: 0 0 16px; font-size: 14.5px; color: var(--text-2); }
+  .guide-step p { margin: 0 0 16px; font-size: 15px; color: var(--text-1); }
   .guide-step img {
     width: 100%;
     max-width: 640px;
@@ -188,13 +187,14 @@
   .update-post {
     display: flex;
     gap: 20px;
-    padding: 24px 0;
-    border-bottom: 1px solid var(--border);
+    padding: 20px 24px;
+    margin-bottom: 14px;
+    background: hsla(213, 34%, 9.2%, 0.94);
+    border: 1px solid var(--border);
+    border-radius: 14px;
     text-decoration: none;
     color: inherit;
   }
-  .update-post:first-child { padding-top: 0; }
-  .update-post:last-child { border-bottom: none; }
   .update-post .emoji {
     flex-shrink: 0;
     width: 56px; height: 56px;
@@ -206,7 +206,7 @@
   }
   .update-post .body h3 { margin: 0 0 4px; font-size: 19px; font-weight: 700; color: var(--text-0); }
   .update-post .date { font-size: 12.5px; color: var(--text-3); font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: 8px; display: block; }
-  .update-post p.excerpt { margin: 0; font-size: 14.5px; color: var(--text-2); }
+  .update-post p.excerpt { margin: 0; font-size: 14.5px; color: var(--text-1); }
   .update-post .read-more { margin-top: 10px; font-size: 13.5px; color: var(--link); font-weight: 600; }
   .update-post:hover .read-more { text-decoration: underline; }
 
