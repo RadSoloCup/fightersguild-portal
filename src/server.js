@@ -111,7 +111,6 @@ app.get('/updates/modpack-1-4', async c => {
   const html = await readFile('./public/updates/modpack-1-4.html', 'utf8')
   return c.html(html)
 })
-// Unlisted until release: reachable by URL but not in updates-index.json or the Minecraft hub.
 app.get('/updates/modpack-1-5', async c => {
   const html = await readFile('./public/updates/modpack-1-5.html', 'utf8')
   return c.html(html)
