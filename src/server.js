@@ -111,6 +111,11 @@ app.get('/updates/modpack-1-4', async c => {
   const html = await readFile('./public/updates/modpack-1-4.html', 'utf8')
   return c.html(html)
 })
+// Unlisted until release: reachable by URL but not in updates-index.json or the Minecraft hub.
+app.get('/updates/modpack-1-5', async c => {
+  const html = await readFile('./public/updates/modpack-1-5.html', 'utf8')
+  return c.html(html)
+})
 // Not a real update, not in updates-index.json, not linked from the tabbar
 // or minecraft hub anywhere. Standalone ARG page, content changes in place
 // over time at this same URL.
