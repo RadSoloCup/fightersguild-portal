@@ -167,6 +167,24 @@
   .shoutout h3 { margin: 10px 0 8px; font-size: clamp(22px, 3vw, 28px); font-weight: 900; color: var(--text-0); }
   .shoutout p { max-width: 640px; margin: 0 auto; color: var(--text-2); font-size: 14.5px; }
 
+  /* The block from /updates/leak, same breathing glow and drips. */
+  .glimpse { position: relative; display: block; width: 88px; height: 88px; margin: 70px auto 0; }
+  .glimpse img { width: 100%; height: 100%; display: block; image-rendering: pixelated; filter: drop-shadow(0 0 26px hsla(272, 70%, 55%, 0.35)); animation: breathe 7s ease-in-out infinite; }
+  @keyframes breathe {
+    0%, 100% { filter: drop-shadow(0 0 26px hsla(272, 70%, 55%, 0.35)); transform: scale(1); }
+    50% { filter: drop-shadow(0 0 40px hsla(272, 70%, 60%, 0.6)); transform: scale(1.015); }
+  }
+  .glimpse .drip { position: absolute; top: 100%; width: 2px; background: linear-gradient(hsla(272, 70%, 65%, 0.55), transparent); animation: fall 5.5s linear infinite; opacity: 0; }
+  .glimpse .drip:nth-of-type(1) { left: 34%; height: 40px; animation-delay: 0.4s; }
+  .glimpse .drip:nth-of-type(2) { left: 58%; height: 28px; animation-delay: 2.6s; }
+  .glimpse .drip:nth-of-type(3) { left: 47%; height: 54px; animation-delay: 4.1s; }
+  @keyframes fall {
+    0% { opacity: 0; transform: translateY(0); }
+    8% { opacity: 0.8; }
+    70% { opacity: 0.5; }
+    100% { opacity: 0; transform: translateY(60px); }
+  }
+  @media (prefers-reduced-motion: reduce) { .glimpse img, .glimpse .drip { animation: none; } }
   footer { margin-top: 90px; padding: 48px 20px 60px; text-align: center; border-top: 1px solid var(--border); color: var(--text-3); font-size: 13.5px; background: var(--bg-0); }
   footer a { color: var(--link); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
@@ -959,6 +977,11 @@
       </div>
     </div>
   </section>
+
+  <a class="glimpse" href="/updates/leak" aria-label="...">
+    <img src="assets/glimpse.webp" alt="">
+    <span class="drip"></span><span class="drip"></span><span class="drip"></span>
+  </a>
 
   <footer>
     Fighters Guild &middot; <a href="/minecraft">Minecraft Hub</a> &middot; <a href="/portal">Back to the Portal</a>
