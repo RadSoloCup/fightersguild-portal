@@ -88,7 +88,11 @@
   .section-head p { max-width: 660px; margin: 14px auto 0; color: var(--text-1); font-size: 16px; }
 
   .feature { background: hsla(213, 34%, 9.2%, 0.88); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 26px; display: grid; grid-template-columns: 1fr; }
-  @media (min-width: 860px) { .feature.split { grid-template-columns: 0.9fr 1.1fr; } }
+  @media (min-width: 860px) {
+    .feature.split { grid-template-columns: 0.9fr 1.1fr; }
+    /* Long panels: keep the image a sensible size and pinned while the text scrolls. */
+    .feature.split .shot { position: sticky; top: 20px; align-self: start; height: min(560px, calc(100vh - 40px)); }
+  }
   .feature .shot { min-height: 220px; background: var(--bg-3) center / cover no-repeat; }
   .feature .body { padding: 28px 30px 30px; }
   .feature h3 { margin: 0 0 4px; font-size: 24px; font-weight: 800; color: var(--text-0); }
@@ -242,6 +246,43 @@
             against current Forge. Being on the same version means we can take those fixes
             straight away instead of patching things ourselves.</li>
           </ul>
+          <h4>New in Forge since our version</h4>
+          <ul>
+            <li><strong>Faster, leaner loading.</strong> Mod scanning at startup is about
+            30% faster, the registries and capability system were optimised, and the event
+            system was upgraded to a version with lower memory use and faster event
+            handling (that is the code every mod uses to react to things in the game).</li>
+            <li><strong>Crash reports that point at the culprit.</strong> Forge now
+            analyses crash reports and names the mod most likely responsible, and mod
+            loading errors and broken config files are reported clearly in the log
+            instead of failing silently.</li>
+            <li><strong>Keybinds with modifier keys work properly.</strong> Binds that use
+            Shift, Ctrl or Alt now trigger correctly, even when several modifiers are held.
+            Handy in a pack with this many keybinds.</li>
+            <li><strong>Better command autocomplete.</strong> Typing a command now suggests
+            modded items and blocks without needing the mod's name first.</li>
+            <li><strong>Modded leaves follow your graphics setting.</strong> On Fast
+            graphics, modded leaves now render like vanilla ones, which is easier on
+            lower end PCs.</li>
+            <li><strong>A sturdier loading screen.</strong> Several fixes for graphics
+            drivers that had trouble with the early loading window, and a simpler memory
+            readout while the game starts.</li>
+          </ul>
+          <h4>Major fixes</h4>
+          <ul>
+            <li>A missing optional mod no longer crashes the game through another mod's
+            mixins.</li>
+            <li>Containers no longer close by themselves when your reach has been extended
+            by gear or effects.</li>
+            <li>Blocks touched by lava no longer stay permanently flammable.</li>
+            <li>Fixed a networking bug that could drop the last packet while joining a
+            server.</li>
+            <li>Fixed falling blocks not rendering while they fall, wrong boat travel
+            distances, fire mobs ignoring freezing damage, and shields not being disabled
+            by axe hits from some attackers.</li>
+            <li>Fixed a crash when an item breaks while it is being used, and memory use
+            when checking entities in water and lava was reduced.</li>
+          </ul>
           <h4>What you need to do</h4>
           <ul>
             <li>Nothing special. The Fighters Guild Launcher installs the new Forge
@@ -272,6 +313,57 @@
             <li><strong>Hundreds of releases of fixes and improvements</strong> to
             buildings, citizen AI, builders and the colony interface.</li>
           </ul>
+          <h4>New since our version</h4>
+          <ul>
+            <li><strong>A full food rework.</strong> Over a dozen new crops (tomato, rice,
+            onion, garlic, cabbage, soybean, eggplant and more) and a whole menu of new
+            dishes from a reworked Cook and Restaurant. Citizen happiness now depends on
+            the quality and variety of their food, and the simpler dishes can be crafted
+            by players too.</li>
+            <li><strong>Colony connections.</strong> Build a Gatehouse, lay a trail of the
+            new sign blocks to another colony, and the two are linked. From there you can
+            request an alliance, declare a feud, and travel between gatehouses.</li>
+            <li><strong>Cavalry and new guard types.</strong> Stables let guards ride into
+            battle on horseback, and two new guards join the barracks: the axe wielding
+            Huscarl and the crossbow Marksman, whose hits partly ignore armor. Guards now
+            also react when raiders attack a gate.</li>
+            <li><strong>Raiders out in the world.</strong> Raider ships and camps now
+            appear as structures in the world, with underwater raiders and tougher camp
+            raiders.</li>
+            <li><strong>Builder's Assistant Hammers.</strong> Gold, Iron and Diamond hammers
+            let you jump in and place blocks on an active build site yourself instead of
+            waiting for your builder.</li>
+            <li><strong>A colony map item</strong> showing citizen complaints, sick and
+            hungry citizens, guard tower ranges, and a prestige high score of colonies
+            ranked by how impressive their buildings are.</li>
+            <li><strong>Leisure time.</strong> Citizens now take short breaks to visit the
+            library, university and town hall, with icons over their heads showing when
+            they are idle, sleeping or mourning.</li>
+            <li><strong>Statistics pages for every building</strong>, so you can see what
+            each worker has actually produced.</li>
+            <li><strong>New job skills:</strong> the Cowhand can now herd and milk goats,
+            the Lumberjack has a craft-only mode, a new research lets crops spread
+            sideways, and Postbox minimum stock keeps you topped up automatically.</li>
+            <li><strong>The Ancient Athens style</strong>, new walls and gatehouses in
+            several styles, and a big pass over almost every existing style.</li>
+            <li><strong>Compatibility with Waystones and Productive Bees</strong>, and every
+            research can now be undone.</li>
+          </ul>
+          <h4>Major fixes</h4>
+          <ul>
+            <li>Pathfinding was rebuilt several times over: citizens handle ladders,
+            bridges, water and steep drops far better and get unstuck on their own.</li>
+            <li>The request system and warehouse were made much more resilient, fixing
+            builders asking for items they already had and requests getting stuck.</li>
+            <li>Citizen duplication prevention, and fixes for citizens loaded from chunks
+            replacing active ones.</li>
+            <li>Fixed guard patrols piling up events and causing lag, plus a large speedup
+            for colony rendering and citizen path following.</li>
+            <li>Removing a mod no longer crashes or corrupts a colony that used its food,
+            jobs or recipes.</li>
+            <li>Dozens of crash fixes, including racks next to huts, modded armor on
+            citizens, and colonies reaching into unloaded chunks.</li>
+          </ul>
           <h4>Good to know</h4>
           <ul>
             <li>Colony data is upgraded the first time the 1.5 world loads. That upgrade
@@ -292,8 +384,53 @@
           new spells, items and balance changes, plus a rebuilt recipe viewer integration.
           The old version did not scale with all the new weapons in 1.5 and froze the game
           while loading, which the new version fixes.</p>
-          <p>It now needs a small helper library, <strong>Iron's Lib</strong>, which comes
-          with the update automatically.</p>
+          <p>Iron's Spells 3.15 brought every new feature from versions 3.5 through 3.15
+          back to Minecraft 1.20.1 in one go, so we skip straight past twelve versions of
+          content. It now needs a small helper library, <strong>Iron's Lib</strong>, which
+          comes with the update automatically.</p>
+          <h4>New bosses and places</h4>
+          <ul>
+            <li><strong>The Citadel</strong>, a new structure guarded by Citadel Keepers,
+            and Tyros, the fire boss at its heart.</li>
+            <li><strong>Ice Spider Dens</strong> with the new Ice Spider mob.</li>
+            <li><strong>The Dead King returns.</strong> Use a Phylactery to bring him back,
+            or face the new Ominous Dead King fight.</li>
+            <li>New vault variants for trial loot and custom boss health bars.</li>
+          </ul>
+          <h4>19 new spells</h4>
+          <ul>
+            <li>Sunbeam, Cleanse, Ice Spikes, Fire Arrow, Raise Hell, Summon Swords, Touch
+            Dig, Volt Strike, Ice Tomb, Snowball, Frostbite, Pocket Dimension, Shadow Slash,
+            Throw, Fang Swirl, Blizzard, Arcane Shackle, Gravity Fissure and Scapegoat.</li>
+          </ul>
+          <h4>New gear</h4>
+          <ul>
+            <li><strong>Armor:</strong> the Wizard set, the Infernal Sorcerer's and
+            Lightbringer's chestplates, and Boots of Speed.</li>
+            <li><strong>Weapons and staves:</strong> Boreal Blade, Twilight Gale,
+            Hellrazor, Decrepit Scythe, Legionnaire Flameberge and the Pyrium Staff.</li>
+            <li><strong>Trinkets and books:</strong> Signet of the Betrayer, Greater
+            Conjurer's Talisman, Amulet of Teleportation, and the Cursed Doll and
+            Frostbranded spellbooks.</li>
+            <li><strong>Blocks and music:</strong> the Portal Frame, Wisewood Bookshelf
+            and Brazier, plus three new music discs.</li>
+          </ul>
+          <h4>Reworked systems</h4>
+          <ul>
+            <li>The Alchemist Cauldron now works with fluids.</li>
+            <li>Summons were reworked and can be recast to refresh them.</li>
+            <li>Late game armor is now crafted on the Smithing Table using runes.</li>
+            <li>A toggle option for the spell wheel keybind, and wizard merchants now trade
+            school runes.</li>
+          </ul>
+          <h4>Major fixes</h4>
+          <ul>
+            <li>The recipe viewer integration no longer burns CPU building recipes, the
+            cause of our freeze while loading.</li>
+            <li>Spells now respect PvP and friendly fire rules properly.</li>
+            <li>Fixed summons getting out of sync between the server and players.</li>
+            <li>Many balance passes across spells, gear and mobs.</li>
+          </ul>
         </div>
       </div>
     </div>
