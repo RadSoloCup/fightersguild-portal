@@ -126,6 +126,11 @@
   @media (prefers-reduced-motion: reduce) { .stars i { animation: none; opacity: 0.6; } }
   .mod-card .link-out { font-size: 12.5px; font-weight: 700; color: var(--link); }
   .mod-card:hover .link-out { text-decoration: underline; }
+  .all-updates { margin-top: 18px; background: hsla(213, 34%, 9.2%, 0.9); border: 1px solid var(--border); border-radius: 14px; padding: 14px 18px; }
+  .all-updates summary { cursor: pointer; font-weight: 700; color: var(--link); font-size: 14.5px; }
+  .all-updates ul { columns: 3 260px; column-gap: 28px; margin: 14px 0 4px; padding: 0; list-style: none; font-size: 13.5px; color: var(--text-2); }
+  .all-updates li { break-inside: avoid; padding: 2px 0; }
+  .all-updates li b { color: var(--text-1); font-weight: 600; }
   .lib-note { margin-top: 26px; text-align: center; font-size: 13.5px; color: var(--text-3); }
   .lib-note strong { color: var(--text-2); }
 
@@ -210,7 +215,7 @@
     </div>
     <div class="stats">
       <div class="stat"><b>26</b><span>New mods</span></div>
-      <div class="stat"><b>19</b><span>Mods updated</span></div>
+      <div class="stat"><b>148</b><span>Mods updated</span></div>
       <div class="stat"><b>15</b><span>New dimensions</span></div>
       <div class="stat"><b>~3x</b><span>Less idle server load</span></div>
     </div>
@@ -718,7 +723,8 @@
         <strong>Library Ferret</strong>, <strong>Formations</strong>,
         <strong>Knight Lib</strong>, <strong>CERBON's API</strong>, <strong>Iron's Lib</strong>,
         <strong>CorgiLib</strong>, <strong>Data Anchor</strong>,
-        <strong>Fzzy Config</strong> and <strong>Simply Tooltips</strong>.
+        <strong>Fzzy Config</strong>, <strong>Simply Tooltips</strong>, <strong>GuideME</strong>,
+        <strong>Cobweb</strong> and <strong>Almanac</strong>.
       </p>
     </div>
   </section>
@@ -729,8 +735,10 @@
       <div class="section-head">
         <div class="kicker">Updated</div>
         <h2>Mods Brought Up To Date</h2>
-        <p>Besides MineColonies and Iron's Spells, these mods were updated to work with
-        Forge and with each other.</p>
+        <p>Besides MineColonies and Iron's Spells, 148 mods are on newer versions in 1.5. The
+        first group was needed to make everything work on Forge; after that we brought the
+        rest of the pack up to date, checking every update against the others before it
+        went in. The highlights are below, with the full list underneath.</p>
       </div>
       <table class="table">
         <thead><tr><th>Mod</th><th>Version</th><th>Why</th></tr></thead>
@@ -743,9 +751,191 @@
           <tr><td>Elytra Slot</td><td class="ver">6.4.0 &rarr; <b>6.4.4</b></td><td>Fixes a rare error during startup that also shows up on the current server.</td></tr>
           <tr><td>Ad Astra</td><td class="ver">1.15.18 &rarr; <b>1.15.19</b></td><td>Paired with Ad Astra: Giselle Addon 6.9 &rarr; 6.18, which avoids a crash in the Fuel Loader screen with the new recipe viewer.</td></tr>
           <tr><td>GeckoLib, Cloth Config, Citadel, YUNG's API</td><td class="ver">latest 1.20.1 releases</td><td>Required by the new mods. Fully compatible with the mods already using them.</td></tr>
-          <tr><td>Pack cleanup</td><td class="ver">&nbsp;</td><td>Removed leftover duplicate copies of FerriteCore and Almost Unified that had been sitting in the pack.</td></tr>
+          <tr><td>ModernFix</td><td class="ver">5.18 &rarr; <b>5.27</b></td><td>Fifty releases of performance and memory fixes for large modpacks.</td></tr>
+          <tr><td>Applied Energistics 2</td><td class="ver">15.2 &rarr; <b>15.4</b></td><td>A long list of fixes. AE2 Wireless Terminals, ME Requester, MEGA Cells, Applied Mekanistics and Applied Botanics were updated with it.</td></tr>
+          <tr><td>Botania</td><td class="ver">444 &rarr; <b>456</b></td><td>Twelve releases of fixes.</td></tr>
+          <tr><td>Mekanism</td><td class="ver">10.4.8 &rarr; <b>10.4.16</b></td><td>Bug fixes for Mekanism, Generators, Additions and Tools.</td></tr>
+          <tr><td>Integrated Dynamics</td><td class="ver">1.22 &rarr; <b>1.31</b></td><td>Along with Integrated Terminals, Tunnels and Crafting: fixes and performance improvements for logic networks.</td></tr>
+          <tr><td>Farmer's Delight</td><td class="ver">1.2.4 &rarr; <b>1.3.4</b></td><td>New Bamboo Basket and more. Heads up: the original Basket is replaced by a new one, so empty your baskets before 1.5 goes live. Anything left inside is lost.</td></tr>
+          <tr><td>Mowzie's Mobs</td><td class="ver">1.6 &rarr; <b>1.8</b></td><td>A content update, including the new Earthrend Gauntlet.</td></tr>
+          <tr><td>Occultism, Blood Magic, Ars Nouveau</td><td class="ver">latest 1.20.1 releases</td><td>Fixes across the magic mods.</td></tr>
+          <tr><td>Embeddium, Not Enough Animations</td><td class="ver">0.3.31, 1.12</td><td>Rendering fixes, and many more first and third person animations.</td></tr>
+          <tr><td>Pack cleanup</td><td class="ver">&nbsp;</td><td>Removed leftover duplicate copies of FerriteCore, Almost Unified and Not Enough Animations that had been sitting in the pack.</td></tr>
         </tbody>
       </table>
+
+      <details class="all-updates">
+        <summary>Show all 129 mods we updated on top of that</summary>
+        <ul>
+          <li><b>Angel Ring</b> 2.2.1 &rarr; 2.2.3</li>
+          <li><b>Applied Botanics</b> 1.5.0 &rarr; 1.5.2</li>
+          <li><b>Applied Energistics 2</b> 15.2.4 &rarr; 15.4.11</li>
+          <li><b>AE2 Wireless Terminals</b> 15.2.3 &rarr; 15.3.3</li>
+          <li><b>Applied Mekanistics</b> 1.4.2 &rarr; 1.4.3</li>
+          <li><b>Ars Nouveau</b> 4.12.1 &rarr; 4.12.7</li>
+          <li><b>AttributeFix</b> 21.0.4 &rarr; 21.0.5</li>
+          <li><b>Balm</b> 7.3.6 &rarr; 7.3.44</li>
+          <li><b>Baubley Heart Canisters</b> 1.0.5 &rarr; 1.2.0</li>
+          <li><b>Blood Magic</b> 3.3.3-45 &rarr; 3.3.8-50</li>
+          <li><b>Bookshelf</b> 20.2.13 &rarr; 20.2.15</li>
+          <li><b>Botania</b> 444 &rarr; 456</li>
+          <li><b>Botarium</b> 2.3.3 &rarr; 2.3.4</li>
+          <li><b>Building Gadgets</b> 1.0.7 &rarr; 1.0.8</li>
+          <li><b>Clean Swing</b> 1.5 &rarr; 1.8</li>
+          <li><b>Cognition</b> 2.1.0 &rarr; 2.4.12</li>
+          <li><b>Colorful Hearts</b> 4.0.4 &rarr; 4.3.16</li>
+          <li><b>Comforts</b> 6.3.5+1.20.1 &rarr; 6.4.0+1.20.1</li>
+          <li><b>Common Capabilities</b> 2.9.1 &rarr; 2.9.11</li>
+          <li><b>Connectivity</b> 5.5 &rarr; 7.7</li>
+          <li><b>Cooking for Blockheads</b> 16.0.6 &rarr; 16.0.15</li>
+          <li><b>Crafting Tweaks</b> 18.2.4 &rarr; 18.2.9</li>
+          <li><b>CraftTweaker</b> 14.0.40 &rarr; 14.0.60</li>
+          <li><b>CreateTweaker</b> 4.0.9 &rarr; 4.0.15</li>
+          <li><b>Soul Shards</b> 1.3.6 &rarr; 1.3.10</li>
+          <li><b>Cucumber Library</b> 7.0.8 &rarr; 7.0.16</li>
+          <li><b>Cupboard</b> 2.6 &rarr; 4.2</li>
+          <li><b>Cyclops Core</b> 1.19.1 &rarr; 1.22.3</li>
+          <li><b>Dark Utilities</b> 17.0.3 &rarr; 17.0.6</li>
+          <li><b>Deep Resonance</b> 5.0.4 &rarr; 5.0.6</li>
+          <li><b>Default Options</b> 18.0.1 &rarr; 18.0.5</li>
+          <li><b>Eccentric Tome</b> 1.10.2 &rarr; 1.10.4</li>
+          <li><b>Embeddium</b> 0.3.28 &rarr; 0.3.31</li>
+          <li><b>Enchantment Descriptions</b> 17.0.16 &rarr; 17.1.20</li>
+          <li><b>EnderChests</b> 1.2 &rarr; 1.4</li>
+          <li><b>EnderTanks</b> 1.3 &rarr; 1.5</li>
+          <li><b>Extreme Reactors</b> 2.0.82 &rarr; 2.0.97</li>
+          <li><b>Extreme Sound Muffler</b> 3.48 &rarr; 3.51</li>
+          <li><b>Farmer&#39;s Delight</b> 1.2.4 &rarr; 1.3.4</li>
+          <li><b>Farming for Blockheads</b> 14.0.2 &rarr; 14.0.4</li>
+          <li><b>FastSuite</b> 5.0.1 &rarr; 5.1.2</li>
+          <li><b>FindMe</b> 3.2.1 &rarr; 3.2.2</li>
+          <li><b>FTB Chunks</b> 2001.3.1 &rarr; 2001.3.8</li>
+          <li><b>FTB Essentials</b> 2001.2.2 &rarr; 2001.2.4</li>
+          <li><b>FTB Library</b> 2001.2.2 &rarr; 2001.2.13</li>
+          <li><b>FTB Ranks</b> 2001.1.3 &rarr; 2001.1.7</li>
+          <li><b>FTB Teams</b> 2001.3.0 &rarr; 2001.3.2</li>
+          <li><b>FTB XMod Compat</b> 2.1.1 &rarr; 2.1.3</li>
+          <li><b>Functional Armor Trim</b> 4 &rarr; 6</li>
+          <li><b>Gateways to Eternity</b> 4.2.5 &rarr; 4.2.6</li>
+          <li><b>HammerLib</b> 20.1.29 &rarr; 20.1.50</li>
+          <li><b>Harvest With Ease</b> 8.0.1.0 &rarr; 9.4.0</li>
+          <li><b>Hostile Neural Networks</b> 5.3.0 &rarr; 5.3.3</li>
+          <li><b>iChunUtil</b> 1.0.0 &rarr; 1.0.3</li>
+          <li><b>Industrial Foregoing</b> 3.5.17 &rarr; 3.5.22</li>
+          <li><b>Integrated Crafting</b> 1.1.7 &rarr; 1.4.8</li>
+          <li><b>Integrated Dynamics</b> 1.22.1 &rarr; 1.31.3</li>
+          <li><b>Integrated Terminals</b> 1.4.15 &rarr; 1.7.0</li>
+          <li><b>Integrated Tunnels</b> 1.8.28 &rarr; 1.10.1</li>
+          <li><b>Inventory Essentials</b> 8.2.6 &rarr; 8.2.19</li>
+          <li><b>Iron Furnaces</b> 4.1.6 &rarr; 4.1.8</li>
+          <li><b>Iron Jetpacks</b> 7.0.5 &rarr; 7.0.9</li>
+          <li><b>JAOPCA</b> 4.4.10.17 &rarr; 4.4.18.34</li>
+          <li><b>KleeSlabs</b> 15.0.0 &rarr; 15.0.12</li>
+          <li><b>Kotlin for Forge</b> 4.11.0 &rarr; 4.12.0</li>
+          <li><b>KubeJS</b> 2001.6.5-build.14 &rarr; 2001.6.5-build.26</li>
+          <li><b>KubeJS Additions</b> 4.3.2 &rarr; 4.3.4</li>
+          <li><b>KubeJS Thermal</b> 2001.1.10-build.2 &rarr; 2001.1.10-build.5</li>
+          <li><b>L2 Library</b> 2.4.27 &rarr; 2.5.3</li>
+          <li><b>Let Me Despawn</b> 1.2.1 &rarr; 1.5.0</li>
+          <li><b>LootJS</b> 2.12.0 &rarr; 2.13.1</li>
+          <li><b>Lootr</b> 0.7.34.85 &rarr; 0.7.35.94</li>
+          <li><b>Macaw&#39;s Bridges</b> 3.0.0 &rarr; 3.1.2</li>
+          <li><b>Macaw&#39;s Doors</b> 1.1.1 &rarr; 1.1.5</li>
+          <li><b>Macaw&#39;s Holidays</b> 1.1.0 &rarr; 1.1.2</li>
+          <li><b>Max Health Fix</b> 12.0.3 &rarr; 12.0.4</li>
+          <li><b>McJtyLib</b> 8.0.5 &rarr; 8.0.8</li>
+          <li><b>ME Requester</b> 1.1.4 &rarr; 1.2.1</li>
+          <li><b>Measurements</b> 2.0.0 &rarr; 2.0.1</li>
+          <li><b>MEGA Cells</b> 2.4.4 &rarr; 2.4.6</li>
+          <li><b>Mekanism</b> 10.4.8 &rarr; 10.4.16</li>
+          <li><b>Mekanism Additions</b> 10.4.8 &rarr; 10.4.16</li>
+          <li><b>Mekanism Generators</b> 10.4.8 &rarr; 10.4.16</li>
+          <li><b>Mekanism Tools</b> 10.4.8 &rarr; 10.4.16</li>
+          <li><b>ModernFix</b> 5.18.1 &rarr; 5.27.85</li>
+          <li><b>Modonomicon</b> 1.73.0 &rarr; 1.79.3</li>
+          <li><b>Modular Force Field System</b> 5.1.9 &rarr; 5.1.29</li>
+          <li><b>Mowzie&#39;s Mobs</b> 1.6.5 &rarr; 1.8.2</li>
+          <li><b>Nature&#39;s Compass</b> 1.11.2 &rarr; 1.12.0</li>
+          <li><b>Neat</b> 35 &rarr; 41</li>
+          <li><b>Not Enough Animations</b> 1.7.5 &rarr; 1.12.6</li>
+          <li><b>Occultism</b> 1.132.1 &rarr; 1.158.0</li>
+          <li><b>OpenBlocks Elevator</b> lex-1.9 &rarr; 1.9.1</li>
+          <li><b>Patchouli</b> 84 &rarr; 85</li>
+          <li><b>Pig Pen Cipher</b> 15.0.2 &rarr; 15.0.3</li>
+          <li><b>PneumaticCraft: Repressurized</b> 6.0.15 &rarr; 6.0.23</li>
+          <li><b>Productive Bees</b> 12.5.3 &rarr; 12.6.0</li>
+          <li><b>Railcraft Reborn</b> 1.0.10 &rarr; 1.1.11</li>
+          <li><b>Resourceful Config</b> 2.1.2 &rarr; 2.1.3</li>
+          <li><b>Resourceful Lib</b> 2.1.25 &rarr; 2.1.29</li>
+          <li><b>RFTools Base</b> 5.0.4 &rarr; 5.0.7</li>
+          <li><b>RFTools Builder</b> 6.0.5 &rarr; 6.0.10</li>
+          <li><b>RFTools Control</b> 7.0.2 &rarr; 7.0.4</li>
+          <li><b>RFTools Dimensions</b> 11.0.7 &rarr; 11.0.11</li>
+          <li><b>RFTools Power</b> 6.0.2 &rarr; 6.0.3</li>
+          <li><b>RFTools Storage</b> 5.0.3 &rarr; 5.0.4</li>
+          <li><b>RFTools Utility</b> 6.0.6 &rarr; 6.0.7</li>
+          <li><b>Rhino</b> 2001.2.2-build.18 &rarr; 2001.2.3-build.10</li>
+          <li><b>RSInfinityBooster</b> 1.0+32 &rarr; 1.0+41</li>
+          <li><b>Runelic</b> 18.0.2 &rarr; 18.0.4</li>
+          <li><b>Smooth Chunk Save</b> 3.6 &rarr; 4.1</li>
+          <li><b>ShetiPhianCore</b> 1.3 &rarr; 1.5</li>
+          <li><b>Simple Magnets</b> 1.1.11 &rarr; 1.1.12</li>
+          <li><b>SmartBrainLib</b> 1.14 &rarr; 1.15</li>
+          <li><b>Solar Flux Reborn</b> 20.1.6 &rarr; 20.1.11</li>
+          <li><b>Structure Compass</b> 2.0.9 &rarr; 2.3.0</li>
+          <li><b>SuperMartijn642&#39;s Core Lib</b> 1.1.17 &rarr; 1.1.25</li>
+          <li><b>Sushi Go Crafting</b> 0.5.2 &rarr; 0.5.3</li>
+          <li><b>The Aether</b> 1.4.2 &rarr; 1.5.2</li>
+          <li><b>Time in a Bottle</b> 4.0.4 &rarr; 4.1.1</li>
+          <li><b>Titanium</b> 3.8.32 &rarr; 3.8.34</li>
+          <li><b>Tome of Blood: Rebirth</b> 0.4.4 &rarr; 0.4.5</li>
+          <li><b>Torchmaster</b> 20.1.6 &rarr; 20.1.9</li>
+          <li><b>Towers of the Wild Modded</b> 1.0.5 &rarr; 1.0.6</li>
+          <li><b>Waystones</b> 14.1.4 &rarr; 14.1.20</li>
+          <li><b>Wormhole (Portals)</b> 1.1.16 &rarr; 1.1.17</li>
+          <li><b>XNet</b> 6.1.4 &rarr; 6.1.7</li>
+          <li><b>XNet Gases</b> 5.0.0 &rarr; 5.1.4</li>
+          <li><b>ZeroCore 2</b> 2.1.44 &rarr; 2.1.48</li>
+        </ul>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===================== FIXES AND TUNING ===================== -->
+  <section class="band" style="--img: url('assets/1-5/sevenseas-shot3.webp')">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">Polish</div>
+        <h2>Fixes and Tuning</h2>
+        <p>Things we found and fixed while testing 1.5.</p>
+      </div>
+      <div class="news-grid">
+        <div class="news">
+          <span class="when">Performance</span>
+          <h3>Smoother frame rates around busy bases</h3>
+          <ul>
+            <li>Souls from Dungeons Content that nobody collects now fade after a minute.
+            They were piling up near mob farms and slowing the game for everyone nearby.
+            Souls from your own fights still fly to you and fill your soul meter as
+            usual.</li>
+            <li>Productive Bees centrifuges no longer draw the combs spinning inside them,
+            a big frame rate win around large apiaries. The centrifuges work exactly the
+            same.</li>
+          </ul>
+        </div>
+        <div class="news">
+          <span class="when">Balance</span>
+          <h3>Balancing changes</h3>
+          <p>A few items and item combinations turned out to be far stronger than intended
+          once the new mods were in the mix, and have been adjusted.</p>
+        </div>
+        <div class="news">
+          <span class="when">Seasonal</span>
+          <h3>Trick or Trainer, minus the hordes</h3>
+          <p>The zombie horde nights are gone from the Trick or Trainer season. The rest of
+          the battle pass, its rewards and the Halloween decorations stay as they are.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -929,61 +1119,6 @@
           dimensions and most of its mobs are missing on this version. At 140 MB it also
           added a lot of memory use and loading time for very little content, so we pulled
           it after testing.</p></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== WHAT'S NEXT ===================== -->
-  <section class="band" style="--img: url('assets/1-5/sevenseas-shot3.webp')">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="kicker">What's Next</div>
-        <h2>Suggestions Are Open For 1.7</h2>
-        <p>While 1.5 finishes testing, we are already looking ahead. Here is what the next
-        two updates look like and how to get your mod ideas in.</p>
-      </div>
-
-      <div class="news-grid">
-        <div class="news">
-          <span class="when">Update 1.6</span>
-          <h3>A balance and performance pass</h3>
-          <p>1.5 adds a lot at once, so 1.6 is about making it all play well together
-          rather than adding more. Expect tuning to mob spawns, loot, gear and leveling,
-          work on lag and memory use from the new content, and fixes for the rough edges
-          we find after launch.</p>
-        </div>
-        <div class="news">
-          <span class="when">Update 1.7</span>
-          <h3>Your next round of mods</h3>
-          <p>Suggestions for 1.7 are open now. Post them in the Discord with a link to the
-          mod's CurseForge or Modrinth page and a line on why it would be good for the
-          server. We will test every one and report back on where it landed, just like
-          this page does for 1.5.</p>
-        </div>
-      </div>
-
-      <div style="height: 22px"></div>
-
-      <div class="callout">
-        <h3>What a mod needs to make it in</h3>
-        <ol>
-          <li><strong>Minecraft 1.20.1.</strong> The pack stays on 1.20.1. Mods that only
-          exist for newer or older versions cannot be added.</li>
-          <li><strong>A Forge version.</strong> It needs a release for Forge on 1.20.1.
-          Fabric-only mods and mods built only for NeoForge on newer Minecraft versions will
-          not run in our pack.</li>
-          <li><strong>Multiplayer support.</strong> It has to work on a dedicated server,
-          not just in single player.</li>
-          <li><strong>A finished, maintained release.</strong> Unfinished ports, early
-          alphas and long-abandoned mods tend to break in a pack this size, so they are
-          a hard sell.</li>
-          <li><strong>A good fit for a shared world.</strong> Mods that spread across the
-          map, grief builds or take over everyone's game are not a good fit for a shared
-          survival server, even if they are great in single player.</li>
-          <li><strong>Reasonable weight.</strong> Very large mods, or mods that pull in big
-          libraries of their own, need extra testing for memory use and load times. They
-          are not ruled out, but they take longer to check.</li>
-        </ol>
       </div>
     </div>
   </section>
