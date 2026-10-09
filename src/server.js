@@ -149,6 +149,19 @@ app.all('/minecraft/map/*', c => c.text('Not found', 404))
 
 app.get('/minecraft/leaderboard.json', c => c.json(getLeaderboard()))
 
+// Minecraft server status for the launcher, from the background poller. Status and player counts only:
+// no host, port or join details.
+app.get('/minecraft/status.json', async c => {
+  const s = await one(
+    `SELECT status, players_online, players_max, checked_at FROM game_servers
+      WHERE game ILIKE 'minecraft' AND check_type <> 'none' ORDER BY position, id LIMIT 1`,
+  ).catch(() => null)
+  c.header('Cache-Control', 'no-store')
+  return c.json(s
+    ? { status: s.status, playersOnline: s.players_online, playersMax: s.players_max, checkedAt: s.checked_at }
+    : { status: 'unknown' })
+})
+
 app.use('/minecraft/*', serveStatic({
   root: './public/minecraft',
   rewriteRequestPath: p => p.replace('/minecraft', ''),

@@ -1,0 +1,41 @@
+{
+  "codename": "Starlight Forge",
+  "update": "Update 1.5",
+  "patch": "1.5.2",
+  "date": "2026-10-09",
+  "kicker": "Patch 1.5.2 is live",
+  "headline": "A new foundation for the pack",
+  "summary": "Update 1.5 moves the pack to Forge, rebuilds MineColonies on its latest version and adds 26 new mods packed with dungeons, dimensions, bosses and gear.",
+  "heroImage": "/updates/assets/1-5/forge-starry-night.webp",
+  "link": "/updates/modpack-1-5",
+  "features": [
+    {
+      "tag": "26 New Mods",
+      "title": "Dungeons, dimensions and bosses",
+      "text": "Alex's Caves, Eternal Starlight, Seven Seas, Bosses of Mass Destruction, Dragon Mounts and plenty more.",
+      "image": "/updates/assets/1-5/alexscaves-shot1.webp",
+      "link": "/updates/modpack-1-5"
+    },
+    {
+      "tag": "MineColonies",
+      "title": "Fully up to date",
+      "text": "About 700 builds newer, with smarter citizens and the crash that took the server down on October 4 gone.",
+      "image": "/updates/assets/1-5/minecolonies-build.webp",
+      "link": "/updates/modpack-1-5"
+    },
+    {
+      "tag": "Patch 1.5.2",
+      "title": "No more disconnects",
+      "text": "Terra Entity's ride key no longer kicks you and the Angler's quest button no longer crashes your game.",
+      "image": "/updates/assets/1-5/terraentity-shot2.webp",
+      "link": "/updates/modpack-1-5#patch-1-5-2"
+    },
+    {
+      "tag": "Server, October 9",
+      "title": "Dungeons spawn whole",
+      "text": "Big dungeons no longer spawn cut off, missing structure pieces are back, and new land is generated ahead of you.",
+      "image": "/updates/assets/1-5/dungeonscontent-shot1.webp",
+      "link": "/updates/modpack-1-5#server-fixes-oct-9"
+    }
+  ]
+}
