@@ -6,7 +6,8 @@
   "kicker": "Patch 1.5.2 is live",
   "headline": "A new foundation for the pack",
   "summary": "Update 1.5 moves the pack to Forge, rebuilds MineColonies on its latest version and adds 26 new mods packed with dungeons, dimensions, bosses and gear.",
-  "heroImage": "/updates/assets/1-5/forge-starry-night.webp",
+  "heroImage": "/updates/assets/launcher/bg-mechanical-nest.webp",
+  "heroCredit": "When Dungeons Arise: Mechanical Nest",
   "link": "/updates/modpack-1-5",
   "features": [
     {
