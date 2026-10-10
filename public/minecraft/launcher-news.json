@@ -32,11 +32,11 @@
       "link": "/updates/modpack-1-5#patch-1-5-3"
     },
     {
-      "tag": "Server, October 9",
-      "title": "Dungeons spawn whole",
-      "text": "Big dungeons no longer spawn cut off, missing structure pieces are back, and new land is generated ahead of you.",
+      "tag": "Test Period",
+      "title": "48 hours, a success",
+      "text": "13 issues caught and fixed, and no revert to 1.4 is expected. Next up: 1.6 Starlight Create, moving the pack to Create 6.",
       "image": "/updates/assets/1-5/dungeonscontent-shot1.webp",
-      "link": "/updates/modpack-1-5#server-fixes-oct-9"
+      "link": "/updates/modpack-1-5#patch-1-5-3"
     }
   ]
 }
