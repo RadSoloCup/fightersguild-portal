@@ -1,9 +1,9 @@
 {
   "codename": "Starlight Forge",
   "update": "Update 1.5",
-  "patch": "1.5.2",
-  "date": "2026-10-09",
-  "kicker": "Patch 1.5.2 is live",
+  "patch": "1.5.3",
+  "date": "2026-10-10",
+  "kicker": "Patch 1.5.3 is live",
   "headline": "A new foundation for the pack",
   "summary": "Update 1.5 moves the pack to Forge, rebuilds MineColonies on its latest version and adds 26 new mods packed with dungeons, dimensions, bosses and gear.",
   "heroImage": "/updates/assets/launcher/bg-distant-mountains.webp",
@@ -25,11 +25,11 @@
       "link": "/updates/modpack-1-5"
     },
     {
-      "tag": "Patch 1.5.2",
-      "title": "No more disconnects",
-      "text": "Terra Entity's ride key no longer kicks you and the Angler's quest button no longer crashes your game.",
+      "tag": "Patch 1.5.3",
+      "title": "Cheese is back",
+      "text": "Growthcraft cheese curds can be made in the Mixing Vat again, and the Resources tab now has 11 resource packs.",
       "image": "/updates/assets/1-5/terraentity-shot2.webp",
-      "link": "/updates/modpack-1-5#patch-1-5-2"
+      "link": "/updates/modpack-1-5#patch-1-5-3"
     },
     {
       "tag": "Server, October 9",
