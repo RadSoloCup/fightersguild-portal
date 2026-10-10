@@ -248,6 +248,12 @@
   .shader-meta h3 { margin: 0; font-size: 15.5px; font-weight: 700; color: var(--text-0); }
   .shader-tier { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--cyan); white-space: nowrap; }
   .shader-body p { margin: 0; font-size: 13.5px; color: var(--text-1); }
+  .rp-pom { display: inline-block; margin-left: 6px; padding: 1px 6px; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: var(--bg-0); background: hsl(38, 92%, 55%); border-radius: 4px; vertical-align: 2px; }
+  .rp-note { margin: 12px 0 0; font-size: 13.5px; color: var(--text-2); }
+  .rp-note a { color: var(--cyan); }
+  .rp-heading { margin: 26px 0 12px; font-size: 13px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-2); }
+  .rp-page { display: inline-block; margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--cyan); text-decoration: none; }
+  .rp-page:hover { text-decoration: underline; }
   #panel-map { padding: 20px 0 0; }
   .map-frame { width: 100vw; margin-left: calc(50% - 50vw); background: #000; }
   .map-frame iframe { display: block; width: 100%; height: calc(100vh - 210px); min-height: 520px; border: 0; }
@@ -282,6 +288,7 @@
     <button data-tab="mods">Mods</button>
     <button data-tab="keybinds">Keybinds</button>
     <button data-tab="shaders">Shaders</button>
+    <button data-tab="resourcepacks">Resource Packs</button>
     <button data-tab="map">Map</button>
     <button data-tab="leaderboard">Leaderboard</button>
   </div>
@@ -632,6 +639,108 @@
       </div>
     </div>
 
+    <div class="panel" id="panel-resourcepacks" hidden>
+      <div class="guide-intro">
+        <h2>Resource packs</h2>
+        <p>Optional texture packs that work with the modpack. Install any of these from the <strong>Resources</strong> tab in the Fighters Guild Launcher, which downloads them from their official pages and checks them, then turn one on in Minecraft under Options &rarr; Resource Packs.</p>
+        <p class="rp-note">Packs marked <span class="rp-pom">POM</span> need a shader with parallax occlusion mapping, such as Complementary, BSL or Kappa (see <a href="#shaders" data-goto="shaders">Shaders</a>). Turn on Parallax / POM and LabPBR materials in the shader's settings.</p>
+      </div>
+      <h3 class="rp-heading">Realistic depth (needs a POM shader)</h3>
+      <div class="shader-grid">
+      <div class="shader-card">
+        <img src="/minecraft/resourcepacks/optimum-realism.jpg" alt="Optimum Realism screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Optimum Realism <span class="rp-pom">POM</span></h3><span class="shader-tier">64x &middot; 74 MB</span></div>
+          <p>Realistic textures with PBR materials and parallax depth.</p>
+          <a class="rp-page" href="https://www.curseforge.com/minecraft/texture-packs/optimum-realism" target="_blank" rel="noopener">Pack page &#8599;</a>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/resourcepacks/rotrblocks.jpg" alt="rotrBLOCKS screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>rotrBLOCKS <span class="rp-pom">POM</span></h3><span class="shader-tier">128x &middot; 186 MB</span></div>
+          <p>Vanilla-style blocks rebuilt at 128x with 3D foliage and full PBR depth.</p>
+          <a class="rp-page" href="https://modrinth.com/resourcepack/rotrblocks" target="_blank" rel="noopener">Pack page &#8599;</a>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/resourcepacks/pixlli.jpg" alt="Pixlli screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Pixlli <span class="rp-pom">POM</span></h3><span class="shader-tier">128x &middot; 147 MB</span></div>
+          <p>Detailed 128x textures with full PBR, keeping the vanilla look.</p>
+          <a class="rp-page" href="https://modrinth.com/resourcepack/pixlli" target="_blank" rel="noopener">Pack page &#8599;</a>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/resourcepacks/fpbr.jpg" alt="FPBR screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>FPBR <span class="rp-pom">POM</span></h3><span class="shader-tier">128x &middot; 44 MB</span></div>
+          <p>Free 128x vanilla-style textures with full PBR materials.</p>
+          <a class="rp-page" href="https://modrinth.com/resourcepack/fpbr" target="_blank" rel="noopener">Pack page &#8599;</a>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/resourcepacks/simplista.jpg" alt="Simplista screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Simplista <span class="rp-pom">POM</span></h3><span class="shader-tier">64x &middot; 5 MB</span></div>
+          <p>Clean, low-noise 64x textures, fully LabPBR.</p>
+          <a class="rp-page" href="https://modrinth.com/resourcepack/simplista" target="_blank" rel="noopener">Pack page &#8599;</a>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/resourcepacks/spbr.jpg" alt="SPBR screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>SPBR <span class="rp-pom">POM</span></h3><span class="shader-tier">16x &middot; 14 MB</span></div>
+          <p>The vanilla 16x textures with PBR materials and parallax depth added. The lightest PBR option.</p>
+          <a class="rp-page" href="https://modrinth.com/resourcepack/spbr" target="_blank" rel="noopener">Pack page &#8599;</a>
+        </div>
+      </div>
+      </div>
+      <h3 class="rp-heading">Works without shaders</h3>
+      <div class="shader-grid">
+      <div class="shader-card">
+        <img src="/minecraft/resourcepacks/faithful-32x.jpg" alt="Faithful 32x screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Faithful 32x</h3><span class="shader-tier">32x &middot; 11 MB</span></div>
+          <p>The classic vanilla look at double the resolution.</p>
+          <a class="rp-page" href="https://modrinth.com/resourcepack/faithful-32x" target="_blank" rel="noopener">Pack page &#8599;</a>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/resourcepacks/bare-bones.jpg" alt="Bare Bones screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Bare Bones</h3><span class="shader-tier">16x &middot; 7 MB</span></div>
+          <p>Simple, flat textures in the style of the Minecraft trailers.</p>
+          <a class="rp-page" href="https://modrinth.com/resourcepack/bare-bones" target="_blank" rel="noopener">Pack page &#8599;</a>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/resourcepacks/better-leaves.jpg" alt="Better Leaves screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Better Leaves</h3><span class="shader-tier">16x &middot; 2 MB</span></div>
+          <p>Bushier, fuller-looking leaves. Can cost some frame rate in big forests.</p>
+          <a class="rp-page" href="https://modrinth.com/resourcepack/better-leaves" target="_blank" rel="noopener">Pack page &#8599;</a>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/resourcepacks/fast-better-grass.jpg" alt="Fast Better Grass screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Fast Better Grass</h3><span class="shader-tier">16x &middot; 1 MB</span></div>
+          <p>Grass blocks use the top texture on their sides, so hills look seamless. Works on top of other packs.</p>
+          <a class="rp-page" href="https://modrinth.com/resourcepack/fast-better-grass" target="_blank" rel="noopener">Pack page &#8599;</a>
+        </div>
+      </div>
+      <div class="shader-card">
+        <img src="/minecraft/resourcepacks/default-dark-mode.jpg" alt="Default Dark Mode screenshot" loading="lazy">
+        <div class="shader-body">
+          <div class="shader-meta"><h3>Default Dark Mode</h3><span class="shader-tier">16x &middot; 1 MB</span></div>
+          <p>Dark menus, inventories and screens. Works on top of other packs.</p>
+          <a class="rp-page" href="https://modrinth.com/resourcepack/default-dark-mode" target="_blank" rel="noopener">Pack page &#8599;</a>
+        </div>
+      </div>
+      </div>
+    </div>
+
     <div class="panel" id="panel-map" hidden>
       <div class="map-frame">
         <iframe src="/minecraft/map/index.html" title="Fighters Guild server map" loading="lazy"></iframe>
@@ -675,7 +784,7 @@
 
 <script>
 (function () {
-  var TABS = ['download', 'install-guide', 'updates', 'mods', 'keybinds', 'shaders', 'map', 'leaderboard']
+  var TABS = ['download', 'install-guide', 'updates', 'mods', 'keybinds', 'shaders', 'resourcepacks', 'map', 'leaderboard']
   var buttons = document.querySelectorAll('.tabbar button')
   var panels = {}
   TABS.forEach(function (t) { panels[t] = document.getElementById('panel-' + t) })
