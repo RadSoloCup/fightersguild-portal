@@ -6,6 +6,7 @@ import { serveStatic } from '@hono/node-server/serve-static'
 import { cors } from 'hono/cors'
 import { readFile } from 'node:fs/promises'
 import { join, resolve, sep } from 'node:path'
+import http from 'node:http'
 import { config, assertConfig } from './config.js'
 import { pool, one } from './db.js'
 import { migrate } from './migrate.js'
@@ -145,19 +146,29 @@ app.use('/minecraft/map/*', cors())
 // the published map is a static copy, so pass those through to BlueMap's own web server on the MC container. One
 // upstream request per second however many people watch. Player heads too, since anyone who joined after the last
 // publish has no head in the copy. If the server is unreachable the map still works, just without players.
+// node:http rather than fetch: a container name like "FTB-Direwolf20-1.20" ends in a number, which the URL
+// parser behind fetch rejects as a malformed IPv4 address, though DNS resolves it fine.
 const liveCache = new Map()
+const liveTarget = config.mapLiveUrl.match(/^http:\/\/([^/:]+)(?::(\d+))?$/)
 function fetchLive(path, ttl) {
   const hit = liveCache.get(path)
   if (hit && Date.now() - hit.at < ttl) return hit.res
-  const res = fetch(config.mapLiveUrl + path, { signal: AbortSignal.timeout(2000) })
-    .then(async r => r.ok ? { type: r.headers.get('content-type') || 'application/octet-stream', body: Buffer.from(await r.arrayBuffer()) } : null)
-    .catch(() => null)
+  const res = new Promise(done => {
+    const req = http.get({ host: liveTarget[1], port: liveTarget[2] || 80, path, timeout: 2000 }, r => {
+      const chunks = []
+      r.on('data', d => chunks.push(d))
+      r.on('end', () => done(r.statusCode === 200 ? { type: r.headers['content-type'] || 'application/octet-stream', body: Buffer.concat(chunks) } : null))
+      r.on('error', () => done(null))
+    })
+    req.on('timeout', () => req.destroy())
+    req.on('error', () => done(null))
+  })
   liveCache.set(path, { at: Date.now(), res })
   return res
 }
 app.get('/minecraft/map/*', async (c, next) => {
   const m = c.req.path.match(/^\/minecraft\/map(\/maps\/[a-z0-9_]+\/(live\/(players|markers)\.json|assets\/playerheads\/[0-9a-f-]+\.png))$/)
-  if (!m || !config.mapLiveUrl) return next()
+  if (!m || !liveTarget) return next()
   const isHead = m[2].startsWith('assets/')
   const live = await fetchLive(m[1], isHead ? 600_000 : 1000)
   if (live) return c.body(live.body, 200, { 'Content-Type': live.type, 'Cache-Control': isHead ? 'public, max-age=600' : 'no-store' })
