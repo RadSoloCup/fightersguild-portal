@@ -5,7 +5,7 @@ import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { cors } from 'hono/cors'
 import { readFile } from 'node:fs/promises'
-import { join } from 'node:path'
+import { join, resolve, sep } from 'node:path'
 import { config, assertConfig } from './config.js'
 import { pool, one } from './db.js'
 import { migrate } from './migrate.js'
@@ -141,6 +141,20 @@ app.get('/minecraft', async c => {
 app.get('/updates/mods', c => c.redirect('/minecraft#mods'))
 // The BlueMap render, copied in from the server. Served before the static Minecraft page.
 app.use('/minecraft/map/*', cors())
+// The web app asks for hires tiles as .prbm, but BlueMap stores them gzipped as .prbm.gz (its own web server
+// and nginx's gzip_static map one to the other). Serve the .gz with Content-Encoding so the browser inflates
+// it; a missing tile is a 204, which the web app draws as empty. Without this, zooming in shows a black square.
+app.get('/minecraft/map/*', async (c, next) => {
+  if (!c.req.path.endsWith('.prbm')) return next()
+  const root = resolve(config.mapDir)
+  const file = resolve(root, decodeURIComponent(c.req.path.slice('/minecraft/map/'.length)) + '.gz')
+  if (!file.startsWith(root + sep)) return c.text('Not found', 404)
+  try {
+    return c.body(await readFile(file), 200, { 'Content-Type': 'application/octet-stream', 'Content-Encoding': 'gzip', 'Cache-Control': 'public, max-age=300' })
+  } catch {
+    return c.body(null, 204)
+  }
+})
 app.use('/minecraft/map/*', serveStatic({
   root: config.mapDir,
   rewriteRequestPath: p => p.replace('/minecraft/map', ''),
