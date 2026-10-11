@@ -75,6 +75,9 @@ export const config = {
   // (which wipes and rewrites downloadsDir) never touches these.
   extrasDir: env.EXTRAS_DIR || '/data/extras',
   mapDir: env.MAP_DIR || '/data/map',
+  // BlueMap's own web server on the MC container (e.g. http://<container>:8100), for live player positions on the
+  // map. Empty = the map shows no players.
+  mapLiveUrl: (env.MAP_LIVE_URL || '').replace(/\/$/, ''),
   mcStatsDir: env.MC_STATS_DIR || '/mnt/mcstats/stats',
   mcUsercache: env.MC_USERCACHE || '/mnt/mcstats/usercache.json',
 
